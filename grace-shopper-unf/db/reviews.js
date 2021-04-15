@@ -1,16 +1,51 @@
 const client = require('./client');
-const createReview = async ({ description, productId }) => {
+
+
+async function createReview({title, stars, description, productId}) {
+  if(!title) {
+    return
+  }
+
     try {
-        const { rows: [reviews] } = await client.query(`
-            INSERT INTO reviews(description, "productId")
-            VALUES ($1, $2)
-            RETURNING *;
-        `, [description, productId]);
-        return reviews;
+       await client.query(`
+      INSERT INTO reviews(title, stars, description, "productsId")
+      VALUES ($1, $2, $3, $4)
+      `, [title, stars, description, productId]);
+  
+      const { rows: [reviews] } = await client.query(`
+      SELECT * FROM reviews
+      WHERE description
+      IN ($1);
+      `, [description]);
+  
+      return reviews;
     } catch (error) {
-        throw error;
+      throw error;
     }
-}
+  }
+
+  async function createAdditionalReview({title, stars, description, productId}) {
+  
+      try {
+         await client.query(`
+        INSERT INTO reviews(title, stars, description, "productsId")
+        VALUES ($1, $2, $3, $4)
+        `, [title, stars, description, productId]);
+    
+        const { rows: [reviews] } = await client.query(`
+        SELECT * FROM reviews
+        `);
+        
+        return reviews;
+
+      } catch (error) {
+        throw error;
+      }
+    }
+    
+
+
 module.exports = {
     createReview,
+    createAdditionalReview,
 }
