@@ -1,5 +1,5 @@
 const client = require("./client");
-const { createUser, createProducts, createReview } = require('./index')
+const { createUser, createProducts, createReview, createAdditionalReview } = require('./index')
 async function dropTables() {
     try {
         await client.query(`
@@ -26,12 +26,15 @@ async function createTables() {
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) UNIQUE NOT NULL,
             description TEXT NOT NULL,
+            "price" INTEGER NOT NULL,
             "creatorId" INTEGER REFERENCES users(id)
         );
         CREATE TABLE reviews (
             id SERIAL PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            "stars" INTEGER,
             description TEXT NOT NULL,
-            "productId" INTEGER REFERENCES products(id)
+            "productsId" INTEGER REFERENCES products(id)
         );
         CREATE TABLE user_products(
             "users_id" INTEGER REFERENCES users(id),
@@ -73,19 +76,48 @@ async function createInitialProducts() {
                 name: 'Nike Sweatshirt',
                 description: 'Red Nike Sweatshirt',
                 creatorId: 1,
+                price: 50,
+                reviews: [{   
+                    title: 'Best Sweatshirt',
+                    stars: 5,
+                    description: 'Dope Red Sweatshirt',
+                    productId: 1,
+                }, 
+                {   
+                    title: 'Worst Sweatshirt',
+                    stars: 0,
+                    description: 'terrible Red Sweatshirt',
+                    productId: 1,
+                }
+            ],
             },
             {
                 name: 'Adidas Pants',
                 description: 'Blue Adidas Pants',
                 creatorId: 2,
+                price: 35,
+                reviews: [{
+                    title: 'Best Pants',
+                    stars: 4,
+                    description: 'Best Pants Ever',
+                    productId: 2,
+                }],
             },
             {
                 name: 'Nike Shoes',
                 description: 'Air Jordans',
                 creatorId: 3,
+                price: 100,
+                reviews: []
             }
         ]
-        const products = await Promise.all(productsToCreate.map(product => createProducts(product)));
+        const products = await Promise.all(productsToCreate.map(product => createProducts({
+            name: product.name,
+            description: product.description,
+            creatorId: product.creatorId,
+            price: product.price,
+            reviews: product.reviews,
+        })));
         console.log('Products created:');
         console.log(products);
         console.log('Finished creating products!');
@@ -93,31 +125,25 @@ async function createInitialProducts() {
         throw error
     }
 }
-async function createInitialReviews() {
-    console.log('Starting to create reviews...');
-    try {
-        const reviewsToCreate = [
-            {
-                description: ['Dope Red Sweatshirt'],
-                productId: 1,
-            },
-            {
-                description: ['Best Pants Ever', 'Okay pants... Tore easily'],
-                productId: 2,
-            },
-            {
-                description: ['Best shoes ever', 'super comfy', 'great support'],
-                productId: 3,
-            }
-        ]
-        const reviews = await Promise.all(reviewsToCreate.map(createReview));
-        console.log('Reviews created:');
-        console.log(reviews);
-        console.log('Finished creating reviews!');
-    } catch (error) {
-        throw error
-    }
-}
+
+// async function createMoreReviews() {
+//     const reviewToAdd = {
+//         title: 'Love this product',
+//         stars: 5,
+//         description: 'good stuff',
+//         productId: 1
+//     }
+//     console.log("LLL", reviewToAdd.title)
+//     const addedReview = await createAdditionalReview({
+//         title: reviewToAdd.title,
+//         stars: reviewToAdd.stars,
+//         description: reviewToAdd.description,
+//         productId: reviewToAdd.productId,
+//     });
+//     console.log(addedReview);
+// }
+
+
 async function rebuildDB() {
     try {
         client.connect();
@@ -125,7 +151,7 @@ async function rebuildDB() {
         await createTables();
         await createInitialUsers();
         await createInitialProducts();
-        await createInitialReviews();
+        // await createMoreReviews();
     } catch (error) {
         console.log('Error during rebuildDB')
         throw error;
