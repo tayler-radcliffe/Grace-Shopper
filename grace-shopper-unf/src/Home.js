@@ -36,6 +36,7 @@ export default function Home() {
                     The secret of great style is to feel good in what you wear.
                 </div>
                 <button className="homePageButton" style={{
+                    cursor: 'pointer',
                     display: 'flex',
                     position: 'relative',
                     top: '400px',
@@ -47,7 +48,10 @@ export default function Home() {
                     width: '200px',
                     display: 'flex',
                     justifyContent: 'center',
-                    fontFamily: 'Rubik'
+                    fontFamily: 'Rubik',
+                    transition: 'all .2s ease-in-out',
+                    textDecoration: 'none'
+
                 }}>
                     <Link to="/products">
                         Explore Now <NearMeIcon fontSize="medium" />
