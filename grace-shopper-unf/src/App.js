@@ -6,6 +6,8 @@ import Home from "./Home";
 import Products from "./Products";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
+import Login from "./Login";
+import Register from "./Register";
 
 function App() {
 
@@ -13,6 +15,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+
+  const [username, setUsername] = useState('');
+  const [token, setToken] = useState('');
 
 
   return (
@@ -44,6 +49,15 @@ function App() {
 
         <Route exact path='/account'>
         </Route>
+
+        <Route exact path='/login'>
+         <Login username={username} setUsername={setUsername}/>
+        </Route>
+
+        <Route exact path='/register'>
+         <Register username={username} setUsername={setUsername}/>
+        </Route>
+
       </Router>
     </div>
   );
