@@ -102,19 +102,19 @@ async function createInitialProducts() {
                 description: 'Red Nike Sweatshirt',
                 creatorId: 1,
                 price: 50,
-                reviews: [{   
+                reviews: [{
                     title: 'Best Sweatshirt',
                     stars: 5,
                     description: 'Dope Red Sweatshirt',
                     productId: 1,
-                }, 
-                {   
+                },
+                {
                     title: 'Worst Sweatshirt',
                     stars: 0,
                     description: 'terrible Red Sweatshirt',
                     productId: 1,
                 }
-            ],
+                ],
             },
             {
                 name: 'Adidas Pants',
@@ -134,7 +134,64 @@ async function createInitialProducts() {
                 creatorId: 3,
                 price: 100,
                 reviews: []
-            }
+            },
+            {
+                name: 'KSWISS Shoes',
+                description: 'Red Nike Sweatshirt',
+                creatorId: 1,
+                price: 50,
+                reviews: [{
+                    title: 'Best Sweatshirt',
+                    stars: 5,
+                    description: 'Dope Red Sweatshirt',
+                    productId: 1,
+                },
+                {
+                    title: 'Worst Sweatshirt',
+                    stars: 0,
+                    description: 'terrible Red Sweatshirt',
+                    productId: 1,
+                }
+                ],
+            },
+            {
+                name: 'Adidas Sweatshirt',
+                description: 'Red Nike Sweatshirt',
+                creatorId: 1,
+                price: 50,
+                reviews: [{
+                    title: 'Best Sweatshirt',
+                    stars: 5,
+                    description: 'Dope Red Sweatshirt',
+                    productId: 1,
+                },
+                {
+                    title: 'Worst Sweatshirt',
+                    stars: 0,
+                    description: 'terrible Red Sweatshirt',
+                    productId: 1,
+                }
+                ],
+            },
+            {
+                name: 'Nike Original Shirt',
+                description: 'Red Nike Sweatshirt',
+                creatorId: 1,
+                price: 50,
+                reviews: [{
+                    title: 'Best Sweatshirt',
+                    stars: 5,
+                    description: 'Dope Red Sweatshirt',
+                    productId: 1,
+                },
+                {
+                    title: 'Worst Sweatshirt',
+                    stars: 0,
+                    description: 'terrible Red Sweatshirt',
+                    productId: 1,
+                }
+                ],
+            },
         ]
         const products = await Promise.all(productsToCreate.map(product => createProducts({
             name: product.name,

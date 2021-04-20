@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from "./Header";
 import Home from "./Home";
 import Products from "./Products";
+import About from "./About";
+import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
-import {fetchProducts} from './api/index'
+import { fetchProducts } from './api/index'
 
 function App() {
 
@@ -26,7 +28,6 @@ function App() {
     }
   }, []);
 
-
   return (
     <div className="App">
       <Router>
@@ -34,11 +35,11 @@ function App() {
         <Route exact path='/'>
           <Home />
           < FeaturedProducts rating={rating} setRating={setRating} hover={hover} setHover={setHover} />
-          < Footer />
         </Route>
 
         <Route exact path='/products'>
-          <Products products={products}
+          <Products
+            products={products}
             setProducts={setProducts}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
@@ -49,13 +50,13 @@ function App() {
         </Route>
 
         <Route exact path='/about'>
-        </Route>
-
-        <Route exact path='/contact'>
+          <About />
         </Route>
 
         <Route exact path='/account'>
         </Route>
+        < Footer />
+        <Scroll showBelow={250} />
       </Router>
     </div>
   );
