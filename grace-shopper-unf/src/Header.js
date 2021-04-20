@@ -26,11 +26,6 @@ export default function Header() {
                     ABOUT
                 </div>
             </Link>
-            <Link to="/contact">
-                <div className="header_menu_item">
-                    CONTACT
-                </div>
-            </Link>
             <Link to="/account">
                 <div className="header_menu_item">
                     ACCOUNT

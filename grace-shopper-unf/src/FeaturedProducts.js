@@ -11,9 +11,9 @@ export default function FeaturedProducts({ rating, setRating, hover, setHover })
     return (
         <div>
             <body>
-                <div class="box">
-                    <div class="card">
-                        <div class="imgBx">
+                <div className="box">
+                    <div className="card">
+                        <div className="imgBx">
                             <img src={imageSource1} alt="images" />
                         </div>
                         <div class="details">
@@ -21,20 +21,20 @@ export default function FeaturedProducts({ rating, setRating, hover, setHover })
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="imgBx">
+                    <div className="card">
+                        <div className="imgBx">
                             <img src={imageSource3} alt="images" />
                         </div>
-                        <div class="details">
+                        <div className="details">
                             <h2>Nike Collection<br /><span>Killshot 2's</span></h2>
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="imgBx">
+                    <div className="card">
+                        <div className="imgBx">
                             <img src={imageSource2} alt="images" />
                         </div>
-                        <div class="details">
+                        <div className="details">
                             <h2>Adidas Collection<br /><span>Prime V</span></h2>
                         </div>
                     </div>
@@ -51,17 +51,17 @@ export default function FeaturedProducts({ rating, setRating, hover, setHover })
 
             }}>
                 <body className=".body" style={{ marginTop: '100px' }}>
-                    <div class="card__container">
-                        <div class="card__top__section">
+                    <div className="card__container">
+                        <div className="card__top__section">
                             <img alt="images" src="https://brand.assets.reebok.com/image/upload/f_auto,q_auto,fl_lossy/reebok_enUS/Images/C22816_21SS_Reebok_Identity_Mens_DESKTOP_In-Grid_tcm274-585185.jpg" />
                         </div>
-                        <div class="card__body__section">
+                        <div className="card__body__section">
                             <p>Nike Epic React Flyknit</p>
                             <span>The Nike Epic React Flyknit foam cushioning is responsive yet light-weight, durable yet soft. </span>
                         </div>
                         <div>
-                            <div class="rating-section">
-                                <div class="stars-rating">
+                            <div className="rating-section">
+                                <div className="stars-rating">
                                     {[...Array(5)].map((star, idx) => {
                                         const ratingValue = idx + 1;
                                         return (<label>
@@ -77,7 +77,7 @@ export default function FeaturedProducts({ rating, setRating, hover, setHover })
                                     })}
                                     <div style={{ fontSize: '13px' }}>{rating} out of 5 stars</div>
                                 </div>
-                                <div class="c-price">
+                                <div className="c-price">
                                     <span>$85.00</span>
                                     <div>
                                         <ShoppingCartIcon />

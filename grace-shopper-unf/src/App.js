@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from "./Header";
 import Home from "./Home";
 import Products from "./Products";
+import About from "./About";
+import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
+import { fetchProducts } from './api';
+
 
 function App() {
 
@@ -14,6 +18,16 @@ function App() {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 
+  useEffect(() => {
+    try {
+      Promise.all([fetchProducts()]).then(([data]) => {
+        console.log(data);
+        setProducts(data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -22,11 +36,11 @@ function App() {
         <Route exact path='/'>
           <Home />
           < FeaturedProducts rating={rating} setRating={setRating} hover={hover} setHover={setHover} />
-          < Footer />
         </Route>
 
         <Route exact path='/products'>
-          <Products products={products}
+          <Products
+            products={products}
             setProducts={setProducts}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
@@ -37,13 +51,13 @@ function App() {
         </Route>
 
         <Route exact path='/about'>
-        </Route>
-
-        <Route exact path='/contact'>
+          <About />
         </Route>
 
         <Route exact path='/account'>
         </Route>
+        < Footer />
+        <Scroll showBelow={250} />
       </Router>
     </div>
   );

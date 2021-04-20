@@ -14,19 +14,19 @@ export default function Footer() {
                     <h3>Company<span>Name</span></h3>
 
                     <p style={{ margin: '20px', display: 'flex', alignItems: 'center' }} class="footer-links">
-                        <a href="#">Home</a>
+                        <a href="www.google.com">Home</a>
                                                 ·
-                        <a href="#">Blog</a>
+                        <a href="www.google.com">Blog</a>
  ·
-                        <a href="#">Pricing</a>
+                        <a href="www.google.com">Pricing</a>
  ·
-                        <a href="#">About</a>
+                        <a href="www.google.com">About</a>
 
                         <hr />
  ·
-                        <a href="#">Faq</a>
+                        <a href="www.google.com">Faq</a>
  ·
-                        <a href="#">Contact</a>
+                        <a href="www.google.com">Contact</a>
                     </p>
 
                     <p class="footer-company-name"> AJ/KAL/RAT &copy; 2021</p>
@@ -35,17 +35,14 @@ export default function Footer() {
                 <div class="footer-center">
 
                     <div>
-                        <i class="fa fa-map-marker"></i>
                         <p><span>1 UNF Dr</span> Jacksonville, FL 32224</p>
                     </div>
 
                     <div>
-                        <i class="fa fa-phone"></i>
                         <p>904-240-8674</p>
                     </div>
 
                     <div>
-                        <i class="fa fa-envelope"></i>
                         <p><a href="mailto:support@company.com">contact@UNF-WEB-DEV.com</a></p>
                     </div>
 

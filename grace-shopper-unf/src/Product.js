@@ -1,25 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { FaStar } from 'react-icons/fa';
 
 
-export default function product({ product, setProducts, productId, setSearchTerm, rating, setRating, hover, setHover }) {
+export default function Product({ product, setProducts, productId, setSearchTerm, rating, setRating, hover, setHover }) {
 
     // const handleTags = async (event, tagName) => {
     //     event.preventDefault();
     //     setSearchTerm(tagName);
     // }
 
+
     return (
-        <div key={productId}>
-            <body className=".body" style={{ marginTop: '200px', flex: '0 33%' }}>
+        <div title="Products"
+            dark={false}
+            id="section2"
+            key={productId}
+            className="wrapper">
+            <body>
                 <div class="card__container">
                     <div class="card__top__section">
-                        <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/b04a4a80-ef34-4344-a2dc-48a7e563758a/kyrie-7-chinese-new-year-basketball-shoe-5Kj9Lr.jpg" />
+                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a90cb62b-8083-4a6c-a556-54f1cc271766/wildhorse-7-mens-trail-running-shoe-rJ6R7V.png" alt="products" />
                     </div>
                     <div class="card__body__section">
-                        <p>Nike Epic React Flyknit</p>
-                        <span>The Nike Epic React Flyknit foam cushioning is responsive yet light-weight, durable yet soft. </span>
+                        <p>{product.name}</p>
+                        <span>{product.description} </span>
                     </div>
                     <div>
                         <div class="rating-section">
@@ -40,7 +45,7 @@ export default function product({ product, setProducts, productId, setSearchTerm
                                 <div style={{ fontSize: '13px' }}>{rating} out of 5 stars</div>
                             </div>
                             <div class="c-price">
-                                <span>$85.00</span>
+                                <span>${product.price}</span>
                                 <div>
                                     <ShoppingCartIcon />
                                 </div>
@@ -49,6 +54,7 @@ export default function product({ product, setProducts, productId, setSearchTerm
                     </div>
                 </div>
             </body>
-        </div>
+
+        </div >
     )
 }
