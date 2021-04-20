@@ -1,0 +1,312 @@
+/* 
+Base Url:
+http://localhost:3000/api
+
+Table of contents: 
+1.) cart routes
+2.) products routes
+3.) users routes
+
+
+CART ROUTES START HERE!!!!!!
+
+**Gets the cart for a specific user**
+
+fetch('http://localhost:3000/api/cart', {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer TOKEN_STRING_HERE'
+  },
+  body: JSON.stringify({
+    userId: 1
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Creates the inital cart for a user**
+
+fetch('http://localhost:3000/api/cart', {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    userId: 1
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Adds a single product to the cart**
+
+fetch('http://localhost:3000/api/cart/addProduct', {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    userId: 1,
+    productId: 2
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Deletes a single product from the cart**
+
+fetch('http://localhost:3000/api/cart/${productId}', {
+  method: "DELETE",
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer TOKEN_STRING_HERE'
+  }
+  body: JSON.stringify({
+    userId: 1
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Submits the current cart and imports cart products over to purchase
+history, then clears the current cart so it can be reused** 
+
+fetch('http://localhost:3000/api/cart/submit', {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    userId: 1
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+
+
+
+
+PRODUCT ROUTES START HERE!!!!!!
+
+
+**Gets the current list of all products**
+
+fetch('http://localhost:3000/api/products', {
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Adds a new Product to the database**
+
+fetch('http://localhost:3000/api/products', {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: 'Nike Shoes',
+    description: 'Air Jordans',
+    creatorId: 3,
+    price: 100,
+    reviews: []
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Adds a new review to the product**
+
+fetch('http://localhost:3000/api/products/review', {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    title: 'Best Pants',
+    stars: 4,
+    description: 'Best Pants Ever',
+    productId: 2
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Updates the product by product id**
+
+fetch('http://localhost:3000/api/products/${productId}', {
+  method: "PATCH",
+  body: JSON.stringify({
+    name: 'Nike blue Polo T-shirt',
+    description: 'Dry fit navy blue t-shirt',
+    price: 35
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Deletes a product by productId**
+
+fetch('http://localhost:3000/api/products/${productId}', {
+  method: "DELETE",
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer TOKEN_STRING_HERE'
+  }
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+
+
+
+
+USERS ROUTES START HERE!!!!!
+
+**This Route needs to be deleted before production, but it gets all the
+users information. This is used to help see user objects**
+
+fetch('http://localhost:3000/api/users', {
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Gets products by the username who created them**
+fetch('http://localhost:3000/api/users/${username}/products', {
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Register a new user**
+
+fetch('http://localhost:3000/api/users/register, {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    username: 'albert2206',
+    password: 'wonderfulPassword1'
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Login route for an existing user**
+
+fetch('http://localhost:3000/api/users/login, {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    username: 'albert2206',
+    password: 'wonderfulPassword1'
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Adds firstName LastName and email to the user object**
+
+fetch('http://localhost:3000/api/users/personal, {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    userId: 1,
+    firstName: 'Josh',
+    lastName: 'kalna',
+    email: 'myemail@gmail.com'
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+*/
