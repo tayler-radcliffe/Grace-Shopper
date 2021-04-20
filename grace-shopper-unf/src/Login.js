@@ -31,8 +31,6 @@ export default function Login({ username, setUsername }) {
                     const token = result.token;
                     console.log('This is your login token', token)
                     localStorage.setItem('token', token);
-                    setUsername('');
-                    setPassword('');
                     swal({
                         title: "Welcome back!",
                         text: "You're logged in!",

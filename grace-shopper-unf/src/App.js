@@ -8,6 +8,7 @@ import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
 import Login from "./Login";
 import Register from "./Register";
+import Account from './Account';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header />
+        <Header username={username} setUsername={setUsername}/>
         <Route exact path='/'>
           <Home />
           < FeaturedProducts rating={rating} setRating={setRating} hover={hover} setHover={setHover} />
@@ -48,6 +49,7 @@ function App() {
         </Route>
 
         <Route exact path='/account'>
+          <Account username={username}/>
         </Route>
 
         <Route exact path='/login'>

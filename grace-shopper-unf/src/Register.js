@@ -44,10 +44,6 @@ export default function Register({ username, setUsername }) {
                     const token = result.token;
                     console.log('This is your register token', token);
                     localStorage.setItem('token', token);
-                    setUsername('');
-                    setPassword('');
-                    setConfirmPassword('');
-
                     history.push('/account')
                 }
             })
