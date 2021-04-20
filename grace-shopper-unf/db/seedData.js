@@ -1,11 +1,16 @@
+const { createCart, getCartByuserId, addNewProductToCart } = require("./cart");
 const client = require("./client");
-const { createUser, createProducts, createReview, createAdditionalReview } = require('./index')
+const { createUser, createProducts } = require('./index')
+const {addToRecentPurchases} = require('./purchaseHistory')
 async function dropTables() {
     try {
         await client.query(`
+        DROP TABLE IF EXISTS purchaseHistory;
         DROP TABLE IF EXISTS products_reviews;
         DROP TABLE IF EXISTS user_products;
         DROP TABLE IF EXISTS reviews;
+        DROP TABLE IF EXISTS cartProducts;
+        DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS products;
         DROP TABLE IF EXISTS users;
     `);
@@ -20,7 +25,10 @@ async function createTables() {
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
             username VARCHAR(255) UNIQUE NOT NULL,
-            password VARCHAR(255) NOT NULL
+            password VARCHAR(255) NOT NULL,
+            "firstName" VARCHAR(255),
+            "lastName" VARCHAR(255),
+            "email" VARCHAR(255) UNIQUE
         );
         CREATE TABLE products (
             id SERIAL PRIMARY KEY,
@@ -36,6 +44,16 @@ async function createTables() {
             description TEXT NOT NULL,
             "productsId" INTEGER REFERENCES products(id)
         );
+        CREATE TABLE cart(
+            id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id) UNIQUE
+        );
+        CREATE TABLE cartProducts(
+            id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
+            "cartId" INTEGER REFERENCES cart(id),
+            "productsId" INTEGER REFERENCES products(id)
+        );
         CREATE TABLE user_products(
             "users_id" INTEGER REFERENCES users(id),
             "products_id" INTEGER REFERENCES products(id),
@@ -45,6 +63,13 @@ async function createTables() {
             "reviews_id" INTEGER REFERENCES reviews(id),
             "products_id" INTEGER REFERENCES products(id),
             UNIQUE("reviews_id", "products_id")
+        );
+        CREATE TABLE purchaseHistory(
+            id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
+            "productName" TEXT NOT NULL,
+            "productPrice" INTEGER,
+            "date" DATE DEFAULT CURRENT_TIMESTAMP
         );
        `);
     } catch (error) {
@@ -126,22 +151,45 @@ async function createInitialProducts() {
     }
 }
 
-// async function createMoreReviews() {
-//     const reviewToAdd = {
-//         title: 'Love this product',
-//         stars: 5,
-//         description: 'good stuff',
-//         productId: 1
-//     }
-//     console.log("LLL", reviewToAdd.title)
-//     const addedReview = await createAdditionalReview({
-//         title: reviewToAdd.title,
-//         stars: reviewToAdd.stars,
-//         description: reviewToAdd.description,
-//         productId: reviewToAdd.productId,
-//     });
-//     console.log(addedReview);
-// }
+async function createInitialCart() {
+
+    try {
+        const cartsToCreate = [
+            {
+                userId: 1,
+                productIds: [{
+                    productId: 1,
+                },
+                {
+                    productId: 2,
+                },
+                {
+                    productId: 3, 
+                }]
+            },
+            {
+                userId: 2,
+                productIds: [{
+                    productId: 2,
+                },
+                {
+                    productId: 3, 
+                }]
+            },
+        ]
+
+        const carts = await Promise.all(cartsToCreate.map(cart => createCart({userId: cart.userId, productIds: cart.productIds})))
+
+        console.log('Cart created:');
+        console.log(carts);
+        console.log('Finished creating carts!');
+        const testTwo = await getCartByuserId(1);
+        const test = await addNewProductToCart(2, 1);
+    } catch (error) {
+        throw error;
+    }
+
+}
 
 
 async function rebuildDB() {
@@ -151,7 +199,8 @@ async function rebuildDB() {
         await createTables();
         await createInitialUsers();
         await createInitialProducts();
-        // await createMoreReviews();
+        await createInitialCart();
+        // await addToRecentPurchases(1);
     } catch (error) {
         console.log('Error during rebuildDB')
         throw error;

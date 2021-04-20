@@ -1,6 +1,7 @@
 const client = require("./client");
 const bcrypt = require('bcrypt');
 const { getProductById } = require("./products");
+const { user } = require("./client");
 
 
 const createUser = async ({ username, password }) => {
@@ -97,6 +98,21 @@ async function getProductsByUsername(username) {
     }
   }
 
+  async function insertFnLnEmail(userId, firstName, lastName, email) {
+      try {
+          const {rows: users } = await client.query(`
+          UPDATE users
+          SET "firstName" = $2, "lastName" = $3, "email" = $4
+          WHERE id = $1
+          RETURNING *
+          `, [userId, firstName, lastName, email])
+
+          return users;
+      } catch (error) {
+          throw error;
+      }
+  }
+
 
 
 module.exports = {
@@ -105,5 +121,6 @@ module.exports = {
     getUserById,
     getUserByUsername,
     getAllUsers,
-    getProductsByUsername
+    getProductsByUsername,
+    insertFnLnEmail,
 }

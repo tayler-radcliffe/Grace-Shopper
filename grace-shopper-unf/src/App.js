@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from "./Header";
@@ -6,6 +6,7 @@ import Home from "./Home";
 import Products from "./Products";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
+import {fetchProducts} from './api/index'
 
 function App() {
 
@@ -13,6 +14,17 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+
+  useEffect(() => {
+    try {
+      Promise.all([fetchProducts()]).then(([data]) => {
+        console.log(data);
+        setProducts(data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
 
   return (

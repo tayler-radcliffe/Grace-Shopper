@@ -1,7 +1,7 @@
 const express = require("express");
 const usersRouter = express.Router();
 
-const { getUserByUsername, createUser, getAllUsers, getProductsByUsername } = require("../db/");
+const { getUserByUsername, createUser, getAllUsers, getProductsByUsername, insertFnLnEmail } = require("../db/");
 
 const jwt = require("jsonwebtoken");
 const { requireUser } = require("./utils");
@@ -60,6 +60,9 @@ usersRouter.post("/register", async (req, res, next) => {
       message: "Thank you for registering",
     });
   } catch (error) {
+    res.send({
+      message: "Username is already in use"
+    })
     next(error);
   }
 });
@@ -102,5 +105,22 @@ usersRouter.post("/login", async (req, res, next) => {
     next(error);
   }
 });
+
+usersRouter.post("/personal", async (req, res, next) => {
+  const {userId, firstName, lastName, email} = req.body;
+  
+  try {
+    const userInfo = await insertFnLnEmail(userId, firstName, lastName, email);
+    res.send({
+      message: "Information added to account"
+    })
+  } catch (error) {
+    throw error;
+  }
+
+
+})
+
+
 
 module.exports = usersRouter;
