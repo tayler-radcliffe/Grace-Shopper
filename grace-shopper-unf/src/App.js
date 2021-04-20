@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./Header";
 import Home from "./Home";
 import Products from "./Products";
@@ -8,14 +8,18 @@ import About from "./About";
 import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
-import { fetchProducts } from './api/index'
+import { fetchProducts } from "./api/index";
+import Login from "./Login";
+import Register from "./Register";
+import Account from "./Account";
 
 function App() {
-
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+  const [username, setUsername] = useState("");
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     try {
@@ -31,13 +35,18 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header />
-        <Route exact path='/'>
+        <Header username={username} setUsername={setUsername} />
+        <Route exact path="/">
           <Home />
-          < FeaturedProducts rating={rating} setRating={setRating} hover={hover} setHover={setHover} />
+          <FeaturedProducts
+            rating={rating}
+            setRating={setRating}
+            hover={hover}
+            setHover={setHover}
+          />
         </Route>
 
-        <Route exact path='/products'>
+        <Route exact path="/products">
           <Products
             products={products}
             setProducts={setProducts}
@@ -46,16 +55,28 @@ function App() {
             rating={rating}
             setRating={setRating}
             hover={hover}
-            setHover={setHover} />
+            setHover={setHover}
+          />
         </Route>
 
-        <Route exact path='/about'>
+        <Route exact path="/about">
           <About />
         </Route>
 
-        <Route exact path='/account'>
+        <Route exact path="/account">
+          <Account username={username} />
         </Route>
-        < Footer />
+
+        <Route exact path="/login">
+          <Login username={username} setUsername={setUsername} />
+        </Route>
+
+        <Route exact path="/register">
+          <Register username={username} setUsername={setUsername} />
+        </Route>
+
+        <Footer />
+        
         <Scroll showBelow={250} />
       </Router>
     </div>
