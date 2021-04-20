@@ -34,11 +34,17 @@ usersRouter.post("/register", async (req, res, next) => {
     const usernameCheck = await getUserByUsername(username);
 
     if (usernameCheck) {
-      throw error;
+      next({
+        name: 'UserExistsError',
+        message: 'A user by that username already exists'
+      });
     }
 
     if (password.length < 8) {
-      throw error;
+      next({
+        name: 'PasswordTooShortError',
+        message: 'Password must be at least 8 characters.'
+      });
     }
 
     const user = await createUser({ username, password });
@@ -60,10 +66,8 @@ usersRouter.post("/register", async (req, res, next) => {
       message: "Thank you for registering",
     });
   } catch (error) {
-    res.send({
-      message: "Username is already in use"
-    })
-    next(error);
+    next({ name: 'RegisterError', 
+    message: 'There was an error creating your account.' })
   }
 });
 
