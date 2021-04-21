@@ -2,7 +2,6 @@ import React from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { FaStar } from 'react-icons/fa';
 
-
 export default function Product({ product, setProducts, productId, setSearchTerm, rating, setRating, hover, setHover }) {
 
     // const handleTags = async (event, tagName) => {
@@ -32,7 +31,8 @@ export default function Product({ product, setProducts, productId, setSearchTerm
                                 {[...Array(5)].map((star, idx) => {
                                     const ratingValue = idx + 1;
                                     return (<label>
-                                        <input type="radio"
+                                        <input
+                                            type="radio"
                                             name="rating"
                                             value={ratingValue}
                                             onClick={() => setRating(ratingValue)}

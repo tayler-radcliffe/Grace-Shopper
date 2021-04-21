@@ -1,4 +1,4 @@
-form{
+.productsSearch {
     position: relative;
     top: 50%;
     left: 50%;
@@ -10,10 +10,10 @@ form{
     box-sizing: border-box;
     border-radius: 25px;
     border: 3px solid black;
-    padding: 5px;
+    padding: 5p
   }
   
-  input{
+  .productsInput {
     position: absolute;
     top: 0;
     left: 0;
@@ -56,3 +56,4 @@ form{
     background: white;
     color: black;
   }
+  
