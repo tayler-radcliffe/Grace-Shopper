@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Lobster&family=Poppins:wght@300&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+ }
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+    background: rgb(246,184,170);
+    color: white;
+    position: top;
+    width: 100%;
+    height: 4rem;
+    align-items: center;
+    z-index: 1000;
+}
+
+.header:hover {
+    color: white;
+}
+
+
+
+.header_title {
+    font-family: 'Rubik', serif;
+    color: white;
+    position: absolute;
+    left: 100px;
+}
+
+
+
+.header_menu_item {
+    font-family: 'Rubik', serif;
+    font-size: 19px;
+    padding: 3px;
+    margin: 10px;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none!important;
+}
+
+.header_menu_item:visited, .header_menu_item:link, a.header_menu_item:hover, .header_menu_item:active{
+    color: white;
+    text-decoration: none!important;
+    text-decoration-color:white;
+}
