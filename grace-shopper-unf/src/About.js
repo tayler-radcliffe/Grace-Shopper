@@ -16,8 +16,8 @@ export default function About() {
 
     return (
         <div>
-            <div class="row">
-                <div class="column">
+            <div class="aboutRow">
+                <div class="aboutColumn">
                     <img src={image1} alt="images" />
                     <img src={image7} alt="images" />
                     <img src={image10} alt="images" />
@@ -26,7 +26,7 @@ export default function About() {
                     <img src={image3} alt="images" />
                     <img src={image2} alt="images" />
                 </div>
-                <div class="column">
+                <div class="aboutColumn">
                     <img src={image9} alt="images" />
                     <img src={image8} alt="images" />
                     <img src={image4} alt="images" />
@@ -35,7 +35,7 @@ export default function About() {
                     <img src={image10} alt="images" />
                     <img src={image1} alt="images" />
                 </div>
-                <div class="column">
+                <div class="aboutColumn">
                     <img src={image3} alt="images" />
                     <img src={image10} alt="images" />
                     <img src={image2} alt="images" />
@@ -44,7 +44,7 @@ export default function About() {
                     <img src={image3} alt="images" />
                     <img src={image9} alt="images" />
                 </div>
-                <div class="column">
+                <div class="aboutColumn">
                     <img src={image6} alt="images" />
                     <img src={image2} alt="images" />
                     <img src={image3} alt="images" />
@@ -54,8 +54,8 @@ export default function About() {
                     <img src={image10} alt="images" />
                 </div>
             </div>
-            <div>
-                
+            <div >
+
             </div>
         </div>
     )
