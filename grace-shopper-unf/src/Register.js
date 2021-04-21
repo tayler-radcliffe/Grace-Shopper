@@ -61,7 +61,7 @@ export default function Register({ username, setUsername }) {
             }
         }}>
             <h2 id="headerTitle">Register</h2>
-            <div class="row">
+            <div className="loginRow">
                 <label>Username</label>
                 <input required
                     type='text'
@@ -69,7 +69,7 @@ export default function Register({ username, setUsername }) {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)} />
             </div>
-            <div class="row">
+            <div className="loginRow">
                 <label>Password</label>
                 <input type='password'
                     placeholder='Password'
@@ -78,7 +78,7 @@ export default function Register({ username, setUsername }) {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <div class="row">
+            <div className="loginRow">
                 <label>Confirm Password</label>
                 <input type='password'
                     placeholder='Confirm Password'
@@ -87,7 +87,7 @@ export default function Register({ username, setUsername }) {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
             </div>
-            <div id="button" class="row">
+            <div id="button" className="loginRow">
                 <button type='submit'>Register</button>
             </div>
             <Link to='/login'>Already have an account? Sign in here </Link>

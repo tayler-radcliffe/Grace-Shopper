@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import "./Login.css";
-import swal from 'sweetalert'
+import swal from 'sweetalert';
 
 
 export default function Login({ username, setUsername }) {
@@ -52,7 +52,7 @@ export default function Login({ username, setUsername }) {
             loginUser(username, password);
         }}>
             <h2 id="headerTitle">Login</h2>
-            <div class="row">
+            <div class="loginRow">
                 <label>Username</label>
                 <input type='text'
                     placeholder='Username'
@@ -60,7 +60,7 @@ export default function Login({ username, setUsername }) {
                     required
                     onChange={(e) => setUsername(e.target.value)} />
             </div>
-            <div class="row">
+            <div class="loginRow">
                 <label>Password</label>
                 <input type='password'
                     placeholder='Password'
@@ -69,7 +69,7 @@ export default function Login({ username, setUsername }) {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <div id="button" class="row">
+            <div id="button" class="loginRow">
                 <button type='submit'>Login</button>
             </div>
             <Link to='/register'>Don't have an account? Sign up here </Link>
