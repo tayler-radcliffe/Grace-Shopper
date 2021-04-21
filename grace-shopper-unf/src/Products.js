@@ -2,6 +2,7 @@ import React from 'react';
 import Product from "./Product";
 import CarouselComponent from './Carousel';
 import { Link } from "react-scroll";
+import "./Product.css";
 
 export default function Products({ products, setProducts, searchTerm, setSearchTerm, rating, setRating, hover, setHover, id }) {
 
@@ -58,12 +59,13 @@ export default function Products({ products, setProducts, searchTerm, setSearchT
                 All Products
             </div>
             <form
+                className="productsSearch"
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)} action=""
                 style={{
                     marginTop: '30px'
                 }}>
-                <input type="search" />
+                <input className="productsInput" type="search" />
                 <i class="fa fa-search"></i>
             </form>
             <div style={{
