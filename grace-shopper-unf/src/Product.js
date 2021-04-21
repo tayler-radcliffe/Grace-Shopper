@@ -1,7 +1,7 @@
 import React from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { FaStar } from 'react-icons/fa';
-import './Products.css';
+import './Product.css';
 
 export default function Product({ product, setProducts, productId, setSearchTerm, rating, setRating, hover, setHover }) {
 

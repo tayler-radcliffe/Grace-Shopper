@@ -9,10 +9,12 @@ html{
   min-width: 300px;
   max-height: 700px;
   width: 30%;
-  height: 60%;
-  margin: 250px auto;
+  height: 90%;
+  margin: 100px auto;
+  padding-bottom: 50px;
   background-color: #FFFFFF;
   border-radius: 25px;
+  text-align: center;
 }
 
 #headerTitle{
@@ -102,8 +104,4 @@ html{
    text-align: center;
    padding-top: 2rem;
    margin-top: 1.5rem;
-}
-
-.loginRow > input {
-  
 }

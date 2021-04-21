@@ -64,7 +64,7 @@ function App() {
         </Route>
 
         <Route exact path="/account">
-          <Account username={username} />
+          <Account username={username} setUsername={setUsername}/>
         </Route>
 
         <Route exact path="/login">

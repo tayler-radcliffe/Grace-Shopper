@@ -1,7 +1,7 @@
 const express = require("express");
 const usersRouter = express.Router();
 
-const { getUserByUsername, createUser, getAllUsers, getProductsByUsername, insertFnLnEmail } = require("../db/");
+const { getUserByUsername, createUser, getAllUsers, getProductsByUsername, insertFnLnEmail, getUserById, deleteUser } = require("../db/");
 
 const jwt = require("jsonwebtoken");
 const { requireUser } = require("./utils");
@@ -83,6 +83,7 @@ usersRouter.post("/login", async (req, res, next) => {
   try {
     const user = await getUserByUsername(username);
 
+    console.log('look here HELLO', user)
     const token = jwt.sign(
       {
         id: user.id,
@@ -110,7 +111,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.post("/personal", async (req, res, next) => {
+usersRouter.patch("/", async (req, res, next) => {
   const {userId, firstName, lastName, email} = req.body;
   
   try {
@@ -121,10 +122,33 @@ usersRouter.post("/personal", async (req, res, next) => {
   } catch (error) {
     throw error;
   }
-
-
 })
 
+
+usersRouter.get("/:username/personal", async (req, res, next) => {
+  const username = req.params;
+
+  try {
+    const user = await getUserByUsername(username.username);
+    res.send(
+      user
+      );
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
+
+
+usersRouter.delete('/:userId', async (req, res, next) => {
+  try {
+      const {userId} = req.params;
+      const deletedUser = await deleteUser(userId);
+      res.send(deletedUser);
+      }
+    catch (error) {
+      throw error
+  }
+})
 
 
 module.exports = usersRouter;
