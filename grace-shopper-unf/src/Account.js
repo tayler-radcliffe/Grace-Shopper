@@ -13,7 +13,6 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import { red, blue, pink } from '@material-ui/core/colors';
 import './Account.css';
-import NearMeIcon from '@material-ui/icons/NearMe';
 import { Link } from 'react-router-dom';
 
 

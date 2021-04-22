@@ -12,6 +12,7 @@ import { fetchProducts } from "./api/index";
 import Login from "./Login";
 import Register from "./Register";
 import Account from "./Account";
+import Checkout from './Checkout';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -61,6 +62,10 @@ function App() {
 
         <Route exact path="/about">
           <About />
+        </Route>
+
+        <Route exact path="/checkout">
+          <Checkout />
         </Route>
 
         <Route exact path="/account">
