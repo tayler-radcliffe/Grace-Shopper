@@ -5,6 +5,7 @@ import Header from "./Header";
 import Home from "./Home";
 import Products from "./Products";
 import About from "./About";
+import ProductInfo from "./ProductInfo";
 import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
@@ -19,12 +20,11 @@ function App() {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [username, setUsername] = useState("");
-  const [token, setToken] = useState("");
+  // const [token, setToken] = useState("");
 
   useEffect(() => {
     try {
       Promise.all([fetchProducts()]).then(([data]) => {
-        console.log(data);
         setProducts(data);
       });
     } catch (error) {
@@ -44,6 +44,8 @@ function App() {
             hover={hover}
             setHover={setHover}
           />
+          <Footer />
+          <Scroll showBelow={250} />
         </Route>
 
         <Route exact path="/products">
@@ -57,15 +59,21 @@ function App() {
             hover={hover}
             setHover={setHover}
           />
+          <Footer />
+          <Scroll showBelow={250} />
         </Route>
 
         <Route exact path="/about">
           <About />
+          <Scroll showBelow={250} />
         </Route>
 
         <Route exact path="/account">
           <Account username={username} />
+          <Footer />
+          <Scroll showBelow={250} />
         </Route>
+
 
         <Route exact path="/login">
           <Login username={username} setUsername={setUsername} />
@@ -75,9 +83,15 @@ function App() {
           <Register username={username} setUsername={setUsername} />
         </Route>
 
-        <Footer />
-        
-        <Scroll showBelow={250} />
+        <Route exact path='/products/:productId'>
+          <ProductInfo
+            hover={hover}
+            setHover={setHover}
+            rating={rating}
+            setRating={setRating}
+          />
+          <Footer />
+        </Route>
       </Router>
     </div>
   );

@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import swal from 'sweetalert';
 
 
 
@@ -21,7 +20,7 @@ function ProfileTextFields({ username }) {
 
     return (
         <form className={classes.form} noValidate autoComplete="off">
-             <TextField
+            <TextField
                 className={classes.text}
                 id="standard-read-only-input"
                 label="Username"
@@ -30,24 +29,24 @@ function ProfileTextFields({ username }) {
                     readOnly: true,
                 }}
             />
-             <TextField
+            <TextField
                 className={classes.text}
                 id="standard"
                 label="First Name"
                 defaultValue={firstName}
                 InputLabelProps={{
                     shrink: true
-                  }}
-                  onChange={(e) => setFirstName(e.target.value)}
+                }}
+                onChange={(e) => setFirstName(e.target.value)}
             />
-             <TextField
+            <TextField
                 className={classes.text}
                 id="standard-read-only-input"
                 label="Last Name"
                 defaultValue={lastName}
                 InputLabelProps={{
                     shrink: true
-                  }}
+                }}
                 onChange={(e) => setLastName(e.target.value)}
             />
             <TextField
@@ -57,13 +56,13 @@ function ProfileTextFields({ username }) {
                 defaultValue={email}
                 InputLabelProps={{
                     shrink: true
-                  }}
+                }}
                 onChange={(e) => setEmail(e.target.value)}
             />
             <Button
                 variant='contained'
                 color='primary'
-                >Save Changes</Button>
+            >Save Changes</Button>
         </form>
     )
 }
@@ -186,4 +185,4 @@ export default function Account({ username }) {
     } else return (
         <div>Sign in or register to see your account.</div>
     )
-} 
+}
