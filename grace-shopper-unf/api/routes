@@ -115,6 +115,26 @@ fetch('http://localhost:3000/api/cart/submit', {
 
 
 
+**Get purchase History by user Id**
+
+fetch('http://localhost:3000/api/cart/purchaseHistory', {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer TOKEN_STRING_HERE'
+  },
+  body: JSON.stringify({
+    userId: 1
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
 
 
 

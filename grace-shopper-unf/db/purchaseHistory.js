@@ -43,6 +43,23 @@ async function addToRecentPurchases(userId) {
   return purchaseHistory;
 }
 
+
+const getPurchaseHistoryByUserId = async (userId) => {
+  try {
+    const {rows: purchaseHistory} = await client.query(`
+      SELECT * 
+      FROM purchaseHistory
+      WHERE "userId" = $1
+    `, [userId])
+
+    return purchaseHistory;
+  } catch (error) {
+    throw error
+  }
+
+}
+
 module.exports = {
   addToRecentPurchases,
+  getPurchaseHistoryByUserId,
 };
