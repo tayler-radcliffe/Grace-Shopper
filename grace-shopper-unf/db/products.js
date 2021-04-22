@@ -80,6 +80,7 @@ const createProductReviewLink = async (productId, reviewId) => {
 }
 
 const getProductById = async (productId) => {
+
   const { rows: [products] } = await client.query(`
       SELECT * FROM products
       WHERE id = $1

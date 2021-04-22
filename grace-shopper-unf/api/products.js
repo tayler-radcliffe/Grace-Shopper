@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllProducts, createProducts, updateProducts, deleteProduct, addNewReviewToProduct, getProductById } = require('../db');
+const { getAllProducts, createProducts, updateProducts, deleteProduct, addNewReviewToProduct, getProductById, getAverageReviewRatingByProductId } = require('../db');
 const { requireUser } = require('./utils');
 const productsRouter = express.Router();
 
@@ -11,6 +11,32 @@ productsRouter.get('/', async (req, res, next) => {
   } catch (error) {
     throw error;
   }
+});
+
+productsRouter.get("/:productId", async (req, res, next) => {
+  const {productId: id} = req.params;
+
+  try {
+    const updatedProduct = await getProductById(id
+    );
+    res.send({
+      data: updatedProduct,
+    });
+  } catch (error) {
+    throw error;
+  }
+});
+
+productsRouter.get("/ratings/:productId", async (req, res, next) => {
+  const {productId: id} = req.params;
+  
+  try {
+    const reviewsByProductId = await getAverageReviewRatingByProductId(id);
+    res.send({averageRating: reviewsByProductId});
+  } catch (error) {
+    throw error;
+  }
+
 });
 
 

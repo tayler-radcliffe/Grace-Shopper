@@ -52,7 +52,12 @@ async function createTables() {
             id SERIAL PRIMARY KEY,
             "userId" INTEGER REFERENCES users(id),
             "cartId" INTEGER REFERENCES cart(id),
-            "productsId" INTEGER REFERENCES products(id)
+            "productsId" INTEGER REFERENCES products(id),
+            "size" TEXT,
+            "productName" VARCHAR(255),
+            "productPrice" INTEGER,
+            "productDescription" TEXT,
+            "quantity" INTEGER
         );
         CREATE TABLE user_products(
             "users_id" INTEGER REFERENCES users(id),
@@ -67,8 +72,10 @@ async function createTables() {
         CREATE TABLE purchaseHistory(
             id SERIAL PRIMARY KEY,
             "userId" INTEGER REFERENCES users(id),
-            "productName" TEXT NOT NULL,
+            "productName" TEXT,
             "productPrice" INTEGER,
+            "size" TEXT,
+            "quantity" INTEGER,
             "date" DATE DEFAULT CURRENT_TIMESTAMP
         );
        `);
@@ -144,13 +151,13 @@ async function createInitialProducts() {
                     title: 'Best Sweatshirt',
                     stars: 5,
                     description: 'Dope Red Sweatshirt',
-                    productId: 1,
+                    productId: 4,
                 },
                 {
                     title: 'Worst Sweatshirt',
                     stars: 0,
                     description: 'terrible Red Sweatshirt',
-                    productId: 1,
+                    productId: 4,
                 }
                 ],
             },
@@ -163,13 +170,13 @@ async function createInitialProducts() {
                     title: 'Best Sweatshirt',
                     stars: 5,
                     description: 'Dope Red Sweatshirt',
-                    productId: 1,
+                    productId: 5,
                 },
                 {
                     title: 'Worst Sweatshirt',
                     stars: 0,
                     description: 'terrible Red Sweatshirt',
-                    productId: 1,
+                    productId: 5,
                 }
                 ],
             },
@@ -182,13 +189,13 @@ async function createInitialProducts() {
                     title: 'Best Sweatshirt',
                     stars: 5,
                     description: 'Dope Red Sweatshirt',
-                    productId: 1,
+                    productId: 6,
                 },
                 {
                     title: 'Worst Sweatshirt',
                     stars: 0,
                     description: 'terrible Red Sweatshirt',
-                    productId: 1,
+                    productId: 6,
                 }
                 ],
             },
@@ -216,21 +223,31 @@ async function createInitialCart() {
                 userId: 1,
                 productIds: [{
                     productId: 1,
+                    size: 'medium',
+                    quantity: 1,
                 },
                 {
                     productId: 2,
+                    size: 'large',
+                    quantity: 2,
                 },
                 {
                     productId: 3, 
+                    size: '12',
+                    quantity: 1,
                 }]
             },
             {
                 userId: 2,
                 productIds: [{
                     productId: 2,
+                    size: 'medium',
+                    quantity: 3,
                 },
                 {
-                    productId: 3, 
+                    productId: 3,
+                    size: '11.5',
+                    quantity: 1, 
                 }]
             },
         ]
@@ -241,7 +258,8 @@ async function createInitialCart() {
         console.log(carts);
         console.log('Finished creating carts!');
         const testTwo = await getCartByuserId(1);
-        const test = await addNewProductToCart(2, 1);
+        const testThree = await getCartByuserId(2);
+        const test = await addNewProductToCart(2, 1, "medium", 1);
     } catch (error) {
         throw error;
     }

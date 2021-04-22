@@ -21,7 +21,7 @@ async function createCart({ userId, productIds }) {
 
     const productList = await Promise.all(
       productIds.map((product) =>
-        createCartProductList(cart.id, product.productId, userId)
+        createCartProductList(cart.id, product.productId, userId, product.size, product.quantity)
       )
     );
 
@@ -31,17 +31,17 @@ async function createCart({ userId, productIds }) {
   }
 }
 
-async function createCartProductList(cartId, productId, userId) {
+async function createCartProductList(cartId, productId, userId, size, quantity) {
   try {
     const {
       rows: [cartProducts],
     } = await client.query(
       `
-            INSERT INTO cartProducts("cartId", "productsId", "userId")
-            VALUES ($1, $2, $3)
+            INSERT INTO cartProducts("cartId", "productsId", "userId", "size", "quantity")
+            VALUES ($1, $2, $3, $4, $5)
             RETURNING *;
         `,
-      [cartId, productId, userId]
+      [cartId, productId, userId, size, quantity]
     );
 
     return cartProducts;
@@ -51,6 +51,7 @@ async function createCartProductList(cartId, productId, userId) {
 }
 
 const getCartByuserId = async (userId) => {
+
   try {
     const { rows: cartProducts } = await client.query(
       `
@@ -67,13 +68,32 @@ const getCartByuserId = async (userId) => {
       cartObject.map((productId) => getProductById(productId))
     );
 
-    return productsInCart;
+    const test = await Promise.all(productsInCart.map(i => addSizeAndQuantityToProductObject(i.id, i.name, i.price, i.description)))
+
+    return cartProducts;
   } catch (error) {
     throw error;
   }
 };
 
-const addNewProductToCart = async (userId, productId) => {
+const addSizeAndQuantityToProductObject = async (id, name, price, description) => {
+
+  try {
+    const {rows: cartProducts } = await client.query(`
+    UPDATE cartProducts
+    SET "productName" = $2, "productPrice" = $3, "productDescription" = $4
+    WHERE "productsId" = $1
+    RETURNING *
+  `, [id, name, price, description])
+  } catch (error) {
+    throw error
+  }
+  
+
+
+}
+
+const addNewProductToCart = async (userId, productId, size, quantity) => {
   try {
     const { rows: cart } = await client.query(
       `
@@ -85,7 +105,7 @@ const addNewProductToCart = async (userId, productId) => {
     );
 
     const cartId = cart.map((item) => item.id);
-    await createCartProductList(cartId[0], productId, userId);
+    await createCartProductList(cartId[0], productId, userId, size, quantity);
 
     return getCartByuserId(userId);
   } catch (error) {
