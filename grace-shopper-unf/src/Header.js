@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import "./Header.css";
 import { Link, useHistory } from 'react-router-dom';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
 import swal from 'sweetalert';
+import SwipeableTemporaryDrawer from './SwipableCart';
 
 
 export default function Header({ username, setUsername }) {
@@ -46,11 +46,12 @@ export default function Header({ username, setUsername }) {
                     ABOUT
                 </div>
             </Link>
-            <Link to="/cart">
-                <div className="header_menu_item">
-                    <ShoppingCartIcon />
-                </div>
-            </Link>
+            
+            <div className="header_menu_item">
+                    <SwipeableTemporaryDrawer />
+            </div>
+
+           
 
             <div>{username ?
                 (<div>

@@ -12,7 +12,8 @@ export default function Home() {
             background: `linear-gradient(to bottom,  ${color1} 55%,${color2} 100%)`,
             height: '1109px',
             width: '100%',
-            borderBottom: '100px solid white'
+            borderBottom: '100px solid white',
+            textAlign: 'center'
         }}>
             <div className="home_card">
                 <div style={{

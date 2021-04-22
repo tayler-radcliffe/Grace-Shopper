@@ -1,8 +1,12 @@
 import React from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { FaStar } from 'react-icons/fa';
+import './Product.css';
+
+
 import { Link } from 'react-router-dom';
 export default function Product({ product, setProducts, productId, setSearchTerm, rating, setRating, hover, setHover, individualProductId, setIndividualProductId }) {
+
 
     return (
         <div title="Products"

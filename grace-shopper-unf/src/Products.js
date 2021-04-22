@@ -54,7 +54,8 @@ export default function Products({ products, setProducts, searchTerm, setSearchT
                 float: 'center',
                 fontSize: '30px',
                 fontWeight: 'bolder',
-                marginTop: '50px'
+                marginTop: '50px',
+                textAlign: 'center'
 
             }}>
                 All Products

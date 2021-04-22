@@ -9,10 +9,12 @@ html{
   min-width: 300px;
   max-height: 700px;
   width: 30%;
-  height: 60%;
+  height: 90%;
   margin: 100px auto;
+  padding-bottom: 50px;
   background-color: #FFFFFF;
   border-radius: 25px;
+  text-align: center;
 }
 
 #headerTitle{
@@ -23,7 +25,7 @@ html{
   font-size: 2rem;
 }
 
-.row{
+.loginRow{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +34,7 @@ html{
 
 }
 
-.row input{
+.loginRow input{
   width: 80%;
   box-sizing: border-box;
 	border: none;
@@ -43,29 +45,29 @@ html{
   transition: box-shadow 0.2s ease-in;
 }
 
-.row input:focus{
+.loginRow input:focus{
    box-shadow: inset 0px -3px 0px 0px rgba(34,193,195,0.7);
    outline: none;
 }
 
-.row input::-webkit-input-placeholder{
+.loginRow input::-webkit-input-placeholder{
   opacity: 1;
   transition: opacity 0.25s ease-out;
 }
 
-.row input:hover::-webkit-input-placeholder,
-.row input:focus::-webkit-input-placeholder{
+.loginRow input:hover::-webkit-input-placeholder,
+.loginRow input:focus::-webkit-input-placeholder{
   opacity: 0;
 }
 
-.row label{
+.loginRow label{
   align-self: start;
   padding-left: 4.5rem;
   padding-bottom: 0.5rem;
   color: rgba(187,187,187,0.9);
 }
 
-.row button{
+.loginRow button{
   border-radius: 25px;
   width: 80%;
   height: 40px;
@@ -79,7 +81,7 @@ html{
   transition: opacity 0.25s ease-out;
 }
 
-.row button:hover{
+.loginRow button:hover{
   opacity: 0.8;
 }
 
