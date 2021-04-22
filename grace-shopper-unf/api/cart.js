@@ -36,9 +36,9 @@ cartRouter.get("/", async (req, res, next) => {
   
 
   cartRouter.post("/addProduct", async (req, res, next) => {
-    const {userId, productId} = req.body;
+    const {userId, productId, size, quantity} = req.body;
     try {
-      const cart = await addNewProductToCart(userId, productId);
+      const cart = await addNewProductToCart(userId, productId, size, quantity);
       res.send({
         message: "Item added to cart"
       })
