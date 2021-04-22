@@ -25,10 +25,12 @@
 
 
 .header_title {
-    font-family: 'Rubik', serif;
+    font-family: 'Rubik', san-serif;
+    font-style: italic;
     color: white;
     position: absolute;
-    left: 100px;
+    left: 70px;
+    font-size: 50px;
 }
 
 

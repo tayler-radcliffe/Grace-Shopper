@@ -46,7 +46,6 @@ export default function Home() {
                     padding: '10px',
                     borderRadius: '30px',
                     width: '200px',
-                    display: 'flex',
                     justifyContent: 'center',
                     fontFamily: 'Rubik',
                     transition: 'all .2s ease-in-out',

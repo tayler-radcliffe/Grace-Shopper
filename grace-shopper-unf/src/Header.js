@@ -27,7 +27,7 @@ export default function Header({ username, setUsername }) {
 
     return (
         <div className="header">
-            <h1 className="header_title"> Logo/Company Name</h1>
+            <h1 className="header_title"> vivid </h1>
             <Link to="/">
                 <div className="header_menu_item">
                     HOME
@@ -55,7 +55,7 @@ export default function Header({ username, setUsername }) {
             <div>{username ?
                 (<div>
                     <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                        <MenuIcon style={{ color: 'white'}} />
+                        <MenuIcon style={{ color: 'white' }} />
                     </Button>
                     <Menu
                         id="simple-menu"
@@ -87,7 +87,7 @@ export default function Header({ username, setUsername }) {
                 :
                 (<div>
                     <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                        <MenuIcon style={{ color: 'white'}}/>
+                        <MenuIcon style={{ color: 'white' }} />
                     </Button>
                     <Menu
                         id="simple-menu"
