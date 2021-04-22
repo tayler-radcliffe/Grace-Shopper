@@ -1,14 +1,8 @@
 import React from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { FaStar } from 'react-icons/fa';
-
-export default function Product({ product, setProducts, productId, setSearchTerm, rating, setRating, hover, setHover }) {
-
-    // const handleTags = async (event, tagName) => {
-    //     event.preventDefault();
-    //     setSearchTerm(tagName);
-    // }
-
+import { Link } from 'react-router-dom';
+export default function Product({ product, setProducts, productId, setSearchTerm, rating, setRating, hover, setHover, individualProductId, setIndividualProductId }) {
 
     return (
         <div title="Products"
@@ -18,9 +12,11 @@ export default function Product({ product, setProducts, productId, setSearchTerm
             className="wrapper">
             <body>
                 <div class="card__container">
-                    <div class="card__top__section">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a90cb62b-8083-4a6c-a556-54f1cc271766/wildhorse-7-mens-trail-running-shoe-rJ6R7V.png" alt="products" />
-                    </div>
+                    <Link to={`/products/${productId}`}>
+                        <div class="card__top__section">
+                            <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a90cb62b-8083-4a6c-a556-54f1cc271766/wildhorse-7-mens-trail-running-shoe-rJ6R7V.png" alt="products" />
+                        </div>
+                    </Link>
                     <div class="card__body__section">
                         <p>{product.name}</p>
                         <span>{product.description} </span>
@@ -54,7 +50,6 @@ export default function Product({ product, setProducts, productId, setSearchTerm
                     </div>
                 </div>
             </body>
-
         </div >
     )
 }
