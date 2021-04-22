@@ -59,7 +59,9 @@ fetch('http://localhost:3000/api/cart/addProduct', {
   },
   body: JSON.stringify({
     userId: 1,
-    productId: 2
+    productId: 2,
+    size: "large",
+    quantity: 1
   })
 }).then(response => response.json())
   .then(result => {
@@ -99,6 +101,26 @@ fetch('http://localhost:3000/api/cart/submit', {
   method: "POST",
   headers: {
     'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    userId: 1
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Get purchase History by user Id**
+
+fetch('http://localhost:3000/api/cart/purchaseHistory', {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer TOKEN_STRING_HERE'
   },
   body: JSON.stringify({
     userId: 1
@@ -207,6 +229,19 @@ fetch('http://localhost:3000/api/products/${productId}', {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer TOKEN_STRING_HERE'
   }
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+
+
+
+
+
+**Gets Average Rating Of a Product**
+
+fetch('http://localhost:3000/api/products/ratings/${productId}', {
 }).then(response => response.json())
   .then(result => {
     console.log(result);

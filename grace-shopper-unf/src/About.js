@@ -1,61 +1,132 @@
 import React from 'react';
 
-const image1 = "https://images.pexels.com/photos/7473674/pexels-photo-7473674.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-const image2 = "https://images.pexels.com/photos/1464624/pexels-photo-1464624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-const image3 = "https://images.pexels.com/photos/3490360/pexels-photo-3490360.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-const image4 = "https://images.pexels.com/photos/3287160/pexels-photo-3287160.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-const image5 = "https://images.pexels.com/photos/2859181/pexels-photo-2859181.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-const image6 = "https://images.pexels.com/photos/609771/pexels-photo-609771.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-const image7 = "https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-const image8 = "https://images.pexels.com/photos/1476209/pexels-photo-1476209.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-const image9 = "https://images.pexels.com/photos/2918534/pexels-photo-2918534.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-const image10 = "https://images.pexels.com/photos/4462782/pexels-photo-4462782.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+const aboutImage1 = "https://images.pexels.com/photos/326501/pexels-photo-326501.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
 
+const businessCardImage1 = "https://media-exp1.licdn.com/dms/image/C4E03AQErVAFb1O5KJw/profile-displayphoto-shrink_800_800/0/1615924012592?e=1624492800&v=beta&t=z0kgUBrzrdBXUaNMwBB3FP95DvKYuIypYpXVLPYedaw"
+const businessCardImage2 = "https://media-exp1.licdn.com/dms/image/C4E03AQHC76VwD5ylmQ/profile-displayphoto-shrink_200_200/0/1593764333021?e=1624492800&v=beta&t=-eF-cr-AZacfhLcF0Z_io93CIGtxx329zIVqONTbrWc"
+const businessCardImage3 = "https://media-exp1.licdn.com/dms/image/C4D03AQFezLOnYcmkZg/profile-displayphoto-shrink_200_200/0/1603295304032?e=1624492800&v=beta&t=0bNNlvOiq-B4B9FD_I2MRxvle8mUWbpCWb9QmiQe0UU"
 export default function About() {
 
 
     return (
-        <div>
-            <div class="aboutRow">
-                <div class="aboutColumn">
-                    <img src={image1} alt="images" />
-                    <img src={image7} alt="images" />
-                    <img src={image10} alt="images" />
-                    <img src={image5} alt="images" />
-                    <img src={image4} alt="images" />
-                    <img src={image3} alt="images" />
-                    <img src={image2} alt="images" />
-                </div>
-                <div class="aboutColumn">
-                    <img src={image9} alt="images" />
-                    <img src={image8} alt="images" />
-                    <img src={image4} alt="images" />
-                    <img src={image8} alt="images" />
-                    <img src={image2} alt="images" />
-                    <img src={image10} alt="images" />
-                    <img src={image1} alt="images" />
-                </div>
-                <div class="aboutColumn">
-                    <img src={image3} alt="images" />
-                    <img src={image10} alt="images" />
-                    <img src={image2} alt="images" />
-                    <img src={image6} alt="images" />
-                    <img src={image7} alt="images" />
-                    <img src={image3} alt="images" />
-                    <img src={image9} alt="images" />
-                </div>
-                <div class="aboutColumn">
-                    <img src={image6} alt="images" />
-                    <img src={image2} alt="images" />
-                    <img src={image3} alt="images" />
-                    <img src={image1} alt="images" />
-                    <img src={image8} alt="images" />
-                    <img src={image7} alt="images" />
-                    <img src={image10} alt="images" />
-                </div>
+        <div className="aboutPageContainerWhole" style={{
+            backgroundColor: 'black'
+        }}>
+            <div>
             </div>
-            <div >
+            <img className="aboutPageImage1" src={aboutImage1} alt="aboutImage1" style={{
+                height: '800px',
+                width: '1200px',
+                display: 'flex',
+            }} />
+            <div className="aboutPageContainer">
+                <div style={{
+                    fontSize: '50px',
+                    fontFamily: 'Rubik',
+                    marginTop: '1rem'
+                }}> Meet team<span> vivid</span> </div>
+                <div style={{
+                    fontSize: '40px',
+                    fontStyle: "Rubik",
+                }}> we are: </div>
+                <hr style={{
+                    margin: '20px',
+                }} />
+                <div style={{
+                    fontSize: '30px',
+                    fontFamily: 'Rubik',
+                    marginTop: '1rem'
+                }}> dedicated to design</div>
+                <hr style={{
+                    margin: '20px',
+                }} />
+                <div style={{
+                    fontSize: '30px',
+                    fontFamily: 'Rubik',
+                    marginTop: '1rem'
+                }}> creating apparel that matters </div>
+                <hr style={{
+                    margin: '20px',
+                }} />
+                <div style={{
+                    fontSize: '30px',
+                    fontFamily: 'Rubik',
+                    marginTop: '1rem'
+                }}> always pushing the limits </div>
 
+            </div>
+            <div id="container">
+                <div
+                    style={{
+                        marginTop: '62px'
+                    }}
+                    class="bc-wrapper bc-size bc-style">
+
+                    <div class="bc-content">
+
+                        <div class="header-txt text">
+                            <span class="black-txt">vivid</span>
+                            <div>Inc.</div>
+                        </div>
+
+                        <div style={{
+                            marginTop: '30px'
+                        }}
+                            class="name-txt text">Josh Kalna</div>
+
+                        <div class="image-wrapper">
+                            <img src={businessCardImage1} alt="businessCardImage" />
+                        </div>
+
+                        <div class="qualification-txt text">Operations Director</div>
+                    </div>
+                </div>
+                <div style={{
+                    position: 'absolute',
+                    left: '30%',
+                    top: '90%'
+                }} class="bc-wrapper bc-size bc-style">
+
+                    <div class="bc-content">
+
+                        <div class="header-txt text">
+                            <span class="black-txt">vivid</span>
+                            <div>Inc.</div>
+                        </div>
+
+                        <div class="name-txt text"> Tayler Radcliffe </div>
+
+                        <div class="image-wrapper">
+                            <img src={businessCardImage2} alt="businessCardImage" />
+                        </div>
+
+                        <div class="qualification-txt text">Products Specialist </div>
+                    </div>
+                </div>
+                <div style={{
+                    position: 'absolute',
+                    left: '60%',
+                    top: '90%'
+                }}
+                    class="bc-wrapper bc-size bc-style">
+
+                    <div class="bc-content">
+
+                        <div class="header-txt text">
+                            <span class="black-txt">vivid </span>
+                            <span>Inc.</span>
+                        </div>
+
+                        <div class="name-txt text">Austin Halbritter </div>
+
+                        <div class="image-wrapper">
+                            <img src={businessCardImage3} alt="businessCardImage" />
+                        </div>
+
+                        <div class="qualification-txt text"> Lead Designer</div>
+
+                    </div>
+                </div>
             </div>
         </div>
     )

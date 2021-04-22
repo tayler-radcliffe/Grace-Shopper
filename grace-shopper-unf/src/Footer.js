@@ -11,7 +11,7 @@ export default function Footer() {
 
                 <div class="footer-left">
 
-                    <h3>Company<span>Name</span></h3>
+                    <h3>vivid<span></span></h3>
 
                     <p style={{ margin: '20px', display: 'flex', alignItems: 'center' }} class="footer-links">
                         <a href="www.google.com">Home</a>
@@ -29,7 +29,7 @@ export default function Footer() {
                         <a href="www.google.com">Contact</a>
                     </p>
 
-                    <p class="footer-company-name"> AJ/KAL/RAT &copy; 2021</p>
+                    <p class="footer-company-name"> AJ/KAL/RAD &copy; 2021</p>
                 </div>
 
                 <div class="footer-center">
@@ -52,7 +52,7 @@ export default function Footer() {
 
                     <p class="footer-company-about">
                         <span>About the company</span>
- [Company Name] wants you to expect more from your clothes.
+ vivid wants you to expect more from your clothes.
  </p>
 
                     <div class="footer-icons">

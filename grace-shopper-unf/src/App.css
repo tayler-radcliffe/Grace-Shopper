@@ -157,6 +157,7 @@ margin-top: 5px;
     width: 200px;
     font-family: Rubik;
     animation: pulse 5s infinite;
+    border: 2px solid black;
 }
 
 @keyframes pulse {
@@ -264,6 +265,11 @@ dd {
   float: center;
   margin-left: 125px;
   }
+
+  .d-price > span {
+    font-size: 40px;
+    float: right;
+    }
 
   .c-price > div {
     float: right;
@@ -545,4 +551,164 @@ dd {
     flex: 100%;
     max-width: 100%;
   }
+}
+
+.aboutPageContainerWhole {
+  background-color: black;
+  height: 1500px;
+}
+
+.aboutPageContainer {
+  padding: 20px;
+  position: absolute;
+  left: 70%;
+  top: 25%;
+  background-color: black;
+  color: white;
+  border: 6px solid transparent;
+  border-image: linear-gradient(to right,rgba(246, 184, 170, 1) ,rgba(242, 229, 228, 1));
+  border-image-slice: 5;
+}
+
+/* BUSINESS CARD CSS */ 
+
+.bc-wrapper{ 
+  position:relative;
+}
+.bc-size{
+  width:400px;
+  height:600px;
+  margin: 20px;
+  margin-left: 200px;
+}
+.bc-style{
+  background-image:none;
+  text-align:center;
+  background-color:#efefef;
+  color:#303030;
+  overflow:hidden; /* avoid elements to spill outside of the VC edge */ 
+}
+.bc-content{
+  position:absolute;
+  background-color:transparent;
+}
+.text, button{
+    font-family:'Ubuntu', sans-serif;
+}
+.header-txt{
+  position:absolute;
+  width:100px;
+  left:10px;
+  top:26px;
+  color: rgba(246, 184, 170, 1);
+  font-size:60px;
+  font-weight:600;
+  line-height:.8em;
+  letter-spacing:-0.010em;
+  text-transform:uppercase;
+}
+.name-txt{
+  position:absolute;
+  width:280px;
+  left:50px;
+  top: 370px;
+  color: black;
+  font-size:2.5em;
+  font-weight:600;
+  letter-spacing:-0.010em;
+  text-transform:uppercase;
+}
+.qualification-txt{
+  position:absolute;
+  width:280px;
+  left:50px;
+  top:470px;
+  color: rgba(246, 184, 170, 1);
+  font-size:3em;
+  font-weight:500;
+  letter-spacing:-0.050em;
+
+}
+.black-txt{
+  color:#303030;
+  font-style: italic;
+}
+.image-wrapper{
+  position:absolute;
+  left:50px;
+  top:120px;
+  width:280px;
+  height:240px; /* To clip bottom of the image */
+  overflow:hidden;
+}
+.image-wrapper > img {
+  position:absolute;
+  top:0;
+  left:0;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+}
+
+.button-txt{
+  font-size:1.5em;
+  font-weight:700;
+  text-transform:uppercase;
+  color:#efefef;
+	letter-spacing: 0.05em;
+}
+
+/* SIZE BOX */
+
+.sizeBoard {
+  position: absolute;
+  left: 1380px;
+  top: 200px;
+  display: grid;
+  grid-template-rows: 50px 50px 50px 50px;
+  grid-template-columns: 50px 50px;
+  grid-gap: 10px;
+}
+
+.sizeBox {
+background: white;
+border: 1px solid black;
+display: flex;
+align-items: center;
+justify-content: center;
+color: rgba(246, 184, 170, 1);
+font-size: 17px;
+}
+
+.sizeGuide {
+  position: absolute;
+  left: 1400px;
+  top: 175px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 15px;
+}
+
+.addToCartProduct {
+  position: absolute;
+  left: 1335px;
+  top: 450px;
+  border-radius: 20px;
+  width: 200px;
+  height: 50px;
+  font-size: 25px;
+  background-color: black;
+  color: white;
+}
+
+.productDescription {
+  position: absolute;
+  left: 1250px;
+  top: 530px;
+  width: 425px;
+}
+
+.productTitleDescrip {
+  position: absolute;
+  left: 1300px;
+  top: 75px;
 }

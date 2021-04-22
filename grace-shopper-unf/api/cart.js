@@ -1,7 +1,7 @@
 const express = require('express');
 const {getProductById} = require('../db/products')
 const { getCartByuserId, createCart, addNewProductToCart, deleteProductFromCart } = require('../db/cart');
-const { addToRecentPurchases } = require('../db/purchaseHistory');
+const { addToRecentPurchases, getPurchaseHistoryByUserId } = require('../db/purchaseHistory');
 const cartRouter = express.Router();
 
 
@@ -36,9 +36,9 @@ cartRouter.get("/", async (req, res, next) => {
   
 
   cartRouter.post("/addProduct", async (req, res, next) => {
-    const {userId, productId} = req.body;
+    const {userId, productId, size, quantity} = req.body;
     try {
-      const cart = await addNewProductToCart(userId, productId);
+      const cart = await addNewProductToCart(userId, productId, size, quantity);
       res.send({
         message: "Item added to cart"
       })
@@ -74,8 +74,18 @@ cartRouter.post("/submit", async (req, res, next) => {
   } catch (error) {
     throw error;
   }
-
-
 })
+
+cartRouter.get("/purchaseHistory", async (req, res, next) => {
+  const {userId} = req.body
+  try {
+    const purchaseHistory = await getPurchaseHistoryByUserId(userId);
+    res.send(purchaseHistory);
+
+  } catch (error) {
+      res.send()
+    throw error;
+  }
+});
 
   module.exports = cartRouter;

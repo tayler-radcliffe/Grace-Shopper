@@ -6,6 +6,7 @@ import "./Product.css";
 
 export default function Products({ products, setProducts, searchTerm, setSearchTerm, rating, setRating, hover, setHover, id }) {
 
+    console.log(products);
 
     const productMatches = (product, text) => {
 
@@ -24,7 +25,7 @@ export default function Products({ products, setProducts, searchTerm, setSearchT
         }
     };
 
-    console.log(searchTerm);
+    console.log(searchTerm.length);
 
     const filteredProducts = products.filter((product) => productMatches(product, searchTerm));
     const productsToDisplay = searchTerm.length ? filteredProducts : products;
