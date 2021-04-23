@@ -47,7 +47,7 @@ export default function Header({ username, setUsername }) {
                 </div>
             </Link>
             
-            <div className="header_menu_item">
+            <div className="header_menu_item" style={{cursor: 'pointer'}}>
                     <SwipeableTemporaryDrawer />
             </div>
 

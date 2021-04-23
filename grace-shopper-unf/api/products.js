@@ -15,11 +15,11 @@ productsRouter.get('/', async (req, res, next) => {
 
 
 productsRouter.get("/ratings/:productId", async (req, res, next) => {
-  const {productId: id} = req.params;
-  
+  const { productId: id } = req.params;
+
   try {
     const reviewsByProductId = await getAverageReviewRatingByProductId(id);
-    res.send({averageRating: reviewsByProductId});
+    res.send({ averageRating: reviewsByProductId });
   } catch (error) {
     throw error;
   }
@@ -63,20 +63,6 @@ productsRouter.post("/review", async (req, res, next) => {
       message: "New Product Created",
       data: review,
     });
-  } catch (error) {
-    throw error;
-  }
-});
-
-productsRouter.get("/:productId", async (req, res, next) => {
-  const { productId: id } = req.params;
-
-  try {
-    const updatedProduct = await getProductById(id
-    );
-    res.send(
-      updatedProduct
-    );
   } catch (error) {
     throw error;
   }
