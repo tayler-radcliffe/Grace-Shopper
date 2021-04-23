@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SwipeableTemporaryDrawer() {
+export default function SwipeableTemporaryDrawer({username, user, cart, setCart}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -29,6 +29,12 @@ export default function SwipeableTemporaryDrawer() {
     bottom: false,
     right: false,
   });
+
+  // console.log(user.id);
+
+  
+
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

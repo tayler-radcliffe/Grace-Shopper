@@ -2,14 +2,25 @@ import React, { useState, useEffect } from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { FaStar } from 'react-icons/fa';
 import { useParams } from 'react-router-dom'
-import { fetchProductById } from './api/index'
-
-export default function ProductInfo({ hover, setHover, rating, setRating }) {
+import { fetchProductById, addItemsToCart } from './api/index'
 
 
+
+export default function ProductInfo({ username, user, hover, setHover, rating, setRating }) {
+
+    const [productSize, setProductSize] = useState("")
     const [product, setProduct] = useState({})
     const { productId } = useParams();
 
+  
+
+    async function handleClick(e) {
+        e.preventDefault();
+        const userId = user.id
+        return await addItemsToCart(userId, product.id, productSize, 1)
+    }
+    
+    console.log(user)
     useEffect(() => {
         try {
             fetchProductById(productId).then(individualProduct => {
@@ -54,7 +65,7 @@ export default function ProductInfo({ hover, setHover, rating, setRating }) {
                                             value={ratingValue}
                                             onClick={() => setRating(ratingValue)}
                                         />
-                                        <FaStar className="star" size={15} color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                        <FaStar className="star" size={15} color={ratingValue <= (hover || rating) ? "#FFC107" : "#E4E5E9"}
                                             onMouseEnter={() => setHover(ratingValue)}
                                             onMouseLeave={() => setHover(null)} /></label>
                                     )
@@ -82,17 +93,16 @@ export default function ProductInfo({ hover, setHover, rating, setRating }) {
             </div>
             <div className="sizeGuide"> Select Size: </div>
             <div className="sizeBoard">
-                <button className="sizeBox">5</button>
-                <button className="sizeBox">6</button>
-                <button className="sizeBox">7</button>
-                <button className="sizeBox">8</button>
-                <button className="sizeBox">9</button>
-                <button className="sizeBox">10</button>
-                <button className="sizeBox">11</button>
-                <button className="sizeBox">12</button>
+                <button onClick={e => setProductSize('5')} className="sizeBox">5</button>
+                <button onClick={e => setProductSize('6')} className="sizeBox">6</button>
+                <button onClick={e => setProductSize('7')} className="sizeBox">7</button>
+                <button onClick={e => setProductSize('8')} className="sizeBox">8</button>
+                <button onClick={e => setProductSize('9')} className="sizeBox">9</button>
+                <button onClick={e => setProductSize('10')} className="sizeBox">10</button>
+                <button onClick={e => setProductSize('11')} className="sizeBox">11</button>
+                <button onClick={e => setProductSize('12')} className="sizeBox">12</button>
             </div>
-            <button className="addToCartProduct"> Add to Cart </button>
-
+            <button onClick={handleClick} className="addToCartProduct"> Add to Cart </button>
             <div className="productDescription"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
             </div>
         </div >

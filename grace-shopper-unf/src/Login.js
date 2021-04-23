@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import "./Login.css";
 import swal from 'sweetalert';
+import fetchCartData from "./api"
 
 
-export default function Login({ username, setUsername }) {
+export default function Login({ username, setUsername, setCart, user }) {
 
     const [password, setPassword] = useState('');
 
