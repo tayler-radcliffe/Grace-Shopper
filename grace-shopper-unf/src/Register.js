@@ -23,11 +23,17 @@ export default function Register({
 
   const history = useHistory();
 
-  const registerNewUser = async (event) => {
+  const confirmPasswords = (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       swal("Oops", "Passwords must match.", "error");
+    } else {
+      registerNewUser(event);
     }
+  };
+
+  const registerNewUser = async (event) => {
+    event.preventDefault();
     const registeredUserData = await registerUser(username, password);
     console.log(registeredUserData);
     if (registeredUserData.error) {
@@ -64,7 +70,7 @@ export default function Register({
   };
 
   return (
-    <form id="loginform" onSubmit={registerNewUser}>
+    <form id="loginform" onSubmit={confirmPasswords}>
       <h2 id="headerTitle">Register</h2>
       <div className="loginRow">
         <label>Username</label>
