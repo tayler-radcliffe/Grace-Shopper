@@ -25,6 +25,7 @@ function App() {
   const [cart, setCart] = useState([]);
   const [userId, setUserId] = useState(0);
   const [user, setUser] = useState([]);
+  const [purchaseHistory, setPurchaseHistory] = useState([]);
 
   useEffect(() => {
     try {
@@ -94,11 +95,23 @@ function App() {
         </Route>
 
         <Route exact path="/checkout">
-          <Checkout user={user} cart={cart} setCart={setCart} userId={userId} />
+          <Checkout
+            user={user}
+            cart={cart}
+            setCart={setCart}
+            userId={userId}
+            purchaseHistory={purchaseHistory}
+            setPurchaseHistory={setPurchaseHistory}
+          />
         </Route>
 
         <Route exact path="/account">
-          <Account username={username} setUsername={setUsername} />
+          <Account
+            username={username}
+            setUsername={setUsername}
+            purchaseHistory={purchaseHistory}
+            setPurchaseHistory={setPurchaseHistory}
+          />
           <Footer />
           <Scroll showBelow={250} />
         </Route>
@@ -115,6 +128,7 @@ function App() {
             setPassword={setPassword}
             user={user}
             setUser={setUser}
+            setPurchaseHistory={setPurchaseHistory}
           />
         </Route>
 
@@ -129,6 +143,7 @@ function App() {
             cart={cart}
             setCart={setCart}
             setUser={setUser}
+            setPurchaseHistory={setPurchaseHistory}
           />
         </Route>
 

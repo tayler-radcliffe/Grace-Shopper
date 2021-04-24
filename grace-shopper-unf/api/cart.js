@@ -76,8 +76,8 @@ cartRouter.post("/submit", async (req, res, next) => {
   }
 })
 
-cartRouter.get("/purchaseHistory", async (req, res, next) => {
-  const {userId} = req.body
+cartRouter.get("/purchaseHistory/:userId", async (req, res, next) => {
+  const {userId} = req.params
   try {
     const purchaseHistory = await getPurchaseHistoryByUserId(userId);
     res.send(purchaseHistory);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./Login.css";
 import swal from "sweetalert";
-import { fetchCartData } from "./api";
+import { fetchCartData, fetchPurchaseHistory } from "./api";
 import { fetchLoggedInUser } from "./api";
 
 export default function Login({
@@ -14,6 +14,7 @@ export default function Login({
   cart,
   password,
   setPassword,
+  setPurchaseHistory
 }) {
   const history = useHistory();
 
@@ -23,6 +24,8 @@ export default function Login({
     setUserId(userDetails.user.id);
     const userCartData = await fetchCartData(userDetails.user.id);
     setCart(userCartData);
+    const purchases = await fetchPurchaseHistory(userDetails.user.id)
+    setPurchaseHistory(purchases);
     console.log(userCartData);
     if (userDetails.error) {
       swal(

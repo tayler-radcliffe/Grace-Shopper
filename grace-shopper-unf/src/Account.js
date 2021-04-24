@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function ProfileTextFields({ username }) {
+function ProfileTextFields({ username, purchaseHistory }) {
 
     let [firstName, setFirstName] = useState('');
     let [lastName, setLastName] = useState('');
@@ -145,7 +145,8 @@ function ProfileTextFields({ username }) {
 }
 
 
-function VerticalTabs({ username, setUsername }) {
+function VerticalTabs({ username, setUsername, purchaseHistory }) {
+    console.log(purchaseHistory);
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [user, setUser] = useState('');
@@ -272,7 +273,29 @@ function VerticalTabs({ username, setUsername }) {
                     <div>
                         <h3 style={{ width: '150px' }}>My Orders</h3>
                         <Divider />
-                        {/* if ORDERS EXISTS THEN MAP OVER AND DISPLAY HERE, IF NOT THEN DISPLAY MESSAGE vvvvv*/}
+                        <div>
+                            {purchaseHistory.map(item => {
+                                return (
+                                    <div>
+                                        <h2>
+                                            Product Name: {item.productName}
+                                        </h2>
+                                        <p>
+                                            Price: {item.productPrice}
+                                        </p>
+                                        <p>
+                                            Size: {item.size}
+                                        </p>
+                                        <p>
+                                           Quantity: {item.quantity}
+                                        </p>
+                                        <p>
+                                            Purchase Date: {item.date}
+                                        </p>
+                                    </div>
+                                )   
+                                })}
+                        </div>
                         <div style={{
                             display: 'flex',
                             justifyContent: 'center',
@@ -404,7 +427,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Account({ username, setUsername }) {
+export default function Account({ username, setUsername, purchaseHistory }) {
 
     const history = useHistory();
 
@@ -413,7 +436,7 @@ export default function Account({ username, setUsername }) {
             <div>
                 <h1 style={{ backgroundColor: '#33383b', padding: '30px', color: 'white', paddingLeft: '500px' }}>My Account</h1>
                 <div>
-                    <VerticalTabs username={username} setUsername={setUsername} />
+                    <VerticalTabs username={username} setUsername={setUsername} purchaseHistory={purchaseHistory} />
                 </div>
             </div>
 

@@ -11,7 +11,7 @@ import { Select } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import swal from "sweetalert";
 import { Divider } from "@material-ui/core";
-import { fetchCartData, submitOrder } from "./api";
+import { fetchCartData, submitOrder, fetchPurchaseHistory } from "./api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Checkout({cart, setCart, user, userId}) {
+export default function Checkout({cart, setCart, user, userId, setPurchaseHistory}) {
 
 
   const classes = useStyles();
@@ -87,10 +87,10 @@ export default function Checkout({cart, setCart, user, userId}) {
       cardCvv &&
       state.shipping
     ) {
-      console.log(userId);
-      console.log(cart);
-      const purchaseHistory = await submitOrder(userId);
-      console.log(purchaseHistory);
+      const submittedOrder = await submitOrder(userId);
+      const purchases = await fetchPurchaseHistory(userId);
+      setPurchaseHistory(purchases);
+      console.log(purchases);
       setCart([]);  
       swal({
         title: "Woo!",

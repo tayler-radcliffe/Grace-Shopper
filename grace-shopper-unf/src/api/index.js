@@ -170,3 +170,17 @@ export async function registerUser(username, password) {
       throw error;
     }
   }
+
+  export async function fetchPurchaseHistory(userId) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/cart/purchaseHistory/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }

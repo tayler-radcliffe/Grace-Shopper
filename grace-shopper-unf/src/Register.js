@@ -14,7 +14,8 @@ export default function Register({
   setUserId,
   cart,
   setCart,
-  setUser
+  setUser,
+  setPurchaseHistory
 }) {
 
   
@@ -55,6 +56,7 @@ export default function Register({
       setUserId(registeredUserData.user.id);
       await createInitialEmptyCart(registeredUserData.user.id);
       setCart([]);
+      setPurchaseHistory([]);
       console.log(cart);
       localStorage.setItem("token", token);
       history.push("/account");
