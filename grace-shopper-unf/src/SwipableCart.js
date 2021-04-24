@@ -59,7 +59,7 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart}) {
       <p style={{marginTop: '20px'}}>You have no items in your cart!</p>
       <List>
         <div>
-          {cart ? cart.map(product => {
+          {cart.map(product => {
             return (
               <div key={product.productsId}>
                 <h2>
@@ -77,7 +77,7 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart}) {
                 
               </div>
             )
-          }) : <div></div>}
+          })}
         </div>
         {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem button key={text}>

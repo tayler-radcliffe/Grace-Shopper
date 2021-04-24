@@ -89,8 +89,8 @@ export default function Checkout({cart, setCart}) {
     ) {
       const purchaseHistory = await submitOrder(cart.userId);
       console.log(purchaseHistory);
-      const newCartData = await fetchCartData(cart.userId)
-      setCart(newCartData);  
+      // const newCartData = await fetchCartData(cart.userId)
+      setCart([]);  
       swal({
         title: "Woo!",
         text: "Your order has been placed!",
