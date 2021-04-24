@@ -9,7 +9,7 @@ import ProductInfo from "./ProductInfo";
 import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
-import { fetchProducts, fetchCartData } from "./api/index";
+import { fetchProducts, fetchCartData, fetchUserData } from "./api/index";
 import Login from "./Login";
 import Register from "./Register";
 import Account from "./Account";
@@ -21,9 +21,10 @@ function App() {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [username, setUsername] = useState("");
-  // const [token, setToken] = useState("");
-  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
   const [cart, setCart] = useState([]);
+  const [userId, setUserId] = useState(0);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     try {
@@ -35,29 +36,12 @@ function App() {
     }
   }, []);
 
-  const getUser = async () => {
-    await fetch(`http://localhost:3000/api/users/${username}/personal`, {})
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        setUser(result);
-      })
-      .catch(console.error);
-  };
-
-  useEffect(() => {
-    Promise.all([getUser]).then(([data]) => {
-      setUser(data);
-    });
-  }, []);
-
   return (
     <div className="App">
       <Router>
         <Header
           username={username}
           setUsername={setUsername}
-          user={user}
           cart={cart}
           setCart={setCart}
         />
@@ -94,7 +78,7 @@ function App() {
         </Route>
 
         <Route exact path="/checkout">
-          <Checkout />
+          <Checkout userId={userId} cart={cart} setCart={setCart} />
         </Route>
 
         <Route exact path="/account">
@@ -107,13 +91,29 @@ function App() {
           <Login
             username={username}
             setUsername={setUsername}
+            cart={cart}
             setCart={setCart}
+            userId={userId}
+            setUserId={setUserId}
+            password={password}
+            setPassword={setPassword}
             user={user}
+            setUser={setUser}
           />
         </Route>
 
         <Route exact path="/register">
-          <Register username={username} setUsername={setUsername} />
+          <Register
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            userId={userId}
+            setUserId={setUserId}
+            cart={cart}
+            setCart={setCart}
+            setUser={setUser}
+          />
         </Route>
 
         <Route exact path="/products/:productId">
@@ -123,7 +123,9 @@ function App() {
             rating={rating}
             setRating={setRating}
             username={username}
-            user={user}
+            userId={userId}
+            cart={cart}
+            setCart={setCart}
           />
           <Footer />
         </Route>

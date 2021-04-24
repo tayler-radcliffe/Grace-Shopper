@@ -83,7 +83,6 @@ usersRouter.post("/login", async (req, res, next) => {
   try {
     const user = await getUserByUsername(username);
 
-    console.log('look here HELLO', user)
     const token = jwt.sign(
       {
         id: user.id,
@@ -127,6 +126,7 @@ usersRouter.patch("/", async (req, res, next) => {
 
 usersRouter.get("/:username/personal", async (req, res, next) => {
   const username = req.params;
+  console.log("Here", username);
 
   try {
     const user = await getUserByUsername(username.username);

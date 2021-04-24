@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SwipeableTemporaryDrawer({username, user, cart, setCart}) {
+export default function SwipeableTemporaryDrawer({username, cart, setCart}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -31,6 +31,7 @@ export default function SwipeableTemporaryDrawer({username, user, cart, setCart}
   });
 
   // console.log(user.id);
+  console.log("YOO", cart);
 
   
 
@@ -57,6 +58,27 @@ export default function SwipeableTemporaryDrawer({username, user, cart, setCart}
       <Divider />
       <p style={{marginTop: '20px'}}>You have no items in your cart!</p>
       <List>
+        <div>
+          {cart ? cart.map(product => {
+            return (
+              <div key={product.productsId}>
+                <h2>
+                  Name: {product.productName}
+                </h2>
+                <p>
+                  Price: $ {product.productPrice}
+                </p>
+                <p>
+                  Size: {product.size}
+                </p>
+                <p>
+                  Quantity: {product.quantity}
+                </p>
+                
+              </div>
+            )
+          }) : <div></div>}
+        </div>
         {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
