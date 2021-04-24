@@ -35,6 +35,21 @@ function App() {
       console.log(error);
     }
   }, []);
+  const getUser = async () => {
+    await fetch(`http://localhost:3000/api/users/${username}/personal`, {})
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setUser(result);
+      })
+      .catch(console.error);
+  };
+
+  useEffect(() => {
+    Promise.all([getUser]).then(([data]) => {
+      setUser(data);
+    });
+  }, []);
 
   return (
     <div className="App">
@@ -42,6 +57,7 @@ function App() {
         <Header
           username={username}
           setUsername={setUsername}
+          user={user}
           cart={cart}
           setCart={setCart}
         />

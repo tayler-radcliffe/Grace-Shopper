@@ -56,8 +56,6 @@ export default function Register({
       const initialCart = await createInitialEmptyCart(registeredUserData.user.id);
       setCart(initialCart);
       console.log(cart);
-      const userData = await fetchUserData(username)
-      setUser(userData);
       localStorage.setItem("token", token);
       history.push("/account");
     }

@@ -30,7 +30,6 @@ function ProfileTextFields({ username }) {
         await fetch(`http://localhost:3000/api/users/${username}/personal`, {
         }).then(response => response.json())
             .then(result => {
-                console.log(result);
                 setUser(result);
             })
             .catch(console.error);
@@ -42,7 +41,6 @@ function ProfileTextFields({ username }) {
         });
     }, [])
 
-    console.log(user)
 
     const userId = user.id;
 
@@ -73,7 +71,6 @@ function ProfileTextFields({ username }) {
             })
         }).then(response => response.json())
             .then(result => {
-                console.log(result);
                 swal({
                     title: 'Success',
                     text: 'Your changes have been saved!',
@@ -163,7 +160,6 @@ function VerticalTabs({ username, setUsername }) {
         await fetch(`http://localhost:3000/api/users/${username}/personal`, {
         }).then(response => response.json())
             .then(result => {
-                console.log(result);
                 setUser(result);
             })
             .catch(console.error);
@@ -171,11 +167,8 @@ function VerticalTabs({ username, setUsername }) {
 
     useEffect(() => {
         Promise.all([getUser()]).then(([data]) => {
-            console.log('this is the data', data)
         });
     }, [])
-
-    console.log('this is WHAT IM LOOKING FOR', user)
 
     const theme = createMuiTheme({
         typography: {
