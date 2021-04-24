@@ -94,7 +94,7 @@ function App() {
         </Route>
 
         <Route exact path="/checkout">
-          <Checkout userId={userId} cart={cart} setCart={setCart} />
+          <Checkout user={user} cart={cart} setCart={setCart} userId={userId} />
         </Route>
 
         <Route exact path="/account">

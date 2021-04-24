@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Checkout({cart, setCart}) {
+export default function Checkout({cart, setCart, user, userId}) {
 
 
   const classes = useStyles();
@@ -87,9 +87,10 @@ export default function Checkout({cart, setCart}) {
       cardCvv &&
       state.shipping
     ) {
-      const purchaseHistory = await submitOrder(cart.userId);
+      console.log(userId);
+      console.log(cart);
+      const purchaseHistory = await submitOrder(userId);
       console.log(purchaseHistory);
-      // const newCartData = await fetchCartData(cart.userId)
       setCart([]);  
       swal({
         title: "Woo!",

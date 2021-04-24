@@ -53,8 +53,8 @@ export default function Register({
       setPassword("");
       const token = registeredUserData.token;
       setUserId(registeredUserData.user.id);
-      const initialCart = await createInitialEmptyCart(registeredUserData.user.id);
-      setCart(initialCart);
+      await createInitialEmptyCart(registeredUserData.user.id);
+      setCart([]);
       console.log(cart);
       localStorage.setItem("token", token);
       history.push("/account");
