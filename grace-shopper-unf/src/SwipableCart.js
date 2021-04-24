@@ -9,19 +9,28 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
 import './Cart.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { deleteProductFromCart, fetchCartData } from './api';
 
-const useStyles = makeStyles({
-  list: {
-    width: 300,
-  },
-  fullList: {
-    width: 'auto',
-  },
-});
 
-export default function SwipeableTemporaryDrawer({username, cart, setCart}) {
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+    list: {
+      width: 300,
+    },
+    fullList: {
+      width: 'auto',
+    },
+  },
+}));
+
+export default function SwipeableTemporaryDrawer({username, cart, setCart, userId, individualProductId}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -30,8 +39,15 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart}) {
     right: false,
   });
 
-  // console.log(user.id);
-  console.log("YOO", cart);
+  console.log("PPP", userId)
+
+  const handleRemove = async (event, productId) => {
+    event.preventDefault();
+    console.log(productId);
+    await deleteProductFromCart(userId, productId);
+    const newCart = await fetchCartData(userId);
+    setCart(newCart);
+  }
 
   
 
@@ -46,7 +62,7 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart}) {
   };
 
   const list = (anchor) => (
-    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}
+    <div style={{display: 'flex', alignItems: 'center', padding: '10px', width: '350px', flexDirection: 'column'}}
       className={clsx(classes.list, {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
@@ -56,10 +72,10 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart}) {
     >
       <h2 style={{marginTop: '20px'}}>Your Cart</h2><br></br>
       <Divider />
-      <p style={{marginTop: '20px'}}>You have no items in your cart!</p>
+      
       <List>
         <div>
-          {cart.map(product => {
+          {cart[0] ? cart.map(product => {
             return (
               <div key={product.productsId}>
                 <h2>
@@ -74,10 +90,11 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart}) {
                 <p>
                   Quantity: {product.quantity}
                 </p>
+                <Button variant='contained' onClick={(event) => handleRemove(event, product.productsId)} style={{marginTop: '5px', padding: '5px'}} >Remove Item</Button>
                 
               </div>
             )
-          })}
+          }) : <p style={{marginTop: '20px'}}>You have no items in your cart!</p>}
         </div>
         {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem button key={text}>
@@ -97,7 +114,9 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart}) {
     <div className='cart-icon'>
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
+          <Badge badgeContent={cart.length} color="secondary">
           <ShoppingCartIcon onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
+          </Badge>
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}

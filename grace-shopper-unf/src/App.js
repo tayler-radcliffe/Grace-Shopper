@@ -26,6 +26,7 @@ function App() {
   const [userId, setUserId] = useState(0);
   const [user, setUser] = useState([]);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
+  const [individualProductId, setIndividualProductId] = useState([]);
 
   useEffect(() => {
     try {
@@ -61,6 +62,8 @@ function App() {
           user={user}
           cart={cart}
           setCart={setCart}
+          userId={userId}
+          individualProductId={individualProductId}
         />
         <Route exact path="/">
           <Home />
@@ -157,6 +160,7 @@ function App() {
             userId={userId}
             cart={cart}
             setCart={setCart}
+            setIndividualProductId={setIndividualProductId}
           />
           <Footer />
         </Route>

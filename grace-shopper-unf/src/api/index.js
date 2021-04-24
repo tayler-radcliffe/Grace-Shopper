@@ -184,3 +184,36 @@ export async function registerUser(username, password) {
       throw error;
     }
   }
+
+  export async function deleteProductFromCart(userId, productId) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/cart/${productId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId,
+        }),
+      });
+      const data = await response.json();
+  
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  export async function fetchAverageReviews(productId) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/products/ratings/${productId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }

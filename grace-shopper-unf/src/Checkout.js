@@ -75,7 +75,15 @@ export default function Checkout({cart, setCart, user, userId, setPurchaseHistor
   };
 
   const orderPurchased = async () => {
-    if (
+    if(!cart[0]) {
+      swal({
+        title: 'Oops!',
+        text: 'There are no items in your cart!',
+        icon: 'error',
+        button: false,
+        timer: 2000
+      })
+  } else if (
       firstName &&
       lastName &&
       address &&
@@ -97,7 +105,7 @@ export default function Checkout({cart, setCart, user, userId, setPurchaseHistor
         text: "Your order has been placed!",
         icon: "success",
         button: false,
-        timer: 3000,
+        timer: 3000
       });
     } else {
       swal({
@@ -136,7 +144,7 @@ export default function Checkout({cart, setCart, user, userId, setPurchaseHistor
             <Typography>
               <div style={{ marginBottom: "50px" }}>
                 <div>
-                  {cart ? cart.map((product) => {
+                  {cart[0] ? cart.map((product) => {
                     return (
                       <div key={product.productsId}>
                         <h2>Name: {product.productName}</h2>
@@ -145,7 +153,7 @@ export default function Checkout({cart, setCart, user, userId, setPurchaseHistor
                         <p>Quantity: {product.quantity}</p>
                       </div>
                     );
-                  }) : <div></div>}
+                  }) : <div>No items In cart</div>}
                 </div>
                 <Button
                   style={{
@@ -437,7 +445,18 @@ export default function Checkout({cart, setCart, user, userId, setPurchaseHistor
                 </p>
               ) : null}
               <h5 style={{ marginTop: "10px" }}>Order Items</h5>
-              <p style={{ marginTop: "5px" }}>Mapped Items</p>
+              <div>
+                  {cart[0] ? cart.map((product) => {
+                    return (
+                      <div key={product.productsId}>
+                        <h2>Name: {product.productName}</h2>
+                        <p>Price: $ {product.productPrice}</p>
+                        <p>Size: {product.size}</p>
+                        <p>Quantity: {product.quantity}</p>
+                      </div>
+                    );
+                  }) : <div>No items In cart</div>}
+                </div>
               <Button
                 style={{ marginTop: "20px", width: "150px" }}
                 variant="contained"

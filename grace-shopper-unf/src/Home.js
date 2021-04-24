@@ -36,6 +36,7 @@ export default function Home() {
                 }}>
                     The secret of great style is to feel good in what you wear.
                 </div>
+                <Link className='homeLink' to="/products" style={{textDecoration: 'none'}}>
                 <button className="homePageButton" style={{
                     cursor: 'pointer',
                     display: 'flex',
@@ -53,10 +54,11 @@ export default function Home() {
                     textDecoration: 'none'
 
                 }}>
-                    <Link to="/products">
+                    
                         Explore Now <NearMeIcon fontSize="medium" />
-                    </Link>
+                    
                 </button>
+                </Link>
             </div>
             <img className="homePageImage" src={homepageimage} alt="homeimage" style={{
                 height: '950px',

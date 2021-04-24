@@ -228,6 +228,7 @@ dd {
 
   .card__top__section > img {
     width: 300px;
+    margin-left: 10px;
   }
 
   .rating-section {
@@ -670,6 +671,12 @@ dd {
   grid-gap: 10px;
 }
 
+.sizeBox:hover {
+  border: 2px solid black;
+  color: black;
+  cursor: pointer;
+}
+
 .sizeBox {
 background: white;
 border: 1px solid black;
@@ -680,9 +687,10 @@ color: rgba(246, 184, 170, 1);
 font-size: 17px;
 }
 
+
 .sizeGuide {
   position: absolute;
-  left: 1400px;
+  left: 1385px;
   top: 175px;
   font-family: 'Rubik', sans-serif;
   font-size: 15px;

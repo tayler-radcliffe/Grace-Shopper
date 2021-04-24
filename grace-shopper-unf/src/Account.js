@@ -232,7 +232,6 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
         }
     }
 
-
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
@@ -271,14 +270,13 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <div>
-                        <h3 style={{ width: '150px' }}>My Orders</h3>
+                        <h3 style={{ width: '150px' }}>Recent Purchases</h3>
                         <Divider />
-                        <div>
-                            {purchaseHistory.map(item => {
+                            {purchaseHistory[0] ? purchaseHistory.map(item => {
                                 return (
                                     <div>
                                         <h2>
-                                            Product Name: {item.productName}
+                                            {item.productName}
                                         </h2>
                                         <p>
                                             Price: {item.productPrice}
@@ -294,8 +292,9 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                                         </p>
                                     </div>
                                 )   
-                                })}
-                        </div>
+                                }) :
+                       
+                        <div>
                         <div style={{
                             display: 'flex',
                             justifyContent: 'center',
@@ -325,6 +324,8 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                     </Link>
                         </button>
                     </div>
+                     }
+                     </div>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <div>

@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import SwipeableTemporaryDrawer from './SwipableCart';
 
 
-export default function Header({ username, setUsername, user, cart, setCart }) {
+export default function Header({ username, setUsername, user, cart, setCart, userId, individualProductId }) {
 
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -28,27 +28,27 @@ export default function Header({ username, setUsername, user, cart, setCart }) {
     return (
         <div className="header">
             <h1 className="header_title"> vivid </h1>
-            <Link to="/">
+            <Link className='headerLinks' to="/">
                 <div className="header_menu_item">
                     HOME
                 </div>
             </Link>
 
-            <Link to="/products">
+            <Link className='headerLinks' to="/products">
                 <div className="header_menu_item">
                     PRODUCTS
                 </div>
 
             </Link>
 
-            <Link to="/about">
+            <Link className='headerLinks' to="/about">
                 <div className="header_menu_item">
                     ABOUT
                 </div>
             </Link>
             
             <div className="header_menu_item">
-                    <SwipeableTemporaryDrawer username={username} user={user} cart={cart} setCart={setCart} />
+                    <SwipeableTemporaryDrawer individualProductId={individualProductId} userId={userId} username={username} user={user} cart={cart} setCart={setCart} />
             </div>
 
            
@@ -73,6 +73,7 @@ export default function Header({ username, setUsername, user, cart, setCart }) {
                         <MenuItem onClick={(e) => {
                             handleClose();
                             setUsername('');
+                            setCart([]);
                             localStorage.removeItem('token');
                             history.push('/');
                             swal({
