@@ -11,7 +11,7 @@ import { Select } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import swal from "sweetalert";
 import { Divider } from "@material-ui/core";
-import { fetchCartData, submitOrder, fetchPurchaseHistory } from "./api";
+import { submitOrder, fetchPurchaseHistory } from "./api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Checkout({cart, setCart, user, userId, setPurchaseHistory}) {
+export default function Checkout({ cart, setCart, user, userId, setPurchaseHistory }) {
 
 
   const classes = useStyles();
@@ -75,7 +75,7 @@ export default function Checkout({cart, setCart, user, userId, setPurchaseHistor
   };
 
   const orderPurchased = async () => {
-    if(!cart[0]) {
+    if (!cart[0]) {
       swal({
         title: 'Oops!',
         text: 'There are no items in your cart!',
@@ -83,7 +83,7 @@ export default function Checkout({cart, setCart, user, userId, setPurchaseHistor
         button: false,
         timer: 2000
       })
-  } else if (
+    } else if (
       firstName &&
       lastName &&
       address &&
@@ -95,11 +95,11 @@ export default function Checkout({cart, setCart, user, userId, setPurchaseHistor
       cardCvv &&
       state.shipping
     ) {
-      const submittedOrder = await submitOrder(userId);
+      await submitOrder(userId);
       const purchases = await fetchPurchaseHistory(userId);
       setPurchaseHistory(purchases);
       console.log(purchases);
-      setCart([]);  
+      setCart([]);
       swal({
         title: "Woo!",
         text: "Your order has been placed!",
@@ -446,17 +446,17 @@ export default function Checkout({cart, setCart, user, userId, setPurchaseHistor
               ) : null}
               <h5 style={{ marginTop: "10px" }}>Order Items</h5>
               <div>
-                  {cart[0] ? cart.map((product) => {
-                    return (
-                      <div key={product.productsId}>
-                        <h2>Name: {product.productName}</h2>
-                        <p>Price: $ {product.productPrice}</p>
-                        <p>Size: {product.size}</p>
-                        <p>Quantity: {product.quantity}</p>
-                      </div>
-                    );
-                  }) : <div>No items In cart</div>}
-                </div>
+                {cart[0] ? cart.map((product) => {
+                  return (
+                    <div key={product.productsId}>
+                      <h2>Name: {product.productName}</h2>
+                      <p>Price: $ {product.productPrice}</p>
+                      <p>Size: {product.size}</p>
+                      <p>Quantity: {product.quantity}</p>
+                    </div>
+                  );
+                }) : <div>No items In cart</div>}
+              </div>
               <Button
                 style={{ marginTop: "20px", width: "150px" }}
                 variant="contained"

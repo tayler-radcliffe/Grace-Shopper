@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./Login.css";
 import swal from "sweetalert";
@@ -14,7 +14,9 @@ export default function Login({
   cart,
   password,
   setPassword,
-  setPurchaseHistory
+  setPurchaseHistory,
+  isLoggedIn,
+  setIsLoggedIn
 }) {
   const history = useHistory();
 
@@ -38,6 +40,10 @@ export default function Login({
     } else {
       const token = userDetails.token;
       localStorage.setItem("token", token);
+      localStorage.setItem("userId", userDetails.user.id);
+      localStorage.setItem("usernameKey", userDetails.user.username);
+      setIsLoggedIn(true);
+      localStorage.setItem("loggedIn", isLoggedIn);
       swal({
         title: "Welcome back!",
         text: "You're logged in!",

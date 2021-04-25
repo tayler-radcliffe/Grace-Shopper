@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Login.css";
 import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
-import { createInitialEmptyCart, registerUser, fetchUserData } from "./api";
+import { createInitialEmptyCart, registerUser } from "./api";
 
 export default function Register({
   username,
@@ -18,7 +18,7 @@ export default function Register({
   setPurchaseHistory
 }) {
 
-  
+
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const history = useHistory();

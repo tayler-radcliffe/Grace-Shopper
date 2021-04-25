@@ -9,24 +9,28 @@ import ProductInfo from "./ProductInfo";
 import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
-import { fetchProducts, fetchCartData, fetchUserData } from "./api/index";
+import { fetchProducts, fetchCartData, fetchPurchaseHistory } from "./api/index";
 import Login from "./Login";
 import Register from "./Register";
 import Account from "./Account";
 import Checkout from "./Checkout";
 
 function App() {
+  const loggedInKey = localStorage.getItem("loggedIn");
+  const userNameKey = localStorage.getItem("usernameKey");
+  const userIdKey = localStorage.getItem("userId");
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(userNameKey ? userNameKey : "");
   const [password, setPassword] = useState("");
   const [cart, setCart] = useState([]);
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState(userIdKey ? userIdKey : 0);
   const [user, setUser] = useState([]);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
   const [individualProductId, setIndividualProductId] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(loggedInKey ? loggedInKey : false);
 
   useEffect(() => {
     try {
@@ -37,6 +41,27 @@ function App() {
       console.log(error);
     }
   }, []);
+
+  useEffect(() => {
+    try {
+      Promise.all([fetchCartData(userIdKey)]).then(([data]) => {
+        setCart(data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      Promise.all([fetchPurchaseHistory(userIdKey)]).then(([data]) => {
+        setPurchaseHistory(data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   const getUser = async () => {
     await fetch(`http://localhost:3000/api/users/${username}/personal`, {})
       .then((response) => response.json())
@@ -132,6 +157,8 @@ function App() {
             user={user}
             setUser={setUser}
             setPurchaseHistory={setPurchaseHistory}
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
           />
         </Route>
 
@@ -161,6 +188,7 @@ function App() {
             cart={cart}
             setCart={setCart}
             setIndividualProductId={setIndividualProductId}
+            isLoggedIn={isLoggedIn}
           />
           <Footer />
         </Route>

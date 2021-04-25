@@ -5,13 +5,10 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
 import './Cart.css';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { deleteProductFromCart, fetchCartData } from './api';
 
 
@@ -30,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SwipeableTemporaryDrawer({username, cart, setCart, userId, individualProductId}) {
+export default function SwipeableTemporaryDrawer({ username, cart, setCart, userId, individualProductId }) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -49,7 +46,7 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart, userI
     setCart(newCart);
   }
 
-  
+
 
 
 
@@ -62,7 +59,7 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart, userI
   };
 
   const list = (anchor) => (
-    <div style={{display: 'flex', alignItems: 'center', padding: '10px', width: '350px', flexDirection: 'column'}}
+    <div style={{ display: 'flex', alignItems: 'center', padding: '10px', width: '350px', flexDirection: 'column' }}
       className={clsx(classes.list, {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
@@ -70,9 +67,9 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart, userI
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <h2 style={{marginTop: '20px'}}>Your Cart</h2><br></br>
+      <h2 style={{ marginTop: '20px' }}>Your Cart</h2><br></br>
       <Divider />
-      
+
       <List>
         <div>
           {cart[0] ? cart.map(product => {
@@ -90,23 +87,17 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart, userI
                 <p>
                   Quantity: {product.quantity}
                 </p>
-                <Button variant='contained' onClick={(event) => handleRemove(event, product.productsId)} style={{marginTop: '5px', padding: '5px'}} >Remove Item</Button>
-                
+                <Button variant='contained' onClick={(event) => handleRemove(event, product.productsId)} style={{ marginTop: '5px', padding: '5px' }} >Remove Item</Button>
+
               </div>
             )
-          }) : <p style={{marginTop: '20px'}}>You have no items in your cart!</p>}
+          }) : <p style={{ marginTop: '20px' }}>You have no items in your cart!</p>}
         </div>
-        {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))} */}
       </List>
-      <Link to='/checkout'  style={{position: 'absolute', bottom: '0', marginBottom: '50px', marginRight: '20px', textDecoration: 'none'}}>
-          <Button
-        variant='contained'>Checkout</Button>
-        </Link>
+      <Link to='/checkout' style={{ position: 'absolute', bottom: '0', marginBottom: '50px', marginRight: '20px', textDecoration: 'none' }}>
+        <Button
+          variant='contained'>Checkout</Button>
+      </Link>
     </div>
   );
 
@@ -115,7 +106,7 @@ export default function SwipeableTemporaryDrawer({username, cart, setCart, userI
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Badge badgeContent={cart.length} color="secondary">
-          <ShoppingCartIcon onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
+            <ShoppingCartIcon onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
           </Badge>
           <SwipeableDrawer
             anchor={anchor}

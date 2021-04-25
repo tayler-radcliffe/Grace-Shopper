@@ -272,68 +272,68 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                     <div>
                         <h3 style={{ width: '150px' }}>Recent Purchases</h3>
                         <Divider />
-                            {purchaseHistory[0] ? purchaseHistory.map(item => {
-                                return (
-                                    <div>
-                                        <h2>
-                                            {item.productName}
-                                        </h2>
-                                        <p>
-                                            Price: {item.productPrice}
-                                        </p>
-                                        <p>
-                                            Size: {item.size}
-                                        </p>
-                                        <p>
-                                           Quantity: {item.quantity}
-                                        </p>
-                                        <p>
-                                            Purchase Date: {item.date}
-                                        </p>
-                                    </div>
-                                )   
-                                }) :
-                       
-                        <div>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginTop: '50px',
-                            marginLeft: '50px'
-                        }}>No orders yet!</div>
-                        <button className="homePageButton" style={{
-                            cursor: 'pointer',
-                            display: 'flex',
-                            position: 'relative',
-                            top: '30px',
-                            left: '40px',
-                            fontSize: '15px',
-                            fontWeight: 'normal',
-                            padding: '10px',
-                            borderRadius: '30px',
-                            width: '120px',
-                            justifyContent: 'center',
-                            fontFamily: 'Rubik',
-                            transition: 'all .2s ease-in-out',
-                            textDecoration: 'none'
+                        {purchaseHistory[0] ? purchaseHistory.map(item => {
+                            return (
+                                <div>
+                                    <h2>
+                                        {item.productName}
+                                    </h2>
+                                    <p>
+                                        Price: {item.productPrice}
+                                    </p>
+                                    <p>
+                                        Size: {item.size}
+                                    </p>
+                                    <p>
+                                        Quantity: {item.quantity}
+                                    </p>
+                                    <p>
+                                        Purchase Date: {item.date}
+                                    </p>
+                                </div>
+                            )
+                        }) :
 
-                        }}>
-                            <Link to="/products">
-                                Browse
+                            <div>
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginTop: '50px',
+                                    marginLeft: '50px'
+                                }}>No orders yet!</div>
+                                <button className="homePageButton" style={{
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    position: 'relative',
+                                    top: '30px',
+                                    left: '40px',
+                                    fontSize: '15px',
+                                    fontWeight: 'normal',
+                                    padding: '10px',
+                                    borderRadius: '30px',
+                                    width: '120px',
+                                    justifyContent: 'center',
+                                    fontFamily: 'Rubik',
+                                    transition: 'all .2s ease-in-out',
+                                    textDecoration: 'none'
+
+                                }}>
+                                    <Link to="/products">
+                                        Browse
                     </Link>
-                        </button>
+                                </button>
+                            </div>
+                        }
                     </div>
-                     }
-                     </div>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <div>
                         <h3 style={{ width: '150px' }}>Wishlist</h3>
                         <Divider />
                         {/* wishlist.map() will go here // map over array of wishlist for user */}
-                           {/* if WISHLIST EXISTS THEN MAP OVER AND DISPLAY HERE, IF NOT THEN DISPLAY MESSAGE vvvvv*/}
-                           <div style={{
+                        {/* if WISHLIST EXISTS THEN MAP OVER AND DISPLAY HERE, IF NOT THEN DISPLAY MESSAGE vvvvv*/}
+                        <div style={{
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',

@@ -79,7 +79,7 @@ const getCartByuserId = async (userId) => {
 const addSizeAndQuantityToProductObject = async (id, name, price, description) => {
 
   try {
-    const {rows: cartProducts } = await client.query(`
+    const { rows: cartProducts } = await client.query(`
     UPDATE cartProducts
     SET "productName" = $2, "productPrice" = $3, "productDescription" = $4
     WHERE "productsId" = $1
@@ -88,7 +88,7 @@ const addSizeAndQuantityToProductObject = async (id, name, price, description) =
   } catch (error) {
     throw error
   }
-  
+
 
 
 }
@@ -136,7 +136,7 @@ const deleteProductFromCart = async (userId, productId) => {
         `,
       [userId, productId]
     );
-      
+
     return cartProducts;
   } catch (error) {
     throw error;
@@ -145,7 +145,7 @@ const deleteProductFromCart = async (userId, productId) => {
 
 const deleteCartItemsAfterPurchase = async (userId) => {
   try {
-    const {rows: cartProducts} = await client.query(`
+    const { rows: cartProducts } = await client.query(`
     DELETE FROM cartProducts
     where "userId" = $1
     RETURNING *;
@@ -155,10 +155,31 @@ const deleteCartItemsAfterPurchase = async (userId) => {
   }
 }
 
+
+const changeQuantity = async (quantity, productsId, userId) => {
+
+  try {
+    const { rows: cartProducts } = await client.query(`
+    UPDATE cartProducts
+    SET quantity = $1
+    WHERE "productsId" = $2
+    AND "userId" = $3
+    RETURNING *;
+  `, [quantity, productsId, userId])
+
+    return cartProducts;
+  } catch (error) {
+    throw error
+  }
+
+}
+
+
 module.exports = {
   createCart,
   getCartByuserId,
   addNewProductToCart,
   deleteProductFromCart,
   deleteCartItemsAfterPurchase,
+  changeQuantity
 };

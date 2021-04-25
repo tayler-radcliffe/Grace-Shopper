@@ -263,8 +263,7 @@ dd {
   }
 
   .c-price > span {
-  float: center;
-  margin-left: 125px;
+  float: right;
   }
 
   .d-price > span {
