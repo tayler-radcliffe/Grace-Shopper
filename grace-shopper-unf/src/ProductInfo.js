@@ -1,45 +1,56 @@
 import React, { useState, useEffect } from "react";
 import Snackbar from '@material-ui/core/Snackbar';
-import { makeStyles } from '@material-ui/core/styles';
 import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import MuiAlert from '@material-ui/lab/Alert';
+import swal from "sweetalert";
 import { fetchProductById, addItemsToCart, fetchCartData, fetchAverageReviews } from "./api/index";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
-
-
 export default function ProductInfo({
-  username,
   userId,
   hover,
   setHover,
   rating,
-  setRating,
-  cart,
   setCart,
-  setIndividualProductId
+  setIndividualProductId,
+  isLoggedIn
 }) {
-  const classes = useStyles();
   const [productSize, setProductSize] = useState("");
   const [product, setProduct] = useState({});
   const [open, setOpen] = React.useState(false);
   const { productId } = useParams();
   const [stars, setStars] = useState(0);
 
-console.log(product);
+
+  function sizeChecker(e) {
+    e.preventDefault();
+    if (productSize === '') {
+      console.log("Not adding!")
+      swal({
+        title: "Shoe Size",
+        text: "Please Select a Shoe Size!",
+        icon: "error",
+        button: false,
+        timer: 2000,
+      });
+    } else if (!isLoggedIn) {
+      swal({
+        title: "Logged In?",
+        text: "Please Log In Before Adding to Cart",
+        icon: "error",
+        button: false,
+        timer: 2000,
+      });
+    } else {
+      handleClick(e)
+    }
+  }
+
+
 
   async function handleClick(e) {
 
@@ -193,10 +204,10 @@ console.log(product);
         <button onClick={(e) => setProductSize("12")} className="sizeBox">
           12
         </button>
-        
+
       </div>
-    
-      <button onClick={handleClick} className="addToCartProduct">
+
+      <button onClick={sizeChecker} className="addToCartProduct">
         {" "}
         Add to Cart{" "}
       </button>
