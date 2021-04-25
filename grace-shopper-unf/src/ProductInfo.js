@@ -5,10 +5,25 @@ import { useParams } from "react-router-dom";
 import MuiAlert from '@material-ui/lab/Alert';
 import swal from "sweetalert";
 import { fetchProductById, addItemsToCart, fetchCartData, fetchAverageReviews } from "./api/index";
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& > * + *': {
+      marginTop: theme.spacing(1),
+    },
+  },
+}));
 
 export default function ProductInfo({
   userId,
@@ -24,7 +39,8 @@ export default function ProductInfo({
   const [open, setOpen] = React.useState(false);
   const { productId } = useParams();
   const [stars, setStars] = useState(0);
-
+  
+  const classes = useStyles();
 
   function sizeChecker(e) {
     e.preventDefault();
@@ -86,8 +102,9 @@ export default function ProductInfo({
     const ratings = await fetchAverageReviews(productId);
     console.log(ratings);
     setStars(ratings.averageRating);
-    console.log(stars);
+    
   }
+  console.log(stars);
 
   return (
     <div
@@ -123,30 +140,8 @@ export default function ProductInfo({
           <div>
             <div class="rating-section">
               <div class="stars-rating">
-                {[...Array(5)].map((star, idx) => {
-                  const ratingValue = stars;
-                  return (
-                    <label>
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={ratingValue}
-                      />
-                      <FaStar
-                        className="star"
-                        size={15}
-                        color={
-                          ratingValue <= (hover || rating)
-                            ? "#FFC107"
-                            : "#E4E5E9"
-                        }
-                        onMouseEnter={() => setHover(ratingValue)}
-                        onMouseLeave={() => setHover(null)}
-                      />
-                    </label>
-                  );
-                })}
-                <div style={{ fontSize: "20px" }}>{rating} out of 5 stars</div>
+              <Rating name="half-rating-read" defaultValue={stars} precision={0.5} readOnly />
+                <div style={{ fontSize: "20px" }}>{stars} out of 5 stars</div>
               </div>
               <div
                 stlye={{

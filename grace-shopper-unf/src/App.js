@@ -9,7 +9,11 @@ import ProductInfo from "./ProductInfo";
 import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
-import { fetchProducts, fetchCartData, fetchPurchaseHistory } from "./api/index";
+import {
+  fetchProducts,
+  fetchCartData,
+  fetchPurchaseHistory,
+} from "./api/index";
 import Login from "./Login";
 import Register from "./Register";
 import Account from "./Account";
@@ -30,7 +34,9 @@ function App() {
   const [user, setUser] = useState([]);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
   const [individualProductId, setIndividualProductId] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(loggedInKey ? loggedInKey : false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    loggedInKey ? loggedInKey : false
+  );
 
   useEffect(() => {
     try {
@@ -44,9 +50,12 @@ function App() {
 
   useEffect(() => {
     try {
-      Promise.all([fetchCartData(userIdKey)]).then(([data]) => {
-        setCart(data);
-      });
+      if(userIdKey){
+        Promise.all([fetchCartData(userIdKey)]).then(([data]) => {
+          setCart(data);
+        });
+      }
+      
     } catch (error) {
       console.log(error);
     }
@@ -54,9 +63,11 @@ function App() {
 
   useEffect(() => {
     try {
+      if(userIdKey) {
       Promise.all([fetchPurchaseHistory(userIdKey)]).then(([data]) => {
         setPurchaseHistory(data);
       });
+    }
     } catch (error) {
       console.log(error);
     }
@@ -174,6 +185,8 @@ function App() {
             setCart={setCart}
             setUser={setUser}
             setPurchaseHistory={setPurchaseHistory}
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
           />
         </Route>
 

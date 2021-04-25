@@ -15,7 +15,9 @@ export default function Register({
   cart,
   setCart,
   setUser,
-  setPurchaseHistory
+  setPurchaseHistory,
+  isLoggedIn,
+  setIsLoggedIn
 }) {
 
 
@@ -60,6 +62,11 @@ export default function Register({
       setPassword("");
       const token = registeredUserData.token;
       setUserId(registeredUserData.user.id);
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", registeredUserData.user.id);
+      localStorage.setItem("usernameKey", registeredUserData.user.username);
+      setIsLoggedIn(true);
+      localStorage.setItem("loggedIn", isLoggedIn);
       await createInitialEmptyCart(registeredUserData.user.id);
       setCart([]);
       setPurchaseHistory([]);
