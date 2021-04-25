@@ -29,7 +29,7 @@ export default function Footer() {
                         <a href="www.google.com">Contact</a>
                     </p>
 
-                    <p class="footer-company-name"> AJ/KAL/RAD &copy; 2021</p>
+                    <p class="footer-company-name"> HAL/KAL/RAD &copy; 2021</p>
                 </div>
 
                 <div class="footer-center">

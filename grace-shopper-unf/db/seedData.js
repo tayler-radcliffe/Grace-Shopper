@@ -250,6 +250,19 @@ async function createInitialCart() {
                     quantity: 1, 
                 }]
             },
+            {
+                userId: 3,
+                productIds: [{
+                    productId: 2,
+                    size: 'medium',
+                    quantity: 3,
+                },
+                {
+                    productId: 3,
+                    size: '11.5',
+                    quantity: 1, 
+                }]
+            },
         ]
 
         const carts = await Promise.all(cartsToCreate.map(cart => createCart({userId: cart.userId, productIds: cart.productIds})))
@@ -259,7 +272,7 @@ async function createInitialCart() {
         console.log('Finished creating carts!');
         const testTwo = await getCartByuserId(1);
         const testThree = await getCartByuserId(2);
-        const test = await addNewProductToCart(2, 1, "medium", 1);
+        const test = await addNewProductToCart(2, 1, "1", 1);
     } catch (error) {
         throw error;
     }

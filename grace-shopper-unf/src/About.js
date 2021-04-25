@@ -58,7 +58,7 @@ export default function About() {
             <div id="container">
                 <div
                     style={{
-                        marginTop: '62px'
+                        marginTop: '40px'
                     }}
                     class="bc-wrapper bc-size bc-style">
 
