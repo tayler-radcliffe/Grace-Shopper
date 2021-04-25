@@ -75,7 +75,7 @@ function App() {
 
         <Route exact path="/account">
 
-          <Account username={username} setUsername={setUsername}/>
+          <Account username={username} setUsername={setUsername} />
           <Footer />
           <Scroll showBelow={250} />
 
@@ -92,6 +92,7 @@ function App() {
 
         <Route exact path='/products/:productId'>
           <ProductInfo
+            username={username}
             hover={hover}
             setHover={setHover}
             rating={rating}

@@ -32,6 +32,7 @@ async function createCart({ userId, productIds }) {
 }
 
 async function createCartProductList(cartId, productId, userId, size, quantity) {
+  console.log("GGG", cartId, productId, userId, size, quantity);
   try {
     const {
       rows: [cartProducts],
@@ -44,6 +45,7 @@ async function createCartProductList(cartId, productId, userId, size, quantity) 
       [cartId, productId, userId, size, quantity]
     );
 
+    console.log("OOOO", cartProducts);
     return cartProducts;
   } catch (error) {
     throw error;
@@ -79,7 +81,7 @@ const getCartByuserId = async (userId) => {
 const addSizeAndQuantityToProductObject = async (id, name, price, description) => {
 
   try {
-    const {rows: cartProducts } = await client.query(`
+    const { rows: cartProducts } = await client.query(`
     UPDATE cartProducts
     SET "productName" = $2, "productPrice" = $3, "productDescription" = $4
     WHERE "productsId" = $1
@@ -88,21 +90,24 @@ const addSizeAndQuantityToProductObject = async (id, name, price, description) =
   } catch (error) {
     throw error
   }
-  
+
 
 
 }
 
 const addNewProductToCart = async (userId, productId, size, quantity) => {
+  console.log("LL", userId, productId, size, quantity)
   try {
     const { rows: cart } = await client.query(
       `
         SELECT id 
-        FROM cart
+        FROM cartProducts
         WHERE "userId" = $1;
       `,
       [userId]
     );
+
+    console.log("hello", cart);
 
     const cartId = cart.map((item) => item.id);
     await createCartProductList(cartId[0], productId, userId, size, quantity);
@@ -136,7 +141,7 @@ const deleteProductFromCart = async (userId, productId) => {
         `,
       [userId, productId]
     );
-      
+
     return cartProducts;
   } catch (error) {
     throw error;
@@ -145,7 +150,7 @@ const deleteProductFromCart = async (userId, productId) => {
 
 const deleteCartItemsAfterPurchase = async (userId) => {
   try {
-    const {rows: cartProducts} = await client.query(`
+    const { rows: cartProducts } = await client.query(`
     DELETE FROM cartProducts
     where "userId" = $1
     RETURNING *;

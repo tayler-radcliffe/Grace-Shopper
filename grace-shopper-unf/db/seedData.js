@@ -1,7 +1,7 @@
 const { createCart, getCartByuserId, addNewProductToCart } = require("./cart");
 const client = require("./client");
 const { createUser, createProducts } = require('./index')
-const {addToRecentPurchases} = require('./purchaseHistory')
+const { addToRecentPurchases } = require('./purchaseHistory')
 async function dropTables() {
     try {
         await client.query(`
@@ -57,7 +57,7 @@ async function createTables() {
             "productName" VARCHAR(255),
             "productPrice" INTEGER,
             "productDescription" TEXT,
-            "quantity" INTEGER
+            quantity INTEGER
         );
         CREATE TABLE user_products(
             "users_id" INTEGER REFERENCES users(id),
@@ -232,7 +232,7 @@ async function createInitialCart() {
                     quantity: 2,
                 },
                 {
-                    productId: 3, 
+                    productId: 3,
                     size: '12',
                     quantity: 1,
                 }]
@@ -247,12 +247,12 @@ async function createInitialCart() {
                 {
                     productId: 3,
                     size: '11.5',
-                    quantity: 1, 
+                    quantity: 1,
                 }]
             },
         ]
 
-        const carts = await Promise.all(cartsToCreate.map(cart => createCart({userId: cart.userId, productIds: cart.productIds})))
+        const carts = await Promise.all(cartsToCreate.map(cart => createCart({ userId: cart.userId, productIds: cart.productIds })))
 
         console.log('Cart created:');
         console.log(carts);

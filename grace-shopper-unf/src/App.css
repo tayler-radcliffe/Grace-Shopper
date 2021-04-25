@@ -227,6 +227,7 @@ dd {
   }
 
   .card__top__section > img {
+    margin-left: 10px;
     width: 300px;
   }
 

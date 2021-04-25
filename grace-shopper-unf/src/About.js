@@ -58,7 +58,10 @@ export default function About() {
             <div id="container">
                 <div
                     style={{
-                        marginTop: '62px'
+                        position: 'absolute',
+                        left: '0%',
+                        top: '90%'
+
                     }}
                     class="bc-wrapper bc-size bc-style">
 
@@ -100,7 +103,7 @@ export default function About() {
                             <img src={businessCardImage2} alt="businessCardImage" />
                         </div>
 
-                        <div class="qualification-txt text">Products Specialist </div>
+                        <div class="qualification-txt text"> Products Specialist </div>
                     </div>
                 </div>
                 <div style={{

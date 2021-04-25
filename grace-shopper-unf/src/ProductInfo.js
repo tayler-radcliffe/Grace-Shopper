@@ -2,13 +2,36 @@ import React, { useState, useEffect } from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { FaStar } from 'react-icons/fa';
 import { useParams } from 'react-router-dom'
-import { fetchProductById } from './api/index'
+import { fetchProductById, addItemsToCart } from './api/index'
 
-export default function ProductInfo({ hover, setHover, rating, setRating }) {
+export default function ProductInfo({ username, hover, setHover, rating, setRating }) {
 
-
+    const [user, setUser] = useState([]);
+    const [productSize, setProductSize] = useState("")
     const [product, setProduct] = useState({})
     const { productId } = useParams();
+
+
+    async function handleClick(e) {
+        e.preventDefault();
+        await addItemsToCart(user.id, product.id, productSize, 1)
+    }
+
+    const getUser = async () => {
+        await fetch(`http://localhost:3000/api/users/${username}/personal`, {
+        }).then(response => response.json())
+            .then(result => {
+                console.log(result);
+                setUser(result);
+            })
+            .catch(console.error);
+    }
+    useEffect(() => {
+        Promise.all([getUser]).then(([data]) => {
+            setUser(data);
+        });
+    }, [])
+    console.log(user)
 
     useEffect(() => {
         try {
@@ -20,6 +43,8 @@ export default function ProductInfo({ hover, setHover, rating, setRating }) {
             throw error;
         }
     }, [productId])
+
+    console.log(product.id)
 
     return (
         <div title="Products"
@@ -39,7 +64,8 @@ export default function ProductInfo({ hover, setHover, rating, setRating }) {
                         <img style={{
                             width: '700px',
                             height: '700px',
-                            marginBottom: '20px'
+                            marginBottom: '30px',
+                            marginLeft: '130px'
                         }} src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a90cb62b-8083-4a6c-a556-54f1cc271766/wildhorse-7-mens-trail-running-shoe-rJ6R7V.png" alt="products" />
                     </div>
                     <div>
@@ -82,16 +108,16 @@ export default function ProductInfo({ hover, setHover, rating, setRating }) {
             </div>
             <div className="sizeGuide"> Select Size: </div>
             <div className="sizeBoard">
-                <button className="sizeBox">5</button>
-                <button className="sizeBox">6</button>
-                <button className="sizeBox">7</button>
-                <button className="sizeBox">8</button>
-                <button className="sizeBox">9</button>
-                <button className="sizeBox">10</button>
-                <button className="sizeBox">11</button>
-                <button className="sizeBox">12</button>
+                <button onClick={e => setProductSize('5')} className="sizeBox">5</button>
+                <button onClick={e => setProductSize('6')} className="sizeBox">6</button>
+                <button onClick={e => setProductSize('7')} className="sizeBox">7</button>
+                <button onClick={e => setProductSize('8')} className="sizeBox">8</button>
+                <button onClick={e => setProductSize('9')} className="sizeBox">9</button>
+                <button onClick={e => setProductSize('10')} className="sizeBox">10</button>
+                <button onClick={e => setProductSize('11')} className="sizeBox">11</button>
+                <button onClick={e => setProductSize('12')} className="sizeBox">12</button>
             </div>
-            <button className="addToCartProduct"> Add to Cart </button>
+            <button onClick={handleClick} className="addToCartProduct"> Add to Cart </button>
 
             <div className="productDescription"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
             </div>
