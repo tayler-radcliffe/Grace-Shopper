@@ -10,6 +10,7 @@ async function dropTables() {
         DROP TABLE IF EXISTS products_reviews;
         DROP TABLE IF EXISTS user_products;
         DROP TABLE IF EXISTS reviews;
+        DROP TABLE IF EXISTS wishList;
         DROP TABLE IF EXISTS cartProducts;
         DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS products;
@@ -45,6 +46,14 @@ async function createTables() {
             "stars" INTEGER,
             description TEXT NOT NULL,
             "productsId" INTEGER REFERENCES products(id)
+        );
+        CREATE TABLE wishList(
+            id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
+            "productsId" INTEGER REFERENCES products(id),
+            "size" TEXT,
+            "productName" VARCHAR(255),
+            "productPrice" INTEGER
         );
         CREATE TABLE cart(
             id SERIAL PRIMARY KEY,

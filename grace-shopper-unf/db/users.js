@@ -137,5 +137,5 @@ module.exports = {
     getAllUsers,
     getProductsByUsername,
     insertFnLnEmail,
-    deleteUser
+    deleteUser, 
 }

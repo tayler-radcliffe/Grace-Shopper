@@ -264,3 +264,58 @@ export async function fetchAllPurchases() {
     throw error;
   }
 }
+
+export async function fetchWishListByUserId(userId) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/wishList/${userId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function addProductToWishList(userId, productId, size, productName, productPrice) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/wishList/addProduct`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        productId, 
+        size, 
+        productName, 
+        productPrice
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteItemFromUserWishList(userId, productId) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/wishList/${productId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+      }),
+    });
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
