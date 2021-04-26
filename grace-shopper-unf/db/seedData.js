@@ -1,7 +1,7 @@
 const { createCart, getCartByuserId, addNewProductToCart } = require("./cart");
 const client = require("./client");
 const { createUser, createProducts } = require('./index')
-const { addToRecentPurchases } = require('./purchaseHistory');
+const {addToRecentPurchases} = require('./purchaseHistory');
 const { insertFnLnEmail } = require("./users");
 async function dropTables() {
     try {
@@ -68,7 +68,7 @@ async function createTables() {
             "productName" VARCHAR(255),
             "productPrice" INTEGER,
             "productDescription" TEXT,
-            quantity INTEGER
+            "quantity" INTEGER
         );
         CREATE TABLE user_products(
             "users_id" INTEGER REFERENCES users(id),
@@ -101,7 +101,7 @@ async function createInitialUsers() {
             { username: 'albert', password: 'bertie99' },
             { username: 'sandra', password: 'sandra123' },
             { username: 'glamgal', password: 'glamgal123' },
-            { username: 'VividAdmin', password: 'Vivid2021' }
+            { username: 'VividAdmin', password: 'Vivid2021'}
         ]
         const users = await Promise.all(usersToCreate.map(createUser));
         console.log('Users created:');
