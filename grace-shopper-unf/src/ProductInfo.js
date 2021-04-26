@@ -39,7 +39,7 @@ export default function ProductInfo({
   const [open, setOpen] = React.useState(false);
   const { productId } = useParams();
   const [stars, setStars] = useState(0);
-  
+
   const classes = useStyles();
 
   function sizeChecker(e) {
@@ -102,7 +102,7 @@ export default function ProductInfo({
     const ratings = await fetchAverageReviews(productId);
     console.log(ratings);
     setStars(ratings.averageRating);
-    
+
   }
   console.log(stars);
 
@@ -123,9 +123,9 @@ export default function ProductInfo({
             height: "800px",
             float: "left",
           }}
-          class="card__container"
+
         >
-          <div class="card__top__section">
+          <div>
             <img
               style={{
                 width: "700px",
@@ -133,14 +133,14 @@ export default function ProductInfo({
                 marginBottom: "20px",
                 marginLeft: '130px'
               }}
-              src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a90cb62b-8083-4a6c-a556-54f1cc271766/wildhorse-7-mens-trail-running-shoe-rJ6R7V.png"
+              src={product.productImage}
               alt="products"
             />
           </div>
           <div>
             <div class="rating-section">
               <div class="stars-rating">
-              <Rating name="half-rating-read" defaultValue={stars} precision={0.5} readOnly />
+                <Rating name="half-rating-read" defaultValue={stars} precision={0.5} readOnly />
                 <div style={{ fontSize: "20px" }}>{stars} out of 5 stars</div>
               </div>
               <div
@@ -159,7 +159,7 @@ export default function ProductInfo({
         <p
           style={{
             fontSize: "40px",
-            fontWeight: "700",
+            fontWeight: "600",
           }}
         >
           {product.name}
@@ -170,7 +170,6 @@ export default function ProductInfo({
             fontWeight: "500",
           }}
         >
-          {product.description}{" "}
         </span>
       </div>
       <div className="sizeGuide"> Select Size: {productSize}</div>
@@ -212,16 +211,7 @@ export default function ProductInfo({
         </Alert>
       </Snackbar>
       <div className="productDescription">
-        {" "}
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        {product.description}{" "}
       </div>
     </div>
   );
