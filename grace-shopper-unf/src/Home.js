@@ -9,6 +9,7 @@ const color2 = 'rgba(242, 229, 228, 1)';
 export default function Home() {
     return (
         <div className="home_container" style={{
+            overflow: 'hidden',
             background: `linear-gradient(to bottom,  ${color1} 55%,${color2} 100%)`,
             height: '1109px',
             width: '100%',
@@ -36,28 +37,28 @@ export default function Home() {
                 }}>
                     The secret of great style is to feel good in what you wear.
                 </div>
-                <Link className='homeLink' to="/products" style={{textDecoration: 'none'}}>
-                <button className="homePageButton" style={{
-                    cursor: 'pointer',
-                    display: 'flex',
-                    position: 'relative',
-                    top: '400px',
-                    left: '550px',
-                    fontSize: '20px',
-                    fontWeight: 'normal',
-                    padding: '10px',
-                    borderRadius: '30px',
-                    width: '200px',
-                    justifyContent: 'center',
-                    fontFamily: 'Rubik',
-                    transition: 'all .2s ease-in-out',
-                    textDecoration: 'none'
+                <Link className='homeLink' to="/products" style={{ textDecoration: 'none' }}>
+                    <button className="homePageButton" style={{
+                        cursor: 'pointer',
+                        display: 'flex',
+                        position: 'relative',
+                        top: '400px',
+                        left: '550px',
+                        fontSize: '20px',
+                        fontWeight: 'normal',
+                        padding: '10px',
+                        borderRadius: '30px',
+                        width: '200px',
+                        justifyContent: 'center',
+                        fontFamily: 'Rubik',
+                        transition: 'all .2s ease-in-out',
+                        textDecoration: 'none'
 
-                }}>
-                    
+                    }}>
+
                         Explore Now <NearMeIcon fontSize="medium" />
-                    
-                </button>
+
+                    </button>
                 </Link>
             </div>
             <img className="homePageImage" src={homepageimage} alt="homeimage" style={{

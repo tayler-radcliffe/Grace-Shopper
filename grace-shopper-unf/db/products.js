@@ -1,13 +1,13 @@
 const client = require("./client");
 const { createReview } = require("./reviews");
 
-const createProducts = async ({ name, description, creatorId, price, reviews }) => {
+const createProducts = async ({ name, description, creatorId, price, reviews, productImage }) => {
   try {
     const { rows: [products] } = await client.query(`
-            INSERT INTO products(name, description, "creatorId", price)
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO products(name, description, "creatorId", price, "productImage")
+            VALUES ($1, $2, $3, $4, $5)
             RETURNING *;
-        `, [name, description, creatorId, price]);
+        `, [name, description, creatorId, price, productImage]);
 
     if (!reviews) {
       return products;

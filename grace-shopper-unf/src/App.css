@@ -1,3 +1,5 @@
+
+
 .App-link {
   color: white;
 }
@@ -23,6 +25,10 @@ input[type="radio"] {
   position: relative;
   left: 800px;
   border-image-slice: 5;
+}
+
+.featuredProducts-price-drop {
+  
 }
 
 .box{
@@ -216,6 +222,7 @@ dd {
     margin: 0 auto;
     border-radius: 8px;
     margin-bottom: 60px;
+    transition: all .3s ease-in-out;
   }
   .card__body__section {
     text-align: center;
@@ -229,8 +236,12 @@ dd {
   .card__top__section > img {
     width: 300px;
     margin-left: 10px;
+    transition: all .3s ease-in-out;
   }
 
+  .card__top__section > img:hover {
+    transform: translate3d(0px, -5px, 0px);
+  }
   .rating-section {
   border-top: 1px solid #eee;
   padding: 8px 12px;
@@ -264,6 +275,7 @@ dd {
 
   .c-price > span {
   float: right;
+  margin: 10px;
   }
 
   .d-price > span {
@@ -271,9 +283,6 @@ dd {
     float: right;
     }
 
-  .c-price > div {
-    float: right;
-  }
 
    @media screen and (max-width:       450px) {
     .card__container {
@@ -283,7 +292,37 @@ dd {
     }
   }
 
- 
+ .card__container:hover {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+       box-shadow: 0 10px 6px -6px #777;
+}
+
+.card__container:before, .card__container:after
+{
+  content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.card__container:after
+{
+  right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
   
   /* FOOTER CSS STARTS */
 
@@ -520,49 +559,19 @@ dd {
 
 /* ABOUT PAGE CSS GRID */
 
-.aboutRow {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 4px;
-  z-index: 0;
-}
-
-.aboutColumn {
-  flex: 25%;
-  max-width: 25%;
-  padding: 0 4px;
-}
-
-.aboutColumn img {
-  margin-top: 8px;
-  vertical-align: middle;
-  width: 100%;
-}
-
-@media screen and (max-width: 800px) {
-  .aboutColumn {
-    flex: 50%;
-    max-width: 50%;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .aboutColumn {
-    flex: 100%;
-    max-width: 100%;
-  }
-}
-
 .aboutPageContainerWhole {
   background-color: black;
-  height: 1500px;
+}
+
+@media (max-width: 880px) {
+ .aboutPageImage1 {
+   max-width: 100%;
+}
 }
 
 .aboutPageContainer {
+  display: inline-block;
   padding: 20px;
-  position: absolute;
-  left: 70%;
-  top: 25%;
   background-color: black;
   color: white;
   border: 6px solid transparent;
@@ -572,14 +581,45 @@ dd {
 
 /* BUSINESS CARD CSS */ 
 
-.bc-wrapper{ 
-  position:relative;
+@media (max-width: 1500px) {
+  .aboutContainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px;
+  }
 }
+
+@media (min-width: 1510px) {
+  .aboutContainer {
+    margin-right: 50px;
+    margin-top: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 700px) {
+  .aboutPageContainerWhole {
+    overflow: hidden
+  }
+}
+
+
+@media (max-width: 375px) {
+  .aboutContainer {
+    display: inline;
+    padding: 20px;
+  }
+}
+
+
 .bc-size{
-  width:400px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  width: 380px;
   height:600px;
-  margin: 20px;
-  margin-left: 200px;
 }
 .bc-style{
   background-image:none;
@@ -642,7 +682,6 @@ dd {
   overflow:hidden;
 }
 .image-wrapper > img {
-  position:absolute;
   top:0;
   left:0;
   width:280px;
@@ -717,5 +756,5 @@ font-size: 17px;
 .productTitleDescrip {
   position: absolute;
   left: 1300px;
-  top: 75px;
+  top: 110px;
 }
