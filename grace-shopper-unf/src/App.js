@@ -54,6 +54,7 @@ function App() {
       if (userIdKey) {
         Promise.all([fetchCartData(userIdKey)]).then(([data]) => {
           setCart(data);
+          console.log(data);
         });
       }
 

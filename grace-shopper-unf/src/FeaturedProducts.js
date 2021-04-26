@@ -8,7 +8,7 @@ export default function FeaturedProducts() {
     const imageSource3 = "https://images.unsplash.com/photo-1556906781-9a412961c28c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
 
     return (
-        <div>
+        <div className="homeWrapper">
             <body>
                 <div className="box">
                     <div className="card">
@@ -46,7 +46,8 @@ export default function FeaturedProducts() {
             <div className="featuredProductCardsWrapper" style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fill, minmax(500px, 500px))',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                gridAutoFlow: 'row'
 
             }}>
                 <body className=".body" style={{ marginTop: '100px' }}>

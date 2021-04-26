@@ -205,6 +205,7 @@ export default function ProductInfo({
       <button onClick={sizeChecker} className="addToCartProduct">
         {" "}
         Add to Cart{" "}
+        <i color="white" class="fas fa-cart-plus"></i>
       </button>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">

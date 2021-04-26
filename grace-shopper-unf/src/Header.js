@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import SwipeableTemporaryDrawer from './SwipableCart';
 
 
-export default function Header({ username, setUsername, user, cart, setCart, userId, individualProductId, setIsLoggedIn, setUserId, userNameKey }) {
+export default function Header({ products, username, setUsername, user, cart, setCart, userId, individualProductId, setIsLoggedIn, setUserId, userNameKey }) {
 
     console.log(username, typeof username);
 
@@ -52,12 +52,12 @@ export default function Header({ username, setUsername, user, cart, setCart, use
                     ADMIN
                 </div>
             </Link> : <div></div>}
-            
+
             <div className="header_menu_item">
-                    <SwipeableTemporaryDrawer individualProductId={individualProductId} userId={userId} username={username} user={user} cart={cart} setCart={setCart} />
+                <SwipeableTemporaryDrawer individualProductId={individualProductId} userId={userId} username={username} user={user} cart={cart} setCart={setCart} />
             </div>
 
-           
+
 
             <div>{username ?
                 (<div>

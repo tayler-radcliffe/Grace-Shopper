@@ -27,17 +27,130 @@ input[type="radio"] {
   border-image-slice: 5;
 }
 
-.featuredProducts-price-drop {
-  
-}
 
 .box{
   width: 1200px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   grid-gap: 15px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 800px) {
+  .box {
+    margin: 0 auto;
+    width: 0px;
+    margin-right: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.homeWrapper {
+  overflow: hidden
+}
+
+@media screen and (max-width: 400px) {
+  .box {
+    margin: 0 auto;
+    width: 0px;
+    margin-right: 325px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .featuredProductCardsWrapper {
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .subtle_home_card {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .subtle_home_card {
+    width: 325px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .home_card {
+    position: absolute;
+    top: -200px;
+    left: -100px;
+    width: 250px;
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .card__container {
+    width: 90% !important;
+    position: fixed !important;
+    left: 27px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .header_title {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1800px) {
+  .homePageImage {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .productsExploreButton {
+    display: none;
+  }
+}
+
+.subtle_home_card {
+display: flex;
+position: relative;
+top: 375px;
+left: 150px;
+font-size: 40px;
+font-weight: lighter;
+}
+
+
+.homePageButton {
+  position: relative;
+  top: 400px;
+  left: 500px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: normal;
+  padding: 10px;
+  border-radius: 30px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Rubik';
+  transition: 'all .2s ease-in-out';
+  text-decoration: 'none'
+}
+
+@media screen and (max-width: 1000px) {
+  .homePageButton {
+    position: relative;
+    left: 200px;
+    top: 450px;
+  }
+}
+
+
 .card{
   position: relative;
   width: 300px;
@@ -283,15 +396,6 @@ dd {
     font-size: 40px;
     float: right;
     }
-
-
-   @media screen and (max-width:       450px) {
-    .card__container {
-      width: 90% !important;
-      position: fixed !important;
-      left: 27px;
-    }
-  }
 
  .card__container:hover {
   -webkit-box-shadow: 0 10px 6px -6px #777;
@@ -758,4 +862,92 @@ font-size: 17px;
   position: absolute;
   left: 1300px;
   top: 110px;
+}
+
+@-webkit-keyframes horizontal {
+  0% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  6% {
+    -webkit-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  12% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  18% {
+    -webkit-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  24% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  30% {
+    -webkit-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  36% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+}
+
+@keyframes horizontal {
+  0% {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  6% {
+    -webkit-transform: translate(5px,0);
+    -ms-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  12% {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  18% {
+    -webkit-transform: translate(5px,0);
+    -ms-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  24% {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  30% {
+    -webkit-transform: translate(5px,0);
+    -ms-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  36% {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+}
+
+.faa-horizontal.animated,
+.faa-horizontal.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-horizontal {
+  -webkit-animation: horizontal 2s ease infinite;
+  animation: horizontal 2s ease infinite;
 }
