@@ -32,7 +32,6 @@ async function createCart({ userId, productIds }) {
 }
 
 async function createCartProductList(cartId, productId, userId, size, quantity) {
-  console.log("GGG", cartId, productId, userId, size, quantity);
   try {
     const {
       rows: [cartProducts],
@@ -45,7 +44,6 @@ async function createCartProductList(cartId, productId, userId, size, quantity) 
       [cartId, productId, userId, size, quantity]
     );
 
-    console.log("OOOO", cartProducts);
     return cartProducts;
   } catch (error) {
     throw error;
@@ -96,18 +94,15 @@ const addSizeAndQuantityToProductObject = async (id, name, price, description) =
 }
 
 const addNewProductToCart = async (userId, productId, size, quantity) => {
-  console.log("LL", userId, productId, size, quantity)
   try {
     const { rows: cart } = await client.query(
       `
         SELECT id 
-        FROM cartProducts
+        FROM cart
         WHERE "userId" = $1;
       `,
       [userId]
     );
-
-    console.log("hello", cart);
 
     const cartId = cart.map((item) => item.id);
     await createCartProductList(cartId[0], productId, userId, size, quantity);
