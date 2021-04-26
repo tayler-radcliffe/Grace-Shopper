@@ -51,12 +51,13 @@ function App() {
 
   useEffect(() => {
     try {
-      if(userIdKey){
+      if (userIdKey) {
         Promise.all([fetchCartData(userIdKey)]).then(([data]) => {
           setCart(data);
+          console.log(data);
         });
       }
-      
+
     } catch (error) {
       console.log(error);
     }
@@ -64,11 +65,11 @@ function App() {
 
   useEffect(() => {
     try {
-      if(userIdKey) {
-      Promise.all([fetchPurchaseHistory(userIdKey)]).then(([data]) => {
-        setPurchaseHistory(data);
-      });
-    }
+      if (userIdKey) {
+        Promise.all([fetchPurchaseHistory(userIdKey)]).then(([data]) => {
+          setPurchaseHistory(data);
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -200,6 +201,7 @@ function App() {
 
         <Route exact path="/products/:productId">
           <ProductInfo
+            username={username}
             hover={hover}
             setHover={setHover}
             rating={rating}

@@ -6,17 +6,18 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import AddIcon from '@material-ui/icons/Add';
 import Badge from "@material-ui/core/Badge";
 import "./Cart.css";
 import { Link } from "react-router-dom";
-import { deleteProductFromCart, fetchCartData, quantityUpdate } from "./api";
+import { deleteProductFromCart, fetchCartData, quantityUpdate, fetchProductById } from "./api";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import green from "@material-ui/core/colors/green";
 
 const theme = createMuiTheme({
   palette: {
-    primary: {main: green[400]}
+    primary: { main: green[400] }
   },
 });
 
@@ -41,6 +42,7 @@ export default function SwipeableTemporaryDrawer({
   userId,
   individualProductId,
 }) {
+
   const classes = useStyles();
 
   const [state, setState] = React.useState({
@@ -49,6 +51,7 @@ export default function SwipeableTemporaryDrawer({
     bottom: false,
     right: false,
   });
+
 
   console.log("PPP", userId);
 
@@ -71,10 +74,10 @@ export default function SwipeableTemporaryDrawer({
   const decreaseQty = async (event, productId, quantity) => {
     event.preventDefault();
     const newQty = quantity - 1;
-    if(newQty < 1){
+    if (newQty < 1) {
       await deleteProductFromCart(userId, productId);
       const newCart = await fetchCartData(userId);
-      
+
       setCart(newCart);
     } else {
       await quantityUpdate(newQty, productId, userId)
@@ -119,12 +122,14 @@ export default function SwipeableTemporaryDrawer({
         <div>
           {cart[0] ? (
             cart.map((product) => {
+              console.log(product)
               return (
                 <div key={product.productsId}>
-                  <h2>Name: {product.productName}</h2>
+                  <h2>{product.productName}</h2>
                   <p>Price: $ {product.productPrice}</p>
+
                   <p>Size: {product.size}</p>
-                  <p style={{ display: "flex" }}>
+                  <p style={{ display: "flex", lineHeight: '30px' }}>
                     Quantity: {product.quantity}
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       <Button
@@ -136,9 +141,9 @@ export default function SwipeableTemporaryDrawer({
                             product.quantity
                           )
                         }
-                        style={{ height: "2px", marginLeft: "5px" }}
+                        style={{ padding: '2px', marginLeft: "10px" }}
                       >
-                        +
+                        <i class="fas fa-plus"></i>
                       </Button>
                       <Button
                         variant="contained"
@@ -151,11 +156,11 @@ export default function SwipeableTemporaryDrawer({
                         }
                         style={{
                           marginTop: "2px",
-                          height: "2px",
-                          marginLeft: "5px",
+                          marginLeft: "10px",
+                          padding: '2px'
                         }}
                       >
-                        -
+                        <i class="fas fa-minus"></i>
                       </Button>
                     </div>
                   </p>
@@ -163,9 +168,9 @@ export default function SwipeableTemporaryDrawer({
                     variant="contained"
                     color="secondary"
                     onClick={(event) => handleRemove(event, product.productsId)}
-                    style={{ marginTop: "10px", padding: "5px" }}
+                    style={{ marginTop: "2px", marginLeft: '5px', padding: "5px", }}
                   >
-                    Remove Item
+                    <i class="fas fa-trash"></i>
                   </Button>
                 </div>
               );
@@ -178,20 +183,15 @@ export default function SwipeableTemporaryDrawer({
       <Link
         to="/checkout"
         style={{
-          position: "absolute",
-          bottom: "0",
-          marginBottom: "50px",
-          marginRight: "20px",
+          padding: '20px',
           textDecoration: "none",
         }}
       >
-        <ThemeProvider theme={theme}>
-          <Button variant="contained" color="primary">
-            Checkout
-          </Button>
-        </ThemeProvider>
+        <span style={{ position: 'absolute', top: '10px', right: '20px', color: 'black', fontSize: '15px' }}>
+          <i class='<i fas fa-money-check-alt faa-horizontal animated fa-4x'></i>
+        </span>
       </Link>
-    </div>
+    </div >
   );
 
   return (

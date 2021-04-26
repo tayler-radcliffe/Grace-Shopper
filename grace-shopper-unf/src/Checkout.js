@@ -156,11 +156,6 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
                   }) : <div>No items In cart</div>}
                 </div>
                 <Button
-                  style={{
-                    position: "absolute",
-                    marginTop: "20px",
-                    marginLeft: "1165px",
-                  }}
                   variant="contained"
                   onClick={() => {
                     handleChange("panel1");
@@ -468,6 +463,6 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
           </AccordionDetails>
         </Accordion>
       </div>
-    </div>
+    </div >
   );
 }

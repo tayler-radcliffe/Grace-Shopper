@@ -1,7 +1,7 @@
 const { createCart, getCartByuserId, addNewProductToCart } = require("./cart");
 const client = require("./client");
 const { createUser, createProducts } = require('./index')
-const {addToRecentPurchases} = require('./purchaseHistory');
+const { addToRecentPurchases } = require('./purchaseHistory');
 const { insertFnLnEmail } = require("./users");
 async function dropTables() {
     try {
@@ -10,6 +10,7 @@ async function dropTables() {
         DROP TABLE IF EXISTS products_reviews;
         DROP TABLE IF EXISTS user_products;
         DROP TABLE IF EXISTS reviews;
+        DROP TABLE IF EXISTS wishList;
         DROP TABLE IF EXISTS cartProducts;
         DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS products;
@@ -46,6 +47,14 @@ async function createTables() {
             description TEXT NOT NULL,
             "productsId" INTEGER REFERENCES products(id)
         );
+        CREATE TABLE wishList(
+            id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
+            "productsId" INTEGER REFERENCES products(id),
+            "size" TEXT,
+            "productName" VARCHAR(255),
+            "productPrice" INTEGER
+        );
         CREATE TABLE cart(
             id SERIAL PRIMARY KEY,
             "userId" INTEGER REFERENCES users(id) UNIQUE
@@ -59,7 +68,7 @@ async function createTables() {
             "productName" VARCHAR(255),
             "productPrice" INTEGER,
             "productDescription" TEXT,
-            "quantity" INTEGER
+            quantity INTEGER
         );
         CREATE TABLE user_products(
             "users_id" INTEGER REFERENCES users(id),
@@ -92,7 +101,7 @@ async function createInitialUsers() {
             { username: 'albert', password: 'bertie99' },
             { username: 'sandra', password: 'sandra123' },
             { username: 'glamgal', password: 'glamgal123' },
-            { username: 'VividAdmin', password: 'Vivid2021'}
+            { username: 'VividAdmin', password: 'Vivid2021' }
         ]
         const users = await Promise.all(usersToCreate.map(createUser));
         console.log('Users created:');

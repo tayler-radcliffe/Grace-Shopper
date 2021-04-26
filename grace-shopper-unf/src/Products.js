@@ -7,6 +7,7 @@ import "./Product.css";
 export default function Products({ products, setProducts, searchTerm, setSearchTerm, rating, setRating, hover, setHover, id }) {
 
     console.log(products);
+    
 
     const productMatches = (product, text) => {
 

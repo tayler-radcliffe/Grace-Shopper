@@ -1,12 +1,11 @@
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
 import './Product.css';
+import { addItemsToCart } from "./api";
 
 
 import { Link } from 'react-router-dom';
 export default function Product({ product, setProducts, productId, setSearchTerm, rating, setRating, hover, setHover, individualProductId, setIndividualProductId }) {
-
-    console.log(product);
 
     return (
         <div title="Products"

@@ -45,5 +45,8 @@ apiRouter.use('/users', usersRouter);
 const cartRouter = require('./cart');
 apiRouter.use('/cart', cartRouter);
 
+const wishListRouter = require('./wishList');
+apiRouter.use('/wishList', wishListRouter);
+
 
 module.exports = apiRouter;

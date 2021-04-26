@@ -54,7 +54,7 @@ export default function ProductInfo({
         timer: 2000,
       });
     } else if (!isLoggedIn) {
-      
+
       swal({
         title: "Logged In?",
         text: "Please Log In Before Adding to Cart",
@@ -205,6 +205,7 @@ export default function ProductInfo({
       <button onClick={sizeChecker} className="addToCartProduct">
         {" "}
         Add to Cart{" "}
+        <i color="white" class="fas fa-cart-plus"></i>
       </button>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
