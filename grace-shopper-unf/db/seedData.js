@@ -1,7 +1,8 @@
 const { createCart, getCartByuserId, addNewProductToCart } = require("./cart");
 const client = require("./client");
 const { createUser, createProducts } = require('./index')
-const {addToRecentPurchases} = require('./purchaseHistory')
+const {addToRecentPurchases} = require('./purchaseHistory');
+const { insertFnLnEmail } = require("./users");
 async function dropTables() {
     try {
         await client.query(`
@@ -90,6 +91,7 @@ async function createInitialUsers() {
             { username: 'albert', password: 'bertie99' },
             { username: 'sandra', password: 'sandra123' },
             { username: 'glamgal', password: 'glamgal123' },
+            { username: 'VividAdmin', password: 'Vivid2021'}
         ]
         const users = await Promise.all(usersToCreate.map(createUser));
         console.log('Users created:');
@@ -272,11 +274,26 @@ async function createInitialCart() {
         console.log('Finished creating carts!');
         const testTwo = await getCartByuserId(1);
         const testThree = await getCartByuserId(2);
-        const test = await addNewProductToCart(2, 1, "1", 1);
+        await addNewProductToCart(1, 1, "12", 1);
+        await addNewProductToCart(2, 1, "10", 1);
+        await addNewProductToCart(3, 1, "11", 1);
+        await addNewProductToCart(2, 2, "9", 1);
+        await addNewProductToCart(3, 2, "8", 1);
+        await addNewProductToCart(3, 3, "6", 1);
     } catch (error) {
         throw error;
     }
 
+}
+
+async function insertUserInfo() {
+    try {
+        await insertFnLnEmail(1, 'Albert', 'Smith', "ALSmith@gmail.com");
+        await insertFnLnEmail(2, 'Sandra', 'Dominguez', "SallyD@yahoo.com");
+        await insertFnLnEmail(3, 'Gertrude', 'Jones', "GerdyJones@aol.com");
+    } catch (error) {
+        throw error;
+    }
 }
 
 
@@ -288,7 +305,10 @@ async function rebuildDB() {
         await createInitialUsers();
         await createInitialProducts();
         await createInitialCart();
-        // await addToRecentPurchases(1);
+        await insertUserInfo();
+        await addToRecentPurchases(1);
+        await addToRecentPurchases(2);
+        await addToRecentPurchases(3);
     } catch (error) {
         console.log('Error during rebuildDB')
         throw error;

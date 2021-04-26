@@ -157,7 +157,6 @@ export async function submitOrder(userId) {
 }
 
 export async function fetchUserData(username) {
-  console.log("Here", username);
   try {
     const response = await fetch(`http://localhost:3000/api/users/${username}/personal`, {
       headers: {
@@ -230,6 +229,34 @@ export async function quantityUpdate(quantity, productsId, userId) {
         productsId,
         userId,
       }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchAllUsers() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/users`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchAllPurchases() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/cart`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     const data = await response.json();
     return data;
