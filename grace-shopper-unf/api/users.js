@@ -126,7 +126,6 @@ usersRouter.patch("/", async (req, res, next) => {
 
 usersRouter.get("/:username/personal", async (req, res, next) => {
   const username = req.params;
-  console.log("Here", username);
 
   try {
     const user = await getUserByUsername(username.username);

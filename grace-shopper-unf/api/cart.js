@@ -1,7 +1,7 @@
 const express = require('express');
 const { getProductById } = require('../db/products')
 const { getCartByuserId, createCart, addNewProductToCart, deleteProductFromCart, changeQuantity } = require('../db/cart');
-const { addToRecentPurchases, getPurchaseHistoryByUserId } = require('../db/purchaseHistory');
+const { addToRecentPurchases, getPurchaseHistoryByUserId, getAllPurchaseHistory } = require('../db/purchaseHistory');
 const cartRouter = express.Router();
 
 
@@ -97,6 +97,17 @@ cartRouter.patch("/quantity", async (req, res, next) => {
       data: updatedQuantity
     })
   } catch (error) {
+    throw error;
+  }
+});
+
+cartRouter.get("/", async (req, res, next) => {
+  try {
+    const purchaseHistory = await getAllPurchaseHistory();
+    res.send(purchaseHistory);
+
+  } catch (error) {
+    res.send()
     throw error;
   }
 });

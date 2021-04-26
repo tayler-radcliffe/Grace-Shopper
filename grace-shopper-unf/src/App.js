@@ -5,6 +5,7 @@ import Header from "./Header";
 import Home from "./Home";
 import Products from "./Products";
 import About from "./About";
+import Admin from "./Admin"
 import ProductInfo from "./ProductInfo";
 import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
@@ -99,7 +100,10 @@ function App() {
           cart={cart}
           setCart={setCart}
           userId={userId}
+          setUserId={setUserId}
           individualProductId={individualProductId}
+          setIsLoggedIn={setIsLoggedIn}
+          userNameKey={userNameKey}
         />
         <Route exact path="/">
           <Home />
@@ -142,6 +146,10 @@ function App() {
             purchaseHistory={purchaseHistory}
             setPurchaseHistory={setPurchaseHistory}
           />
+        </Route>
+
+        <Route exact path="/admin">
+          <Admin products={products} />
         </Route>
 
         <Route exact path="/account">

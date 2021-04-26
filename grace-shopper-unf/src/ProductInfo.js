@@ -54,6 +54,7 @@ export default function ProductInfo({
         timer: 2000,
       });
     } else if (!isLoggedIn) {
+      
       swal({
         title: "Logged In?",
         text: "Please Log In Before Adding to Cart",

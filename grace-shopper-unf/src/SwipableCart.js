@@ -49,7 +49,6 @@ export default function SwipeableTemporaryDrawer({
     bottom: false,
     right: false,
   });
-  const [quantity, setQuantity] = React.useState();
 
   console.log("PPP", userId);
 
