@@ -160,10 +160,31 @@ const deleteCartItemsAfterPurchase = async (userId) => {
   }
 }
 
+
+const changeQuantity = async (quantity, productsId, userId) => {
+
+  try {
+    const { rows: cartProducts } = await client.query(`
+    UPDATE cartProducts
+    SET quantity = $1
+    WHERE "productsId" = $2
+    AND "userId" = $3
+    RETURNING *;
+  `, [quantity, productsId, userId])
+
+    return cartProducts;
+  } catch (error) {
+    throw error
+  }
+
+}
+
+
 module.exports = {
   createCart,
   getCartByuserId,
   addNewProductToCart,
   deleteProductFromCart,
   deleteCartItemsAfterPurchase,
+  changeQuantity
 };

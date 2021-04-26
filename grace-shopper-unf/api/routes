@@ -2,6 +2,11 @@
 Base Url:
 http://localhost:3000/api
 
+
+admin user info:
+username: VividAdmin
+Password: Vivid2021
+
 Table of contents: 
 1.) cart routes
 2.) products routes

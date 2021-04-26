@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function ProfileTextFields({ username }) {
+function ProfileTextFields({ username, purchaseHistory }) {
 
     let [firstName, setFirstName] = useState('');
     let [lastName, setLastName] = useState('');
@@ -30,7 +30,6 @@ function ProfileTextFields({ username }) {
         await fetch(`http://localhost:3000/api/users/${username}/personal`, {
         }).then(response => response.json())
             .then(result => {
-                console.log(result);
                 setUser(result);
             })
             .catch(console.error);
@@ -42,7 +41,6 @@ function ProfileTextFields({ username }) {
         });
     }, [])
 
-    console.log(user)
 
     const userId = user.id;
 
@@ -73,7 +71,6 @@ function ProfileTextFields({ username }) {
             })
         }).then(response => response.json())
             .then(result => {
-                console.log(result);
                 swal({
                     title: 'Success',
                     text: 'Your changes have been saved!',
@@ -148,7 +145,8 @@ function ProfileTextFields({ username }) {
 }
 
 
-function VerticalTabs({ username, setUsername }) {
+function VerticalTabs({ username, setUsername, purchaseHistory }) {
+    console.log(purchaseHistory);
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [user, setUser] = useState('');
@@ -163,7 +161,6 @@ function VerticalTabs({ username, setUsername }) {
         await fetch(`http://localhost:3000/api/users/${username}/personal`, {
         }).then(response => response.json())
             .then(result => {
-                console.log(result);
                 setUser(result);
             })
             .catch(console.error);
@@ -171,11 +168,8 @@ function VerticalTabs({ username, setUsername }) {
 
     useEffect(() => {
         Promise.all([getUser()]).then(([data]) => {
-            console.log('this is the data', data)
         });
     }, [])
-
-    console.log('this is WHAT IM LOOKING FOR', user)
 
     const theme = createMuiTheme({
         typography: {
@@ -238,7 +232,6 @@ function VerticalTabs({ username, setUsername }) {
         }
     }
 
-
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
@@ -277,37 +270,61 @@ function VerticalTabs({ username, setUsername }) {
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <div>
-                        <h3 style={{ width: '150px' }}>My Orders</h3>
+                        <h3 style={{ width: '150px' }}>Recent Purchases</h3>
                         <Divider />
-                        {/* if ORDERS EXISTS THEN MAP OVER AND DISPLAY HERE, IF NOT THEN DISPLAY MESSAGE vvvvv*/}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginTop: '50px',
-                            marginLeft: '50px'
-                        }}>No orders yet!</div>
-                        <button className="homePageButton" style={{
-                            cursor: 'pointer',
-                            display: 'flex',
-                            position: 'relative',
-                            top: '30px',
-                            left: '40px',
-                            fontSize: '15px',
-                            fontWeight: 'normal',
-                            padding: '10px',
-                            borderRadius: '30px',
-                            width: '120px',
-                            justifyContent: 'center',
-                            fontFamily: 'Rubik',
-                            transition: 'all .2s ease-in-out',
-                            textDecoration: 'none'
+                        {purchaseHistory[0] ? purchaseHistory.map(item => {
+                            return (
+                                <div>
+                                    <h2>
+                                        {item.productName}
+                                    </h2>
+                                    <p>
+                                        Price: {item.productPrice}
+                                    </p>
+                                    <p>
+                                        Size: {item.size}
+                                    </p>
+                                    <p>
+                                        Quantity: {item.quantity}
+                                    </p>
+                                    <p>
+                                        Purchase Date: {item.date}
+                                    </p>
+                                </div>
+                            )
+                        }) :
 
-                        }}>
-                            <Link to="/products">
-                                Browse
+                            <div>
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginTop: '50px',
+                                    marginLeft: '50px'
+                                }}>No orders yet!</div>
+                                <button className="homePageButton" style={{
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    position: 'relative',
+                                    top: '30px',
+                                    left: '40px',
+                                    fontSize: '15px',
+                                    fontWeight: 'normal',
+                                    padding: '10px',
+                                    borderRadius: '30px',
+                                    width: '120px',
+                                    justifyContent: 'center',
+                                    fontFamily: 'Rubik',
+                                    transition: 'all .2s ease-in-out',
+                                    textDecoration: 'none'
+
+                                }}>
+                                    <Link to="/products">
+                                        Browse
                     </Link>
-                        </button>
+                                </button>
+                            </div>
+                        }
                     </div>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
@@ -315,8 +332,8 @@ function VerticalTabs({ username, setUsername }) {
                         <h3 style={{ width: '150px' }}>Wishlist</h3>
                         <Divider />
                         {/* wishlist.map() will go here // map over array of wishlist for user */}
-                           {/* if WISHLIST EXISTS THEN MAP OVER AND DISPLAY HERE, IF NOT THEN DISPLAY MESSAGE vvvvv*/}
-                           <div style={{
+                        {/* if WISHLIST EXISTS THEN MAP OVER AND DISPLAY HERE, IF NOT THEN DISPLAY MESSAGE vvvvv*/}
+                        <div style={{
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -411,7 +428,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Account({ username, setUsername }) {
+export default function Account({ username, setUsername, purchaseHistory }) {
 
     const history = useHistory();
 
@@ -420,7 +437,7 @@ export default function Account({ username, setUsername }) {
             <div>
                 <h1 style={{ backgroundColor: '#33383b', padding: '30px', color: 'white', paddingLeft: '500px' }}>My Account</h1>
                 <div>
-                    <VerticalTabs username={username} setUsername={setUsername} />
+                    <VerticalTabs username={username} setUsername={setUsername} purchaseHistory={purchaseHistory} />
                 </div>
             </div>
 

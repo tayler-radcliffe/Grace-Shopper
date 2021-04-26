@@ -1,12 +1,12 @@
 const express = require('express');
 const { getProductById } = require('../db/products')
-const { getCartByuserId, createCart, addNewProductToCart, deleteProductFromCart } = require('../db/cart');
-const { addToRecentPurchases, getPurchaseHistoryByUserId } = require('../db/purchaseHistory');
+const { getCartByuserId, createCart, addNewProductToCart, deleteProductFromCart, changeQuantity } = require('../db/cart');
+const { addToRecentPurchases, getPurchaseHistoryByUserId, getAllPurchaseHistory } = require('../db/purchaseHistory');
 const cartRouter = express.Router();
 
 
-cartRouter.get("/", async (req, res, next) => {
-  const { userId } = req.body
+cartRouter.get("/:userId", async (req, res, next) => {
+  const { userId } = req.params
   try {
     const cart = await getCartByuserId(userId);
     res.send(cart);
@@ -37,10 +37,8 @@ cartRouter.post("/", async (req, res, next) => {
 
 cartRouter.post("/addProduct", async (req, res, next) => {
   const { userId, productId, size, quantity } = req.body;
-  console.log("HHH", req.body);
-  console.log(req.body.userId)
   try {
-    const cart = await addNewProductToCart(req.body.userId, req.body.productId, req.body.size, req.body.quantity);
+    const cart = await addNewProductToCart(userId, productId, size, quantity);
     res.send({
       message: "Item added to cart"
     })
@@ -78,10 +76,34 @@ cartRouter.post("/submit", async (req, res, next) => {
   }
 })
 
-cartRouter.get("/purchaseHistory", async (req, res, next) => {
-  const { userId } = req.body
+cartRouter.get("/purchaseHistory/:userId", async (req, res, next) => {
+  const { userId } = req.params
   try {
     const purchaseHistory = await getPurchaseHistoryByUserId(userId);
+    res.send(purchaseHistory);
+
+  } catch (error) {
+    res.send()
+    throw error;
+  }
+});
+
+cartRouter.patch("/quantity", async (req, res, next) => {
+  const { quantity, productsId, userId } = req.body;
+  try {
+    const updatedQuantity = await changeQuantity(quantity, productsId, userId);
+    res.send({
+      message: "quantity updated",
+      data: updatedQuantity
+    })
+  } catch (error) {
+    throw error;
+  }
+});
+
+cartRouter.get("/", async (req, res, next) => {
+  try {
+    const purchaseHistory = await getAllPurchaseHistory();
     res.send(purchaseHistory);
 
   } catch (error) {
