@@ -302,6 +302,7 @@ export async function addProductToWishList(userId, productId, size, productName,
 }
 
 export async function deleteItemFromUserWishList(userId, productId) {
+  console.log(productId)
   try {
     const response = await fetch(`http://localhost:3000/api/wishList/${productId}`, {
       method: "DELETE",
@@ -314,6 +315,27 @@ export async function deleteItemFromUserWishList(userId, productId) {
     });
     const data = await response.json();
 
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function addToCartFromWishList(userId, productId, size, quantity) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/wishList/addToCart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        productId,
+        size,
+        quantity
+      }),
+    });
+    const data = await response.json();
     return data;
   } catch (error) {
     throw error;
