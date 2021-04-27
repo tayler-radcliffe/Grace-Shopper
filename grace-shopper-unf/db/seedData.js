@@ -37,6 +37,7 @@ async function createTables() {
             name VARCHAR(255) UNIQUE NOT NULL,
             description TEXT NOT NULL,
             "price" INTEGER NOT NULL,
+            "productStock" INTEGER NOT NULL,
             "creatorId" INTEGER REFERENCES users(id),
             "productImage" VARCHAR(255)
         );
@@ -122,6 +123,7 @@ async function createInitialProducts() {
                 description: 'In a constantly evolving world, keeping up is just part of the routine. Stay on top of it in these airy knit mesh adidas shoes. The ZX series has merged technology with culture since the 80s. Today a combination of Boost and EVA cushioning keeps you comfortable as you charge through the day.',
                 creatorId: 1,
                 price: 100,
+                productStock: 100,
                 productImage: 'https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/10dfabb1c1fc4c03ad9bac8500bb283d_9366/ZX_1K_Boost_Shoes_Blue_H68719_01_standard.jpg',
                 reviews: [{
                     title: 'Best Shoes',
@@ -142,6 +144,7 @@ async function createInitialProducts() {
                 description: 'Casual doesnt have to mean ordinary. Keep your look chill, but change it up with the standout style of these adidas Multix Shoes. A sporty mesh upper keeps your feet comfy as you take on whatever the day holds.',
                 creatorId: 2,
                 price: 80,
+                productStock: 20,
                 productImage: 'https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/27e49d80825e4db69da7ac4400b99f7f_9366/Multix_Shoes_Beige_FX5354_01_standard.jpg',
                 reviews: [{
                     title: 'Average Shoes',
@@ -155,6 +158,7 @@ async function createInitialProducts() {
                 description: 'The Nike Quest 3 delivers functional versatility for the committed runner. Its streamlined design features layers of material to help you stay cool and secure. Increased foam heights give you more responsiveness for comfort on every mile.',
                 creatorId: 3,
                 price: 46,
+                productStock: 4,
                 productImage: 'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/732d00fe-c441-4eca-881f-936368da4df0/quest-3-mens-running-shoe-FHR8DM.png',
                 reviews: []
             },
@@ -163,6 +167,7 @@ async function createInitialProducts() {
                 description: 'The Nike Revolution 5 cushions your stride with soft foam to keep you running in comfort. Lightweight knit material wraps your foot in breathable support, while a minimalist design fits in just about anywhere your day takes you.',
                 creatorId: 1,
                 price: 65,
+                productStock: 100,
                 productImage: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/706c9f18-41f7-4698-96cb-d278601cf7fb/revolution-5-mens-running-shoe-TzTL9k.png',
                 reviews: [{
                     title: 'Best Shoes on the Planet',
@@ -183,6 +188,7 @@ async function createInitialProducts() {
                 description: 'To be a true creator, sometimes you have to break the rules. Lace up in these adidas Superstar Shoes and do just that. An icon on the hardwood, the arena stage and the streets, this pair encourages you to color outside the lines with an artistic sketch design that reimagines the beloved Trefoil. The clean leather upper and recognizable rubber shell toe pay tribute to the original design from the 70s',
                 creatorId: 1,
                 price: 90,
+                productStock: 100,
                 productImage: 'https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/81ce346008c0482e8d68ac7c010608f5_9366/Superstar_Shoes_White_FX5540_01_standard.jpg',
                 reviews: [{
                     title: 'Don&#x27;t Buy!',
@@ -203,6 +209,7 @@ async function createInitialProducts() {
                 description: 'Heritage adidas vibes come through strong in these running-inspired sneakers. Bringing together the best of classic track design and the clean lines of modern streetwear, they have a timeless feel thats easy to pair with your day-to-day look. A Cloudfoam midsole provides super-soft steps as you move through it all.',
                 creatorId: 1,
                 price: 50,
+                productStock: 10,
                 productImage: 'https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/c709afcf71004d32b3f6ac0200fc28fa_9366/Run_60s_2.0_Shoes_White_FZ0959_01_standard.jpg',
                 reviews: [{
                     title: 'Mom Shoes',
@@ -225,7 +232,8 @@ async function createInitialProducts() {
             creatorId: product.creatorId,
             price: product.price,
             reviews: product.reviews,
-            productImage: product.productImage
+            productImage: product.productImage,
+            productStock: product.productStock
         })));
         console.log('Products created:');
         console.log(products);

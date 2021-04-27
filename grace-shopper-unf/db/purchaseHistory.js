@@ -84,6 +84,11 @@ async function addToRecentPurchases(userId, email, total, firstName, lastName, a
       addingToPurchaseHistoryTable(userId, product.productName, product.productPrice, product.size, product.quantity, orderNumber)
     )
   );
+  const updatedStock = await Promise.all(
+    currentCart.map((product) =>
+      updateProductStock(product.productsId, product.quantity)
+    )
+  );
 
   await deleteCartItemsAfterPurchase(userId);
 
@@ -123,6 +128,40 @@ const getAllPurchaseHistory = async () => {
     throw error
   }
 
+}
+
+const updateProductStock = async (productId, quantity) => {
+  console.log("vvv", productId, quantity)
+    
+  try {
+    const {rows: productStock} = await client.query(`
+      SELECT "productStock"
+      FROM products
+      WHERE id = $1
+    `, [productId]);
+
+    const newStock = productStock[0].productStock - quantity;
+    
+    await updateStockHelper(productId, newStock);
+    
+
+    
+  } catch (error) {
+    throw error
+  }
+}
+
+const updateStockHelper = async (productId, newStock) => {
+  try {
+    const {rows: products} = await client.query(`
+    UPDATE products
+    SET "productStock" = $2
+    WHERE "id" = $1
+    RETURNING *;
+    `, [productId, newStock])
+  } catch (error) {
+    throw error
+  }
 }
 
 module.exports = {

@@ -201,7 +201,7 @@ export default function ProductInfo({
         </button>
 
       </div>
-
+          {product.productStock >= 1 ? <div>
       <button onClick={sizeChecker} className="addToCartProduct">
         {" "}
         Add to Cart{" "}
@@ -212,6 +212,16 @@ export default function ProductInfo({
           Added to Cart!
         </Alert>
       </Snackbar>
+      </div> 
+      : 
+      <div>
+        <button className="addToCartProduct">
+        {" "}
+        Out Of Stock{" "}
+        <i color="white" class="fas fa-cart-plus"></i>
+      </button>
+      </div>
+      }
       <div className="productDescription">
         {product.description}{" "}
       </div>
