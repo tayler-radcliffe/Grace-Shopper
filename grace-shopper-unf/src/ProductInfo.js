@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Snackbar from '@material-ui/core/Snackbar';
-import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import MuiAlert from '@material-ui/lab/Alert';
 import swal from "sweetalert";
-import { fetchProductById, addItemsToCart, fetchCartData, fetchAverageReviews } from "./api/index";
+import { fetchProductById, addItemsToCart, fetchCartData, fetchAverageReviews, addProductToWishList } from "./api/index";
 import Rating from '@material-ui/lab/Rating';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { fetchWishListByUserId } from './api/index';
 import { makeStyles } from '@material-ui/core/styles';
+
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -32,11 +31,12 @@ export default function ProductInfo({
   rating,
   setCart,
   setIndividualProductId,
-  isLoggedIn
+  isLoggedIn,
+  wishList,
+  setWishList
 }) {
   const [productSize, setProductSize] = useState("");
   const [product, setProduct] = useState({});
-  const [open, setOpen] = React.useState(false);
   const { productId } = useParams();
   const [stars, setStars] = useState(0);
 
@@ -75,17 +75,15 @@ export default function ProductInfo({
     await addItemsToCart(userId, product.id, productSize, 1);
     const newCartData = await fetchCartData(userId);
     setCart(newCartData);
-    setOpen(true);
     setIndividualProductId(product.id);
+    swal({
+      title: "Cart",
+      text: "Added to Cart!",
+      icon: "success",
+      button: false,
+      timer: 2000,
+    });
   }
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   useEffect(() => {
     try {
@@ -107,97 +105,98 @@ export default function ProductInfo({
   }
   console.log(stars);
 
-  return (
-    <div
-      title="Products"
-      dark={false}
-      id="section2"
-      key={productId}
-      className="wrapper"
-    >
-      <body>
-        <div
-          style={{
-            margin: "40px",
-            marginLeft: "175px",
-            width: "1000px",
-            height: "800px",
-            float: "left",
-          }}
+  async function addToWishlist(e) {
+    e.preventDefault();
+    console.log(userId, product.id, product.name, product.price);
+    await addProductToWishList(userId, product.id, 0, product.name, product.price)
+    const fetchedList = await fetchWishListByUserId(userId);
+    console.log(fetchedList);
+    setWishList(fetchedList);
+    swal({
+      title: "Wish List",
+      text: "Product Added to Wishlist!",
+      icon: "success",
+      button: false,
+      timer: 2000,
+    });
+  }
 
-        >
-          <div>
-            <img
-              style={{
-                width: "700px",
-                height: "700px",
-                marginBottom: "20px",
-                marginLeft: '130px'
-              }}
-              src={product.productImage}
-              alt="products"
-            />
-          </div>
-          <div>
-            <div class="rating-section">
-              <div class="stars-rating">
-                <Rating name="half-rating-read" defaultValue={stars} precision={0.5} readOnly />
-                <div style={{ fontSize: "20px" }}>{stars} out of 5 stars</div>
-              </div>
-              <div
-                stlye={{
-                  marginTop: "10px",
-                }}
-                class="d-price"
-              >
-                <span>${product.price}.00</span>
+  return (
+    <div className="overflow">
+      <div
+        title="Products"
+        dark={false}
+        id="section2"
+        key={productId}
+        className="wrapper"
+      >
+        <body>
+          <div
+            className="productInfoWrapper"
+          >
+            <div>
+              <img
+                className="productInfoImg"
+                src={product.productImage}
+                alt="products"
+              />
+            </div>
+            <div>
+              <div class="rating-section">
+                <div class="stars-rating">
+                  <Rating name="half-rating-read" defaultValue={stars} precision={0.5} readOnly />
+                  <div style={{ fontSize: "20px" }}>{stars} out of 5 stars</div>
+                </div>
+                <div
+                  stlye={{
+                    marginTop: "10px",
+                  }}
+                  class="d-price"
+                >
+                  <span style={{ fontSize: '30px' }} className="productInfoPrice">${product.price}.00  <i onClick={addToWishlist} class="fas fa-heart"></i></span>
+                </div>
               </div>
             </div>
           </div>
+        </body>
+        <div className="productTitleDescrip">
+          <p
+          >
+            {product.name}
+          </p>
+          <span
+            style={{
+              fontSize: "30px",
+              fontWeight: "500",
+            }}
+          >
+          </span>
         </div>
-      </body>
-      <div className="productTitleDescrip">
-        <p
-          style={{
-            fontSize: "40px",
-            fontWeight: "600",
-          }}
-        >
-          {product.name}
-        </p>
-        <span
-          style={{
-            fontSize: "30px",
-            fontWeight: "500",
-          }}
-        >
-        </span>
-      </div>
-      <div className="sizeGuide"> Select Size: {productSize}</div>
-      <div className="sizeBoard">
-        <button onClick={(e) => setProductSize("5")} className="sizeBox">
-          5
+        <div className="sizeGuide" > Select Size: {productSize}</div>
+        <div className="sizeBoard">
+          <button onClick={(e) => setProductSize("5")} className="sizeBox">
+            5
         </button>
-        <button onClick={(e) => setProductSize("6")} className="sizeBox">
-          6
+          <button onClick={(e) => setProductSize("6")} className="sizeBox">
+            6
         </button>
-        <button onClick={(e) => setProductSize("7")} className="sizeBox">
-          7
+          <button onClick={(e) => setProductSize("7")} className="sizeBox">
+            7
         </button>
-        <button onClick={(e) => setProductSize("8")} className="sizeBox">
-          8
+          <button onClick={(e) => setProductSize("8")} className="sizeBox">
+            8
         </button>
-        <button onClick={(e) => setProductSize("9")} className="sizeBox">
-          9
+          <button onClick={(e) => setProductSize("9")} className="sizeBox">
+            9
         </button>
-        <button onClick={(e) => setProductSize("10")} className="sizeBox">
-          10
+          <button onClick={(e) => setProductSize("10")} className="sizeBox">
+            10
         </button>
-        <button onClick={(e) => setProductSize("11")} className="sizeBox">
-          11
+          <button onClick={(e) => setProductSize("11")} className="sizeBox">
+            11
         </button>
-        <button onClick={(e) => setProductSize("12")} className="sizeBox">
-          12
+          <button onClick={(e) => setProductSize("12")} className="sizeBox">
+            12
         </button>
 
       </div>

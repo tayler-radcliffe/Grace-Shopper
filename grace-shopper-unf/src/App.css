@@ -1,5 +1,4 @@
 
-
 .App-link {
   color: white;
 }
@@ -12,6 +11,10 @@ input[type="radio"] {
 .star {
   cursor: pointer;
   transition: color 200ms;
+}
+
+.aboutWrapper {
+  border-bottom: 40px solid black;
 }
 
 .featuredProductsText {
@@ -27,6 +30,9 @@ input[type="radio"] {
   border-image-slice: 5;
 }
 
+.header {
+  overflow: hidden;
+}
 
 .box{
   width: 1200px;
@@ -368,11 +374,117 @@ dd {
   
   .wrapper {
     display: grid;
-    grid-gap: 10px;
+    grid-gap: 0px;
     background-color: #fff;
-    color: #444;
+    color: black;; 
+}
 
-}   
+.overflow { 
+  overflow-x: hidden;
+}
+
+
+.productInfoWrapper {
+  margin: 40px;
+  margin-left: 175px;
+  width: 800px;
+  height: 800px;
+  float: left;
+}
+
+@media (max-width: 880px) {
+  .productInfoWrapper {
+    position: relative;
+    left: -150px;
+    width: 300px;
+    height: 800px;
+ }
+ }
+
+ @media (max-width: 440px) {
+  .productInfoWrapper {
+    position: relative;
+    left: -175px;
+    width: 200px;
+    height: 600px;
+ }
+ }
+
+
+ @media (max-width: 880px) {
+  .productInfoPrice {
+    position: absolute;
+    font-size: 10px;
+    top: 450px;
+    left:  250px;
+    width: 200px;
+    height: 600px;
+ }
+ }
+
+ .sizeGuide {
+  position: absolute;
+  left: 1385px;
+  top: 175px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 15px;
+  width: 200px;
+}
+
+@media (max-width: 880px) {
+  .sizeGuide {
+    position: absolute;
+    top: 620px;
+    left: 50px;
+ }
+ }
+
+
+ @media (max-width: 440px) {
+  .sizeGuide {
+    position: absolute;
+    top: 460px;
+    left: 30px;
+ }
+ }
+
+ @media (max-width: 440px) {
+  .productInfoPrice {
+    position: absolute;
+    top: 300px;
+    font-size: 2px;
+    left:  200px;
+    width: 300px;
+    height: 600px;
+ }
+ }
+
+.productInfoImg {
+  width: 700px;
+  height: 700px;
+  margin-bottom: 20px;
+  margin-left: 130px;
+}
+
+@media (max-width: 880px) {
+  .productInfoImg {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    left: -100px;
+ }
+ }
+
+ 
+@media (max-width: 440px) {
+  .productInfoImg {
+    width: 250px;
+    height: 250px;
+    position: relative;
+    left: -50px;
+ }
+ }
+
 
 
   .rating-with-color {
@@ -418,17 +530,6 @@ dd {
     -moz-border-radius:100px / 10px;
     border-radius:100px / 10px;
 }
-.card__container:after
-{
-  right:10px;
-    left:auto;
-    -webkit-transform:skew(8deg) rotate(3deg);
-       -moz-transform:skew(8deg) rotate(3deg);
-        -ms-transform:skew(8deg) rotate(3deg);
-         -o-transform:skew(8deg) rotate(3deg);
-            transform:skew(8deg) rotate(3deg);
-}
-  
   /* FOOTER CSS STARTS */
 
 
@@ -814,6 +915,28 @@ dd {
   grid-gap: 10px;
 }
 
+@media (max-width: 880px) {
+  .sizeBoard {
+    top: 650px;
+    left:  40px;
+    width: 200px;
+    height: 600px;
+ }
+ }
+
+
+ @media (max-width: 440px) {
+  .sizeBoard {
+    position: absolute;
+    font-size: 20px;
+    top: 500px;
+    left:  30px;
+    width: 300px;
+    height: 600px;
+ }
+ }
+
+
 .sizeBox:hover {
   border: 2px solid black;
   color: black;
@@ -831,14 +954,6 @@ font-size: 17px;
 }
 
 
-.sizeGuide {
-  position: absolute;
-  left: 1385px;
-  top: 175px;
-  font-family: 'Rubik', sans-serif;
-  font-size: 15px;
-}
-
 .addToCartProduct {
   position: absolute;
   left: 1335px;
@@ -851,6 +966,27 @@ font-size: 17px;
   color: white;
 }
 
+@media (max-width: 880px) {
+  .addToCartProduct {
+    top: 925px;
+    left:  150px;
+    width: 200px;
+    height: 50px;
+ }
+ }
+
+
+ @media (max-width: 440px) {
+  .addToCartProduct {
+    position: absolute;
+    font-size: 20px;
+    top: 750px;
+    left:  75px;
+    width: 200px;
+    height: 50px;
+ }
+ }
+
 .productDescription {
   position: absolute;
   left: 1250px;
@@ -858,11 +994,60 @@ font-size: 17px;
   width: 425px;
 }
 
+@media (max-width: 880px) {
+  .productDescription {
+    top: 650px;
+    font-size: 17px;
+    left:  190px;
+    width: 200px;
+    height: 50px;
+ }
+ }
+
+
+ @media (max-width: 440px) {
+  .productDescription {
+    position: absolute;
+    font-size: 15px;
+    top: 500px;
+    left:  165px;
+    width: 200px;
+    height: 50px;
+ }
+ }
+
+
 .productTitleDescrip {
   position: absolute;
   left: 1300px;
   top: 110px;
+  font-size: 40px;
+  font-weight: 600;
+  width: 400px;
 }
+
+@media (max-width: 880px) {
+  .productTitleDescrip {
+    position: absolute;
+    left:  75px;
+    top: 450px;
+    font-size: 30px;
+    width: 225px;
+    height: 600px;
+ }
+ }
+
+
+ @media (max-width: 440px) {
+  .productTitleDescrip {
+    position: absolute;
+    font-size: 20px;
+    top: 325px;
+    left:  90px;
+    width: 150px;
+    height: 600px;
+ }
+ }
 
 @-webkit-keyframes horizontal {
   0% {

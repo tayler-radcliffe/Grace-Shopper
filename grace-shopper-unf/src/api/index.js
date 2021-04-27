@@ -326,6 +326,7 @@ export async function addProductToWishList(userId, productId, size, productName,
 }
 
 export async function deleteItemFromUserWishList(userId, productId) {
+  console.log(productId)
   try {
     const response = await fetch(`http://localhost:3000/api/wishList/${productId}`, {
       method: "DELETE",

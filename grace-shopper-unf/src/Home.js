@@ -1,5 +1,5 @@
 import React from 'react';
-import homepageimage from "./Images/HOMEPAGEIMGFINAL.png";
+import shoeImage from "./Images/shoeProject.png";
 import NearMeIcon from '@material-ui/icons/NearMe';
 import { Link } from 'react-router-dom';
 
@@ -38,11 +38,12 @@ export default function Home() {
                     </button>
                 </Link>
             </div>
-            <img className="homePageImage" src={homepageimage} alt="homeimage" style={{
+            <img className="homePageImage" src={shoeImage} alt="shoe" style={{
                 height: '950px',
                 position: 'relative',
-                left: '400px',
-                top: '-60px'
+                left: '440px',
+                top: '-200px',
+                transform: 'rotate(60deg)'
             }}></img>
             <div className="white_space">
 

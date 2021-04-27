@@ -119,13 +119,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   title: {
     flex: '1 1 100%',
   },
@@ -146,7 +146,7 @@ const EnhancedTableToolbar = ({numSelected, handleDeleteProduct, selected}) => {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+        <Typography className={classes.title} variant="h5" id="tableTitle" component="div">
           Products
         </Typography>
       )}
@@ -196,7 +196,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function AdminProducts({products, setProducts}) {
+  
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -269,7 +271,7 @@ export default function AdminProducts({products, setProducts}) {
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
-    <div className={classes.root}>
+    <div style={{ padding: '50px', backgroundImage: 'url(https://images.pexels.com/photos/6363791/pexels-photo-6363791.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)' }} className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} handleDeleteProduct={handleDeleteProduct} selected={selected} />
         <TableContainer>

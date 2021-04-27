@@ -4,6 +4,8 @@ const wishListRouter = express.Router();
 
 wishListRouter.post("/addProduct", async (req, res, next) => {
   const { userId, productId, size, productName, productPrice } = req.body;
+
+  console.log(userId, productId, size, productName, productPrice);
   try {
     const wishList = await addNewProductToWishList(
       userId,
@@ -21,7 +23,7 @@ wishListRouter.post("/addProduct", async (req, res, next) => {
 });
 
 wishListRouter.get("/:userId", async (req, res, next) => {
-    const { userId } = req.params
+  const { userId } = req.params
   try {
     const wishList = await getWishListByUserId(userId);
     res.send(wishList);
@@ -32,30 +34,30 @@ wishListRouter.get("/:userId", async (req, res, next) => {
 });
 
 wishListRouter.delete('/:productId', async (req, res, next) => {
-    const { productId } = req.params;
-    const { userId } = req.body;
-  
-    try {
-      const deletedWishListProduct = await deleteItemFromWishList(userId, productId);
-      res.send({
-          message: 'Item has been deleted'
-      });
-  
-    } catch (error) {
-      throw error
-    }
-  })
+  const { productId } = req.params;
+  const { userId } = req.body;
 
-  wishListRouter.post("/addToCart", async (req, res, next) => {
-    const { userId, productId, size, quantity } = req.body;
-    try {
-      const wishListItemToDeleteAndAddToCart = await deleteFromWishListAndAddToCart(userId, productId, size, quantity);
-      res.send({
-        message: "Item added to cart",
-      });
-    } catch (error) {
-      throw error;
-    }
-  });
+  try {
+    const deletedWishListProduct = await deleteItemFromWishList(userId, productId);
+    res.send({
+      message: 'Item has been deleted'
+    });
+
+  } catch (error) {
+    throw error
+  }
+})
+
+wishListRouter.post("/addToCart", async (req, res, next) => {
+  const { userId, productId, size, quantity } = req.body;
+  try {
+    const wishListItemToDeleteAndAddToCart = await deleteFromWishListAndAddToCart(userId, productId, size, quantity);
+    res.send({
+      message: "Item added to cart",
+    });
+  } catch (error) {
+    throw error;
+  }
+});
 
 module.exports = wishListRouter;

@@ -14,10 +14,11 @@ import Divider from '@material-ui/core/Divider';
 import { red, blue, pink } from '@material-ui/core/colors';
 import './Account.css';
 import { Link } from 'react-router-dom';
+import { deleteItemFromUserWishList, fetchWishListByUserId } from './api';
 
 
 
-function ProfileTextFields({ username, purchaseHistory }) {
+function ProfileTextFields({ username, purchaseHistory, wishList }) {
 
     let [firstName, setFirstName] = useState('');
     let [lastName, setLastName] = useState('');
@@ -232,6 +233,23 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
         }
     }
 
+    const fetchWishList = async () => {
+        const wishLists = await fetchWishListByUserId(user.id);
+        setCompletedWishList(wishLists);
+    }
+
+    const deleteWishListItem = async (event, productId) => {
+        event.preventDefault();
+        console.log(completedWishList);
+        console.log(productId);
+        await deleteItemFromUserWishList(user.id, productId);
+        const newList = await fetchWishListByUserId(user.id);
+        setCompletedWishList(newList);
+
+    }
+
+    const [completedWishList, setCompletedWishList] = useState([]);
+
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
@@ -245,7 +263,7 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                 >
                     <Tab label="My Profile" {...a11yProps(0)} />
                     <Tab label="My Orders" {...a11yProps(1)} />
-                    <Tab label="Wishlist" {...a11yProps(2)} />
+                    <Tab onClick={fetchWishList} label="Wishlist" {...a11yProps(2)} />
                 </Tabs>
                 <TabPanel value={value} index={0} >
                     <div>
@@ -255,14 +273,14 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                     <Divider />
                         </div>
                         <ProfileTextFields username={username} />
-                        <Button color='primary'
+                        <Button color='secondary'
                             variant='contained'
                             style={{
                                 display: 'flex',
                                 height: '40px',
                                 width: '170px',
                                 marginTop: '130px',
-                                marginLeft: '10px',
+                                marginLeft: '8px',
                                 position: 'absolute'
                             }}
                             onClick={handleClick}>Delete Account</Button>
@@ -335,36 +353,58 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                     <div>
                         <h3 style={{ width: '150px' }}>Wishlist</h3>
                         <Divider />
-                        {/* wishlist.map() will go here // map over array of wishlist for user */}
-                        {/* if WISHLIST EXISTS THEN MAP OVER AND DISPLAY HERE, IF NOT THEN DISPLAY MESSAGE vvvvv*/}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginTop: '50px',
-                            marginLeft: '50px'
-                        }}>No items in your wishlist!</div>
-                        <button className="homePageButton" style={{
-                            cursor: 'pointer',
-                            display: 'flex',
-                            position: 'relative',
-                            top: '30px',
-                            left: '80px',
-                            fontSize: '15px',
-                            fontWeight: 'normal',
-                            padding: '10px',
-                            borderRadius: '30px',
-                            width: '120px',
-                            justifyContent: 'center',
-                            fontFamily: 'Rubik',
-                            transition: 'all .2s ease-in-out',
-                            textDecoration: 'none'
+                        {completedWishList[0] ? completedWishList.map(list => {
+                            return (
+                                <div style={{ marginTop: '20px' }}>
+                                    <h2>
+                                        {list.productName}
+                                    </h2>
+                                    <p>
+                                        Price: ${list.productPrice}
+                                    </p>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        onClick={(event) => deleteWishListItem(event, list.productsId)}
+                                        style={{ marginTop: "2px", padding: "5px", }}
+                                    >
+                                        <i class="fas fa-trash"></i>
+                                    </Button>
+                                </div>
+                            )
+                        }) :
 
-                        }}>
-                            <Link to="/products">
-                                Browse
+                            <div>
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginTop: '50px',
+                                    marginLeft: '50px'
+                                }}>No items in your wishlist!</div>
+                                <button className="homePageButton" style={{
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    position: 'relative',
+                                    top: '30px',
+                                    left: '80px',
+                                    fontSize: '15px',
+                                    fontWeight: 'normal',
+                                    padding: '10px',
+                                    borderRadius: '30px',
+                                    width: '120px',
+                                    justifyContent: 'center',
+                                    fontFamily: 'Rubik',
+                                    transition: 'all .2s ease-in-out',
+                                    textDecoration: 'none'
+
+                                }}>
+                                    <Link to="/products">
+                                        Browse
                     </Link>
-                        </button>
+                                </button>
+                            </div>
+                        }
                     </div>
                 </TabPanel>
             </div>
