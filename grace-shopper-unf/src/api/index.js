@@ -154,7 +154,7 @@ export async function createInitialEmptyCart(userId) {
   }
 }
 
-export async function submitOrder(userId, email) {
+export async function submitOrder(userId, email, total, firstName, lastName, address, city, usState, zipCode) {
   try {
     const response = await fetch(`http://localhost:3000/api/cart/submit`, {
       method: "POST",
@@ -163,7 +163,14 @@ export async function submitOrder(userId, email) {
       },
       body: JSON.stringify({
         userId,
-        email
+        email, 
+        total, 
+        firstName, 
+        lastName, 
+        address, 
+        city, 
+        usState, 
+        zipCode
       }),
     });
     const data = await response.json();

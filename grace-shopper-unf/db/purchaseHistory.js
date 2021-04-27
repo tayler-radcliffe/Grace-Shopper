@@ -5,7 +5,7 @@ const smtpTransport = require('nodemailer-smtp-transport');
 const simpleParser = require('mailparser').simpleParser;
 const MailParser = require('mailparser').MailParser;
 
-const mailFunction = async (currentCart, email, orderNumber) => {
+const mailFunction = async (currentCart, email, orderNumber, total, firstName, lastName, address, city, usState, zipCode) => {
   
 var transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
@@ -15,6 +15,10 @@ var transporter = nodemailer.createTransport(smtpTransport({
     pass: 'Teamvivid#2021'
   }
 }));
+
+const orderTotal = `<p>Order Total $${total}</p> </br>`;
+const recipient = `<p> Shipping to: ${firstName} ${lastName}</p> </br>`
+const shippingAddress = `<p>${address} ${city}, ${usState} ${zipCode}</p> </br>`
 
 let newparser = new MailParser(currentCart);
 const parsedCart = newparser.options;
@@ -31,7 +35,7 @@ var mailOptions = {
   to: `${email}`,
   subject: `Order Confirmation #${orderNumber} `,
   text: "Order conf",
-  html: emailHtml
+  html: `${orderTotal} ${recipient} ${shippingAddress} ${emailHtml}`
 };
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -47,10 +51,10 @@ transporter.sendMail(mailOptions, function(error, info){
 
 
 
-async function addToRecentPurchases(userId, email) {
+async function addToRecentPurchases(userId, email, total, firstName, lastName, address, city, usState, zipCode) {
   const currentCart = await getCartByuserId(userId);
   const orderNumber = Math.floor(Math.random() * 10000000);
-  await mailFunction(currentCart, email, orderNumber);
+  await mailFunction(currentCart, email, orderNumber, total, firstName, lastName, address, city, usState, zipCode);
 
   const addingToPurchaseHistoryTable = async (
     userId,
