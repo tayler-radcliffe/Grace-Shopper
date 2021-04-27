@@ -199,16 +199,30 @@ export default function ProductInfo({
             12
         </button>
 
-        </div>
-
-        <button onClick={sizeChecker} className="addToCartProduct">
-          {" "}
+      </div>
+          {product.productStock >= 1 ? <div>
+      <button onClick={sizeChecker} className="addToCartProduct">
+        {" "}
         Add to Cart{" "}
-          <i color="white" class="fas fa-cart-plus"></i>
-        </button>
-        <div className="productDescription">
-          {product.description}{" "}
-        </div>
+        <i color="white" class="fas fa-cart-plus"></i>
+      </button>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Added to Cart!
+        </Alert>
+      </Snackbar>
+      </div> 
+      : 
+      <div>
+        <button className="addToCartProduct">
+        {" "}
+        Out Of Stock{" "}
+        <i color="white" class="fas fa-cart-plus"></i>
+      </button>
+      </div>
+      }
+      <div className="productDescription">
+        {product.description}{" "}
       </div>
     </div>
   );

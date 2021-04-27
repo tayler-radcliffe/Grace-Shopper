@@ -20,6 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import { deleteUser, fetchAllUsers } from './api';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -52,10 +53,11 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Username' },
-  { id: 'calories', numeric: true, disablePadding: false, label: 'First Name' },
-  { id: 'fat', numeric: true, disablePadding: false, label: 'Last Name' },
-  { id: 'carbs', numeric: true, disablePadding: false, label: 'Email' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'User Id' },
+  { id: 'calories', numeric: true, disablePadding: false, label: 'Username' },
+  { id: 'fat', numeric: true, disablePadding: false, label: 'First Name' },
+  { id: 'carbs', numeric: true, disablePadding: false, label: 'Last Name' },
+  { id: 'userId', numeric: true, disablePadding: false, label: 'Email' },
 ];
 
 function EnhancedTableHead(props) {
@@ -131,9 +133,8 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTableToolbar = (props) => {
+const EnhancedTableToolbar = ({numSelected, handleDeleteUser, selected}) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
 
   return (
     <Toolbar
@@ -153,7 +154,7 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={(event) => handleDeleteUser(selected[0])}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -196,7 +197,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AdminUsers({ adminUsers }) {
+export default function AdminUsers({adminUsers, setAdminUsers}) {
+  
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -205,7 +207,15 @@ export default function AdminUsers({ adminUsers }) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const rows = adminUsers.map(user => createData(user.username, user.firstName, user.lastName, user.email))
+  const handleDeleteUser = async (userId) => {
+    console.log(userId);
+    await deleteUser(userId);
+    const returnedUsers = await fetchAllUsers();
+    setAdminUsers(returnedUsers);
+    setSelected([]);
+  }
+
+    const rows = adminUsers.map(user => createData(user.id, user.username.toLowerCase(), user.firstName, user.lastName, user.email))
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -242,6 +252,8 @@ export default function AdminUsers({ adminUsers }) {
     setSelected(newSelected);
   };
 
+  console.log(selected)
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -259,12 +271,11 @@ export default function AdminUsers({ adminUsers }) {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  console.log(adminUsers);
 
   return (
     <div style={{ padding: '50px', backgroundImage: 'url(https://images.pexels.com/photos/6363791/pexels-photo-6363791.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)' }} className={classes.root} >
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} handleDeleteUser={handleDeleteUser} selected={selected}  />
         <TableContainer>
           <Table
             className={classes.table}

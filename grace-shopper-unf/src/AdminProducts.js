@@ -20,6 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import { deleteProduct, fetchProducts } from './api';
 
 function createData(name, price, description) {
   return { name, price, description };
@@ -52,9 +53,9 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'price', numeric: true, disablePadding: false, label: 'Price' },
-  { id: 'description', numeric: true, disablePadding: false, label: 'Description' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'Product Id' },
+  { id: 'price', numeric: true, disablePadding: false, label: 'Product Name' },
+  { id: 'description', numeric: true, disablePadding: false, label: 'Product Price' },
 ];
 
 function EnhancedTableHead(props) {
@@ -130,9 +131,9 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTableToolbar = (props) => {
+const EnhancedTableToolbar = ({numSelected, handleDeleteProduct, selected}) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  
 
   return (
     <Toolbar
@@ -152,7 +153,7 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={(event) => handleDeleteProduct(selected)}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -195,7 +196,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AdminProducts({ products }) {
+
+export default function AdminProducts({products, setProducts}) {
+  
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -205,7 +208,7 @@ export default function AdminProducts({ products }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
 
-  const rows = products.map(product => createData(product.name, product.price, product.description),)
+  const rows = products.map(product => createData(product.id, product.name, product.price),)
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -221,6 +224,14 @@ export default function AdminProducts({ products }) {
     }
     setSelected([]);
   };
+
+  const handleDeleteProduct = async (productId) => {
+    console.log(productId);
+    await deleteProduct(productId);
+    const returnedProducts = await fetchProducts();
+    setProducts(returnedProducts);
+    setSelected([]);
+  }
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -262,7 +273,7 @@ export default function AdminProducts({ products }) {
   return (
     <div style={{ padding: '50px', backgroundImage: 'url(https://images.pexels.com/photos/6363791/pexels-photo-6363791.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)' }} className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} handleDeleteProduct={handleDeleteProduct} selected={selected} />
         <TableContainer>
           <Table
             className={classes.table}

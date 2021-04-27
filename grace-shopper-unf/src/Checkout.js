@@ -54,6 +54,22 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
   const [cardEx, setCardEx] = useState("");
   const [cardCvv, setCardCvv] = useState("");
 
+  const cartItemsPricesArray = cart.map(i => i.productPrice);
+  const cartTotal = cartItemsPricesArray.reduce((a, b) => a + b, 0);
+
+  console.log(state.shipping);
+  const setShippingCost = () => {
+    if(state.shipping === "Ground Shipping"){
+      return 0;
+    } else if (state.shipping === "Two-Day Express"){
+      return 15.95
+    } else if(state.shipping === "Overnight"){
+      return 28.99
+    }
+  }
+
+  const total = cartTotal + setShippingCost();
+
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -87,6 +103,7 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
       firstName &&
       lastName &&
       address &&
+      email &&
       city &&
       usState &&
       zipCode &&
@@ -95,7 +112,7 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
       cardCvv &&
       state.shipping
     ) {
-      await submitOrder(userId);
+      await submitOrder(userId, email, total, firstName, lastName, address, city, usState, zipCode);
       const purchases = await fetchPurchaseHistory(userId);
       setPurchaseHistory(purchases);
       console.log(purchases);
@@ -298,7 +315,7 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
                     <option value="Two-Day Express">
                       Two-Day Express ($15.95)
                     </option>
-                    <option value="Overnight ">Overnight ($28.99)</option>
+                    <option value="Overnight">Overnight ($28.99)</option>
                   </Select>
                 </div>
               </div>
@@ -452,6 +469,9 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
                   );
                 }) : <div>No items In cart</div>}
               </div>
+              <h3 style={{textDecoration: 'overline', marginTop: '20px'}}>Subtotal: $ {cartTotal}</h3>
+              <h4>Shipping: {setShippingCost()}</h4>
+              <h2>Total: {total}</h2>
               <Button
                 style={{ marginTop: "20px", width: "150px" }}
                 variant="contained"

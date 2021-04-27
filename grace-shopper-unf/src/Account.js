@@ -290,12 +290,16 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                     <div>
                         <h3 style={{ width: '150px' }}>Recent Purchases</h3>
                         <Divider />
+                        
                         {purchaseHistory[0] ? purchaseHistory.map(item => {
                             return (
                                 <div>
-                                    <h2>
+                                    <h3>
+                                        Order Confirmation # {item.orderConfirmationNumber}
+                                    </h3>
+                                    <h4>
                                         {item.productName}
-                                    </h2>
+                                    </h4>
                                     <p>
                                         Price: {item.productPrice}
                                     </p>

@@ -113,18 +113,15 @@ productsRouter.patch("/:productId", async (req, res, next) => {
   }
 });
 
-productsRouter.delete('/:productId', requireUser, async (req, res, next) => {
+productsRouter.delete('/:productId', async (req, res, next) => {
   try {
     const { productId } = req.params;
 
-    const product = await getProductById(productId);
-
-    if (product.creatorId === req.user.id) {
-      const deletedProduct = await deleteProduct(product.id);
-      res.send(deletedProduct);
-    } else {
-      next();
-    }
+    const deletedProduct = await deleteProduct(productId);
+    res.send({
+      message: "Product Deleted"
+    });
+    
   } catch (error) {
     throw error
   }

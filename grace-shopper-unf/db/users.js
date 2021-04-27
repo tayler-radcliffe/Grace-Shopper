@@ -113,8 +113,44 @@ async function getProductsByUsername(username) {
       }
   }
 
+  async function insertData(username, firstName, lastName, email) {
+    try {
+        const {rows: users } = await client.query(`
+        UPDATE users
+        SET "firstName" = $2, "lastName" = $3, "email" = $4
+        WHERE username = $1
+        RETURNING *
+        `, [username, firstName, lastName, email])
+
+        return users;
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function deleteUser(id) {
     try {
+        const {rows: purchaseHistory} = await client.query(`
+        DELETE FROM purchaseHistory
+        WHERE "userId" = $1
+        RETURNING *;
+        `, [id]);
+        const {rows: cart} = await client.query(`
+        DELETE FROM cart
+        WHERE "userId" = $1
+        RETURNING *;
+        `, [id]);
+        const {rows: user_products} = await client.query(`
+        DELETE FROM user_products
+        WHERE "users_id" = $1
+        RETURNING *;
+        `, [id]);
+        const {rows: products} = await client.query(`
+        DELETE FROM products
+        WHERE "creatorId" = $1
+        RETURNING *;
+        `, [id]);
+
         const {rows: [user]} = await client.query(`
             DELETE FROM users
             WHERE id = $1
@@ -138,4 +174,5 @@ module.exports = {
     getProductsByUsername,
     insertFnLnEmail,
     deleteUser, 
+    insertData
 }
