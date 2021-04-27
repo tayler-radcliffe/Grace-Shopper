@@ -23,12 +23,6 @@ export default function Login({
   const loginUser = async (event) => {
     event.preventDefault();
     const userDetails = await fetchLoggedInUser(username, password);
-    setUserId(userDetails.user.id);
-    const userCartData = await fetchCartData(userDetails.user.id);
-    setCart(userCartData);
-    const purchases = await fetchPurchaseHistory(userDetails.user.id)
-    setPurchaseHistory(purchases);
-    console.log(userCartData);
     if (userDetails.error) {
       swal(
         "Oops",
@@ -37,7 +31,14 @@ export default function Login({
       );
       setUsername("");
       setPassword("");
-    } else {
+    }
+     else {
+      setUserId(userDetails.user.id);
+      const userCartData = await fetchCartData(userDetails.user.id);
+      setCart(userCartData);
+      const purchases = await fetchPurchaseHistory(userDetails.user.id)
+      setPurchaseHistory(purchases);
+      console.log(userCartData);
       const token = userDetails.token;
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userDetails.user.id);

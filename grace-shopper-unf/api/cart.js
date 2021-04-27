@@ -64,9 +64,9 @@ cartRouter.delete('/:productId', async (req, res, next) => {
 })
 
 cartRouter.post("/submit", async (req, res, next) => {
-  const { userId } = req.body;
+  const { userId, email, total, firstName, lastName, address, city, usState, zipCode } = req.body;
   try {
-    const purchaseHistory = await addToRecentPurchases(userId);
+    const purchaseHistory = await addToRecentPurchases(userId, email, total, firstName, lastName, address, city, usState, zipCode);
     res.send({
       data: purchaseHistory,
       message: "Thank you for your purchase"

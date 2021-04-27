@@ -14,6 +14,7 @@ import { deleteProductFromCart, fetchCartData, quantityUpdate, fetchProductById 
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import green from "@material-ui/core/colors/green";
+import swal from "sweetalert";
 
 const theme = createMuiTheme({
   palette: {
@@ -66,9 +67,22 @@ export default function SwipeableTemporaryDrawer({
   const increaseQty = async (event, productId, quantity) => {
     event.preventDefault();
     const newQty = quantity + 1;
-    await quantityUpdate(newQty, productId, userId)
-    const newCart = await fetchCartData(userId);
-    setCart(newCart);
+    const productStockCheck = await fetchProductById(productId);
+    console.log(productStockCheck.productStock);
+    console.log(newQty);
+    if(newQty > productStockCheck.productStock){
+      swal({
+        title: 'Oops!',
+        text: 'Sorry, there is not enough in stock!',
+        icon: 'error',
+        button: false,
+        timer: 2000
+      })
+    } else {
+      await quantityUpdate(newQty, productId, userId)
+      const newCart = await fetchCartData(userId);
+      setCart(newCart);
+    }
   };
 
   const decreaseQty = async (event, productId, quantity) => {

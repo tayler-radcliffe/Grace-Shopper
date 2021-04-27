@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react'
 import AdminProducts from "./AdminProducts";
 import AdminPurchases from "./AdminPurchases";
 
-export default function Admin({products}) {
+export default function Admin({products, setProducts}) {
     const [adminUsers, setAdminUsers] = useState([])
     const [allPurchases, setAllPurchases] = useState([])
 
@@ -30,8 +30,8 @@ export default function Admin({products}) {
 
     return (
         <div>
-            <AdminUsers adminUsers={adminUsers} />
-            <AdminProducts products={products} />
+            <AdminUsers adminUsers={adminUsers} setAdminUsers={setAdminUsers} />
+            <AdminProducts products={products} setProducts={setProducts} />
             <div style={{width: '1000px',}}>
                 <AdminPurchases allPurchases={allPurchases} />
             </div>
