@@ -35,6 +35,7 @@ function App() {
   const [user, setUser] = useState([]);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
   const [individualProductId, setIndividualProductId] = useState([]);
+  const [wishList, setWishList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(
     loggedInKey ? loggedInKey : false
   );
@@ -155,6 +156,8 @@ function App() {
 
         <Route exact path="/account">
           <Account
+            wishList={wishList}
+            setWishList={setWishList}
             username={username}
             setUsername={setUsername}
             purchaseHistory={purchaseHistory}
@@ -201,6 +204,8 @@ function App() {
 
         <Route exact path="/products/:productId">
           <ProductInfo
+            wishList={wishList}
+            setWishList={setWishList}
             username={username}
             hover={hover}
             setHover={setHover}
