@@ -28,6 +28,22 @@ export async function deleteUser(userId) {
   }
 }
 
+export async function deleteProduct(productId) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/products/${productId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function fetchProductById(productId) {
   console.log(productId);
   try {
@@ -138,7 +154,7 @@ export async function createInitialEmptyCart(userId) {
   }
 }
 
-export async function submitOrder(userId) {
+export async function submitOrder(userId, email) {
   try {
     const response = await fetch(`http://localhost:3000/api/cart/submit`, {
       method: "POST",
@@ -147,6 +163,7 @@ export async function submitOrder(userId) {
       },
       body: JSON.stringify({
         userId,
+        email
       }),
     });
     const data = await response.json();

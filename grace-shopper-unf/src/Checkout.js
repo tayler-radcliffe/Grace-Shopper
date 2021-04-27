@@ -87,6 +87,7 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
       firstName &&
       lastName &&
       address &&
+      email &&
       city &&
       usState &&
       zipCode &&
@@ -95,7 +96,7 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
       cardCvv &&
       state.shipping
     ) {
-      await submitOrder(userId);
+      await submitOrder(userId, email);
       const purchases = await fetchPurchaseHistory(userId);
       setPurchaseHistory(purchases);
       console.log(purchases);

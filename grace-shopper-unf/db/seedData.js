@@ -2,7 +2,7 @@ const { createCart, getCartByuserId, addNewProductToCart } = require("./cart");
 const client = require("./client");
 const { createUser, createProducts } = require('./index')
 const {addToRecentPurchases} = require('./purchaseHistory');
-const { insertFnLnEmail } = require("./users");
+const { insertFnLnEmail, insertData } = require("./users");
 async function dropTables() {
     try {
         await client.query(`
@@ -87,6 +87,7 @@ async function createTables() {
             "productPrice" INTEGER,
             "size" TEXT,
             "quantity" INTEGER,
+            "orderConfirmationNumber" INTEGER,
             "date" DATE DEFAULT CURRENT_TIMESTAMP
         );
        `);
@@ -305,9 +306,9 @@ async function createInitialCart() {
 
 async function insertUserInfo() {
     try {
-        await insertFnLnEmail(1, 'Albert', 'Smith', "ALSmith@gmail.com");
-        await insertFnLnEmail(2, 'Sandra', 'Dominguez', "SallyD@yahoo.com");
-        await insertFnLnEmail(3, 'Gertrude', 'Jones', "GerdyJones@aol.com");
+        await insertData("albert", 'Albert', 'Smith', "ALSmith@gmail.com");
+        await insertData("sandra", 'Sandra', 'Dominguez', "SallyD@yahoo.com");
+        await insertData("glamgal", 'Gertrude', 'Jones', "GerdyJones@aol.com");
     } catch (error) {
         throw error;
     }
@@ -323,9 +324,9 @@ async function rebuildDB() {
         await createInitialProducts();
         await createInitialCart();
         await insertUserInfo();
-        await addToRecentPurchases(1);
-        await addToRecentPurchases(2);
-        await addToRecentPurchases(3);
+        await addToRecentPurchases(1, 'totallyfakeemail@gmail.com');
+        await addToRecentPurchases(2, 'totallyfakeemail@gmail.com');
+        await addToRecentPurchases(3, 'totallyfakeemail@gmail.com');
     } catch (error) {
         console.log('Error during rebuildDB')
         throw error;

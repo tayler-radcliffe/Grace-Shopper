@@ -162,6 +162,21 @@ const updateProducts = async ({ id, name, description, price }) => {
 
 const deleteProduct = async (id) => {
   try {
+    const {rows: user_products} = await client.query(`
+    DELETE FROM user_products
+    WHERE "products_id" = $1
+    RETURNING *;
+    `, [id]);
+    const {rows: products_reviews} = await client.query(`
+    DELETE FROM products_reviews
+    WHERE "products_id" = $1
+    RETURNING *;
+    `, [id]);
+    const {rows: reviews} = await client.query(`
+    DELETE FROM reviews
+    WHERE "productsId" = $1
+    RETURNING *;
+    `, [id]);
     const { rows: [products] } = await client.query(`
           DELETE FROM products
           WHERE id = $1

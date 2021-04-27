@@ -150,7 +150,7 @@ function App() {
         </Route>
 
         <Route exact path="/admin">
-          <Admin products={products} />
+          <Admin products={products} setProducts={setProducts} />
         </Route>
 
         <Route exact path="/account">
