@@ -411,3 +411,38 @@ export async function addNewProduct(name, description, creatorId, price, reviews
     throw error;
   }
 }
+
+export async function addReviewToProduct(title, stars, description, productId) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/products/review`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title, 
+        stars, 
+        description, 
+        productId
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchProductIdFromProductName(productName) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/products/id/${productName}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
