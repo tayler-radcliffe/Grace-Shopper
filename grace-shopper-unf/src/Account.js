@@ -148,7 +148,7 @@ function ProfileTextFields({ username, purchaseHistory, wishList }) {
 }
 
 
-function VerticalTabs({ username, setUsername, purchaseHistory }) {
+function VerticalTabs({ username, setUsername, purchaseHistory, setWishList }) {
     console.log(purchaseHistory);
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
@@ -257,6 +257,7 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
         await deleteItemFromUserWishList(user.id, productId);
         const newList = await fetchWishListByUserId(user.id);
         setCompletedWishList(newList);
+        setWishList(newList);
 
     }
 
@@ -488,7 +489,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Account({ username, setUsername, purchaseHistory }) {
+export default function Account({ username, setUsername, purchaseHistory, setWishList }) {
 
     const history = useHistory();
 
@@ -497,7 +498,7 @@ export default function Account({ username, setUsername, purchaseHistory }) {
             <div>
                 <h1 style={{ backgroundColor: '#33383b', padding: '30px', color: 'white', paddingLeft: '500px' }}>My Account</h1>
                 <div>
-                    <VerticalTabs username={username} setUsername={setUsername} purchaseHistory={purchaseHistory} />
+                    <VerticalTabs username={username} setUsername={setUsername} purchaseHistory={purchaseHistory} setWishList={setWishList} />
                 </div>
             </div>
 
