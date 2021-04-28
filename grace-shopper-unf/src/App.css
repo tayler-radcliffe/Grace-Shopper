@@ -1136,3 +1136,79 @@ font-size: 17px;
   -webkit-animation: horizontal 2s ease infinite;
   animation: horizontal 2s ease infinite;
 }
+
+.popup form {
+	width: 100%;
+}
+input[required] + label, .popup form input, .popup form select, .popup form textarea {
+	font-family: "Roboto";
+	font-weight: 300;
+  color: blue;
+  font-size:16px;
+}
+.popup form input, .popup form select {
+	height:38px;
+}
+
+.popup form input, .popup form select, .popup form textarea {
+	border:1px solid #d0d0d0;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	padding-left: 10px;
+	width: 83.55%;
+  color: red;
+}
+input[required] + label {
+	position: absolute;
+	transform: translateX(60px) translateY(-50px);
+}
+::-webkit-input-placeholder { 
+        color: blue;
+        opacity: 1; }
+::-moz-placeholder          { color: blue;
+        opacity: 1; }
+:-moz-placeholder           { color: blue; 
+        opacity: 1;}
+:-ms-input-placeholder      { color: blue; 
+        opacity: 1;}
+
+input[required] + label:after {
+    content:'*';
+    color: red;
+}
+input[required]:invalid + label{
+    display: inline-block;
+}
+input[required]:valid + label{
+    display: none;
+}
+
+.popup form select {
+	background-position: right 10px center;
+	background-repeat: no-repeat;
+     -webkit-appearance: none;
+      -moz-appearance: none;
+      text-indent: 0.01px; 
+      text-overflow: '';
+      -ms-appearance: none;
+      appearance: none!important;
+    color: blue;
+}
+
+ .popup form textarea {
+	height: 110px;
+	padding-top: 10px;
+	color: red;
+}
+.popup form input[type="submit"] {
+	background:#dd4949;
+	border-radius:3px;
+	width:317px;
+	height:40px;
+	margin-bottom: 0;
+	font-weight: 500;
+	font-size:1em;
+	color:#ffffff;
+	line-height:23px;
+}

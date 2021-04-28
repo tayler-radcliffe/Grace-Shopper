@@ -83,8 +83,7 @@ productsRouter.post("/review", async (req, res, next) => {
 
 
 productsRouter.patch("/:productId", async (req, res, next) => {
-  const { name, description, price } = req.body;
-  const { id } = req.params;
+  const { name, description, price, productStock } = req.body;
   const productData = {};
 
   if (name) {
@@ -96,13 +95,17 @@ productsRouter.patch("/:productId", async (req, res, next) => {
   if (price) {
     productData.price = price;
   }
+  if (price) {
+    productData.productStock = productStock;
+  }
 
   try {
     const updatedProducts = await updateProducts({
-      id: id,
+      id: req.params.productId,
       name: productData.name,
       description: productData.description,
-      price: productData.price
+      price: productData.price,
+      productStock: productData.productStock
     });
     res.send({
       message: "Product updated successfully",

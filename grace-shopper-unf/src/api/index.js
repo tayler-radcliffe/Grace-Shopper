@@ -365,3 +365,25 @@ export async function addToCartFromWishList(userId, productId, size, quantity) {
     throw error;
   }
 }
+
+
+export async function updateProduct(productId, name, description, price, productStock) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/products/${productId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name, 
+        description, 
+        price, 
+        productStock
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
