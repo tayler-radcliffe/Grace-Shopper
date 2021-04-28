@@ -213,7 +213,8 @@ export default function ProductInfo({
             <div class="rating-section">
               <div class="stars-rating" style={{ fontFamily: "Rubik" }}>
                 {stars ? <div><Rating name="half-rating-read" value={stars} precision={0.5} readOnly />
-                  <div style={{ fontSize: "20px" }}>{stars} out of 5 stars</div></div> : <div style={{ padding: '10px' }}>No reviews yet</div>
+                <div style={{ fontSize: "20px" }}>{stars.toFixed(1)} out of 5 stars</div></div> : <div>No reviews yet</div>
+
                 }
               </div>
               < ReviewsModal product={product} />

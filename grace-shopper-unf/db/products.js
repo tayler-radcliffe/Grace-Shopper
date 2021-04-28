@@ -241,6 +241,23 @@ const deleteProduct = async (id) => {
   }
 };
 
+const getProductIdByProductName = async (productName) => {
+    
+  try {
+      const {rows: products} = await client.query(`
+      SELECT id 
+      FROM products
+      WHERE name = $1
+    `, [productName])
+
+    return products;
+    } catch (error) {
+      throw error;
+    }
+    
+
+}
+
 module.exports = {
   createProducts,
   getProductById,
@@ -250,4 +267,5 @@ module.exports = {
   updateProducts,
   deleteProduct,
   addNewReviewToProduct,
+  getProductIdByProductName,
 };

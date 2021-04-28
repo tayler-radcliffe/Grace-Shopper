@@ -164,6 +164,7 @@ function App() {
             setUsername={setUsername}
             purchaseHistory={purchaseHistory}
             setPurchaseHistory={setPurchaseHistory}
+            setProducts={setProducts}
           />
           <Footer />
           <Scroll showBelow={250} />

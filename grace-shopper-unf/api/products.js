@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllProducts, createProducts, updateProducts, deleteProduct, addNewReviewToProduct, getProductById, getAverageReviewRatingByProductId } = require('../db');
+const { getAllProducts, createProducts, updateProducts, deleteProduct, addNewReviewToProduct, getProductById, getAverageReviewRatingByProductId, getProductIdByProductName } = require('../db');
 const { requireUser } = require('./utils');
 const productsRouter = express.Router();
 
@@ -131,6 +131,18 @@ productsRouter.delete('/:productId', async (req, res, next) => {
     throw error
   }
 })
+
+productsRouter.get("/id/:productName", async (req, res, next) => {
+  const { productName: productName } = req.params;
+
+  try {
+    const productId = await getProductIdByProductName(productName);
+    res.send(productId);
+  } catch (error) {
+    throw error;
+  }
+
+});
 
 
 module.exports = productsRouter;
