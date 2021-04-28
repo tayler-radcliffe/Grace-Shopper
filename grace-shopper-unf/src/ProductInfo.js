@@ -5,6 +5,7 @@ import { fetchProductById, addItemsToCart, fetchCartData, fetchAverageReviews, a
 import Rating from '@material-ui/lab/Rating';
 import { fetchWishListByUserId } from './api/index';
 import { makeStyles } from '@material-ui/core/styles';
+import ReviewsModal from './ReviewsModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,6 +13,19 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     '& > * + *': {
       marginTop: theme.spacing(1),
+    },
+    modal: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    paper: {
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
     },
   },
 }));
@@ -32,6 +46,8 @@ export default function ProductInfo({
   const { productId } = useParams();
   const [stars, setStars] = useState(0);
   const [isWishList, setIsWishList] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [modalStyle] = React.useState(getModalStyle);
 
   console.log(wishList);
 
@@ -62,6 +78,42 @@ export default function ProductInfo({
     }
   }
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  function rand() {
+    return Math.round(Math.random() * 20) - 10;
+  }
+
+  function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+
+  const body = (
+    <div style={modalStyle} className={classes.paper}>
+      <h2 id="simple-modal-title">Text in a modal</h2>
+      <p id="simple-modal-description">
+        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      </p>
+    </div>
+  );
+
+  function rand() {
+    return Math.round(Math.random() * 20) - 10;
+  }
 
 
   async function handleClick(e) {
@@ -88,8 +140,8 @@ export default function ProductInfo({
         const wishListCheck = wishList.map(item => item.productsId);
         console.log("BBB", wishListCheck);
         console.log("WWW", productId)
-        for(let i = 0; i < wishListCheck.length; i++){
-          if(wishListCheck[i] == productId){
+        for (let i = 0; i < wishListCheck.length; i++) {
+          if (wishListCheck[i] == productId) {
             setIsWishList(true);
           }
         }
@@ -124,7 +176,7 @@ export default function ProductInfo({
   }
 
   const logInChecker = (event) => {
-    if(isLoggedIn){
+    if (isLoggedIn) {
       addToWishlist(event);
       setIsWishList(true);
     } else {
@@ -137,8 +189,6 @@ export default function ProductInfo({
       });
     }
   }
-
-  console.log(isWishList);
 
   return (
     <div
@@ -161,11 +211,12 @@ export default function ProductInfo({
           </div>
           <div>
             <div class="rating-section">
-              <div class="stars-rating">
+              <div class="stars-rating" style={{ fontFamily: "Rubik" }}>
                 {stars ? <div><Rating name="half-rating-read" value={stars} precision={0.5} readOnly />
-                <div style={{ fontSize: "20px" }}>{stars} out of 5 stars</div></div> : <div>No reviews yet</div>
+                  <div style={{ fontSize: "20px" }}>{stars} out of 5 stars</div></div> : <div style={{ padding: '10px' }}>No reviews yet</div>
                 }
               </div>
+              < ReviewsModal product={product} />
               <div
                 stlye={{
                   marginTop: "10px",
@@ -191,7 +242,7 @@ export default function ProductInfo({
         >
         </span>
       </div>
-      <div className="sizeGuide" > Select Size: {productSize}</div>
+      <div className="sizeGuide" > Select Size: <strong>{productSize}</strong></div>
       <div className="sizeBoard">
         <button onClick={(e) => setProductSize("5")} className="sizeBox">
           5
