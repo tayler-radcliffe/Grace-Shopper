@@ -20,11 +20,13 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import AddIcon from '@material-ui/icons/Add';
 import {
   deleteProduct,
   fetchProductById,
   fetchProducts,
   updateProduct,
+  addNewProduct,
 } from "./api";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -163,7 +165,20 @@ const EnhancedTableToolbar = ({
   price,
   setPrice,
   productStock,
-  setProductStock
+  setProductStock,
+  selectedProduct,
+  addName,
+  setAddName, 
+  addDescription, 
+  setAddDescription,
+  addPrice,
+  setAddPrice,
+  reviews,
+  productImage,
+  setProductImage, 
+  addProductStock,
+  setAddProductStock,
+  handleAddProduct
 }) => {
   const classes = useToolbarStyles();
   
@@ -245,6 +260,44 @@ const EnhancedTableToolbar = ({
           </div>
         </div>
       </div>
+      <AddIcon
+        type="button"
+        data-toggle="modal"
+        data-target="#myModalTwo"
+        tabindex="-1"
+      />
+      <div id="myModalTwo" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button class="close" type="button" data-dismiss="modal">
+              </button>
+              <h4 class="modal-title">Add Product</h4>
+            </div>
+            <div class="modal-body">
+              <div class="popup">
+                <form method="post" enctype="text/plain" onSubmit={(event) => handleAddProduct(event)}>
+                  <input type="text" id="name" name="name" placeholder="Product Name" value={addName} onChange={(event) => setAddName(event.target.value)} required />
+                  <label for="name"></label>
+
+                  <input type="integer" id="price" name="price" placeholder="Price" value={addPrice} onChange={(event) => setAddPrice(event.target.value)} required />
+                  <label for="name"></label>
+
+                  <input type="integer" id="productStock" name="productStock" placeholder="Stock amount" value={addProductStock} onChange={(event) => setAddProductStock(event.target.value)} required />
+                  <label for="name"></label>
+
+                  <input type="text" id="productImage" name="productImage" placeholder="Product Image" value={productImage} onChange={(event) => setProductImage(event.target.value)} required />
+                  <label for="name"></label>
+
+                  <textarea id="info" placeholder="Description" value={addDescription} onChange={(event) => setAddDescription(event.target.value)} required></textarea>
+
+                  <input type="submit" name="submit" value="Submit"></input>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </Toolbar>
   );
 };
@@ -289,6 +342,13 @@ export default function AdminProducts({ products, setProducts }) {
   const [description, setDescription] = React.useState("");
   const [price, setPrice] = React.useState("");
   const [productStock, setProductStock] = React.useState("");
+  const [selectedProduct, setSelectedProduct] = React.useState([]);
+  const [addName, setAddName] = React.useState("");
+  const [addDescription, setAddDescription] = React.useState("");
+  const [addPrice, setAddPrice] = React.useState("");
+  const [addProductStock, setAddProductStock] = React.useState("");
+  const [productImage, setProductImage] = React.useState("");
+  const [reviews, setReviews] = React.useState([]);
 
 
   const rows = products.map((product) =>
@@ -330,7 +390,26 @@ export default function AdminProducts({ products, setProducts }) {
     setProductStock('');
   };
 
-  const handleClick = (event, name) => {
+  const handleAddProduct = async (event) => {
+    event.preventDefault();
+    await addNewProduct(addName, addDescription, 1, addPrice, reviews, productImage, addProductStock);
+    const returnedProducts = await fetchProducts();
+    setProducts(returnedProducts);
+    setSelected([]);
+    setAddName('');
+    setAddDescription('');
+    setAddPrice('');
+    setAddProductStock('');
+    setProductImage('')
+  };
+
+  const handleClick = async (event, name) => {
+    const fetchedProduct = await fetchProductById(name)
+    setSelectedProduct(fetchedProduct); 
+    setName(fetchedProduct.name);
+    setDescription(fetchedProduct.description);
+    setPrice(fetchedProduct.price);
+    setProductStock(fetchedProduct.productStock);
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
 
@@ -391,6 +470,19 @@ export default function AdminProducts({ products, setProducts }) {
           productStock={productStock}
           setProductStock={setProductStock}
           handleEditProduct={handleEditProduct}
+          selectedProduct={selectedProduct}
+          addName={addName}
+          setAddName={setAddName}
+          addDescription={addDescription}
+          setAddDescription={setAddDescription}
+          addPrice={addPrice}
+          setAddPrice={setAddPrice}
+          reviews={reviews}
+          productImage={productImage}
+          setProductImage={setProductImage}
+          addProductStock={addProductStock}
+          setAddProductStock={setAddProductStock}
+          handleAddProduct={handleAddProduct}
         />
         <TableContainer>
           <Table
