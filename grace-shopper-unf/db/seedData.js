@@ -191,7 +191,7 @@ async function createInitialProducts() {
                 productStock: 100,
                 productImage: 'https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/81ce346008c0482e8d68ac7c010608f5_9366/Superstar_Shoes_White_FX5540_01_standard.jpg',
                 reviews: [{
-                    title: 'Don&#x27;t Buy!',
+                    title: 'Dont Buy!',
                     stars: 3,
                     description: 'Colors are nice, but worn out quickly',
                     productId: 5,
