@@ -131,7 +131,6 @@ const getAllPurchaseHistory = async () => {
 }
 
 const updateProductStock = async (productId, quantity) => {
-  console.log("vvv", productId, quantity)
 
   try {
     const { rows: productStock } = await client.query(`
