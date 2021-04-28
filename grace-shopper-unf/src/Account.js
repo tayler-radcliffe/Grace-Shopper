@@ -378,11 +378,11 @@ function VerticalTabs({
                               type="button"
                               data-dismiss="modal"
                             ></button>
-                            <h4 class="modal-title">Add Product</h4>
+                            <h4 class="modal-title">Add Review</h4>
                           </div>
                           <div class="modal-body">
                             <div class="popup"></div>
-                            <form>
+                            <div method="post" enctype="text/plain">
                               <input
                                 type="text"
                                 name="location"
@@ -393,7 +393,7 @@ function VerticalTabs({
                                 }
                               />
                               <input
-                                type="text"
+                                type="integer"
                                 name="location"
                                 placeholder="Stars"
                                 value={stars}
@@ -401,7 +401,7 @@ function VerticalTabs({
                                   setStars(event.target.value)
                                 }
                               />
-                              <input
+                              <textarea id="info"
                                 type="text"
                                 name="description"
                                 placeholder="description"
@@ -417,7 +417,7 @@ function VerticalTabs({
                               >
                                 Submit
                               </button>
-                            </form>
+                            </div>
                           </div>
                         </div>
                       </div>
