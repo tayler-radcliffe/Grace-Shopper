@@ -54,7 +54,7 @@ export default function Header({ products, username, setUsername, user, cart, se
             </Link> : <div></div>}
 
             <div className="header_menu_item">
-                <SwipeableTemporaryDrawer individualProductId={individualProductId} userId={userId} username={username} user={user} cart={cart} setCart={setCart} />
+                <SwipeableTemporaryDrawer products={products} individualProductId={individualProductId} userId={userId} username={username} user={user} cart={cart} setCart={setCart} />
             </div>
 
 

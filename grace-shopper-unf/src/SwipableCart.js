@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SwipeableTemporaryDrawer({
+  products,
   username,
   cart,
   setCart,
@@ -110,10 +111,13 @@ export default function SwipeableTemporaryDrawer({
     setState({ ...state, [anchor]: open });
   };
 
+
+  console.log(products);
+
   const list = (anchor) => (
     <div
       style={{
-        backgroundColor: '#F0F0F0',
+        backgroundColor: 'white',
         display: "flex",
         alignItems: "center",
         padding: "10px",
@@ -138,11 +142,16 @@ export default function SwipeableTemporaryDrawer({
               console.log(product)
               return (
                 <div key={product.productsId}>
-                  <h2>{product.productName}</h2>
-                  <p>Price: $ {product.productPrice}</p>
+                  {products.map(item => {
+                    if (product.productsId === item.id) {
+                      return <img style={{ width: '100px', marginTop: '10px', height: '100px' }} src={item.productImage}></img>
+                    }
+                  })}
+                  <h2 className="Rubik">{product.productName}</h2>
+                  <p className="Rubik">Price: ${product.productPrice}</p>
 
-                  <p>Size: {product.size}</p>
-                  <p style={{ display: "flex", lineHeight: '30px' }}>
+                  <p className="Rubik">Size: {product.size}</p>
+                  <p className="Rubik" style={{ display: "flex", lineHeight: '30px' }}>
                     Quantity: {product.quantity}
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       <Button
@@ -200,7 +209,7 @@ export default function SwipeableTemporaryDrawer({
           textDecoration: "none",
         }}
       >
-        <span style={{ position: 'absolute', top: '10px', right: '35px', color: 'black', fontSize: '15px' }}>
+        <span style={{ position: 'absolute', top: '20px', right: '60px', color: 'black', fontSize: '10px' }}>
           <i class='<i fas fa-shopping-bag faa-horizontal animated fa-4x'></i>
         </span>
       </Link>

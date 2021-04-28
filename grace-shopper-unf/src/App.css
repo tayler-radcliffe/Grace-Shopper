@@ -130,6 +130,10 @@ font-size: 40px;
 font-weight: lighter;
 }
 
+.Rubik {
+  font-family: Rubik;
+}
+
 
 .homePageButton {
   position: relative;
