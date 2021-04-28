@@ -96,6 +96,7 @@ function App() {
     <div className="App">
       <Router>
         <Header
+          products={products}
           username={username}
           setUsername={setUsername}
           user={user}
