@@ -293,9 +293,7 @@ function VerticalTabs({
 
   const addReview = async (event, productName) => {
     event.preventDefault();
-    console.log("hello");
     const id = await fetchProductIdFromProductName(productName);
-    console.log(id[0].id);
     await addReviewToProduct(title, stars, description, id[0].id);
     const newProducts = await fetchProducts();
     setProducts(newProducts);
