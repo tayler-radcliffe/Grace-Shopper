@@ -290,7 +290,7 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                     <div>
                         <h3 style={{ width: '150px' }}>Recent Purchases</h3>
                         <Divider />
-                        
+
                         {purchaseHistory[0] ? purchaseHistory.map(item => {
                             return (
                                 <div>

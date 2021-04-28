@@ -11,7 +11,7 @@ import { Select } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import swal from "sweetalert";
 import { Divider } from "@material-ui/core";
-import { submitOrder, fetchPurchaseHistory } from "./api";
+import { submitOrder, fetchPurchaseHistory, fetchProducts } from "./api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Checkout({ cart, setCart, user, userId, setPurchaseHistory }) {
+export default function Checkout({ cart, setCart, user, userId, setPurchaseHistory, setProducts }) {
 
 
   const classes = useStyles();
@@ -59,11 +59,11 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
 
   console.log(state.shipping);
   const setShippingCost = () => {
-    if(state.shipping === "Ground Shipping"){
+    if (state.shipping === "Ground Shipping") {
       return 0;
-    } else if (state.shipping === "Two-Day Express"){
+    } else if (state.shipping === "Two-Day Express") {
       return 15.95
-    } else if(state.shipping === "Overnight"){
+    } else if (state.shipping === "Overnight") {
       return 28.99
     }
   }
@@ -116,10 +116,12 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
       const purchases = await fetchPurchaseHistory(userId);
       setPurchaseHistory(purchases);
       console.log(purchases);
+      const fetchProductTable = await fetchProducts();
+      setProducts(fetchProductTable);
       setCart([]);
       swal({
-        title: "Woo!",
-        text: "Your order has been placed!",
+        title: "Your order has been placed!",
+        text: "Email Confirmation has been sent",
         icon: "success",
         button: false,
         timer: 3000
@@ -469,7 +471,7 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
                   );
                 }) : <div>No items In cart</div>}
               </div>
-              <h3 style={{textDecoration: 'overline', marginTop: '20px'}}>Subtotal: $ {cartTotal}</h3>
+              <h3 style={{ textDecoration: 'overline', marginTop: '20px' }}>Subtotal: $ {cartTotal}</h3>
               <h4>Shipping: {setShippingCost()}</h4>
               <h2>Total: {total}</h2>
               <Button

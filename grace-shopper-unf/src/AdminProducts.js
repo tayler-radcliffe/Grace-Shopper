@@ -22,8 +22,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { deleteProduct, fetchProducts } from './api';
 
-function createData(name, price, description) {
-  return { name, price, description };
+function createData(name, price, description, productStock) {
+  return { name, price, description, productStock };
 }
 
 function descendingComparator(a, b, orderBy) {
@@ -56,6 +56,7 @@ const headCells = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Product Id' },
   { id: 'price', numeric: true, disablePadding: false, label: 'Product Name' },
   { id: 'description', numeric: true, disablePadding: false, label: 'Product Price' },
+  { id: 'stock', numeric: true, disablePadding: false, label: 'Product Stock' }
 ];
 
 function EnhancedTableHead(props) {
@@ -131,9 +132,9 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTableToolbar = ({numSelected, handleDeleteProduct, selected}) => {
+const EnhancedTableToolbar = ({ numSelected, handleDeleteProduct, selected }) => {
   const classes = useToolbarStyles();
-  
+
 
   return (
     <Toolbar
@@ -197,8 +198,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function AdminProducts({products, setProducts}) {
-  
+export default function AdminProducts({ products, setProducts }) {
+
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -208,7 +209,7 @@ export default function AdminProducts({products, setProducts}) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
 
-  const rows = products.map(product => createData(product.id, product.name, product.price),)
+  const rows = products.map(product => createData(product.id, product.name, product.price, product.productStock),)
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -318,6 +319,7 @@ export default function AdminProducts({products, setProducts}) {
                       </TableCell>
                       <TableCell align="right">{row.price}</TableCell>
                       <TableCell align="right">{row.description}</TableCell>
+                      <TableCell align="right">{row.productStock}</TableCell>
                     </TableRow>
                   );
                 })}
