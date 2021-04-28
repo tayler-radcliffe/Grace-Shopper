@@ -79,9 +79,8 @@ export default function ProductInfo({
 
   useEffect(() => {
     try {
-      fetchProductById(productId).then((individualProduct) => {
-        console.log("full array or nah", individualProduct);
-        setProduct(individualProduct);
+      Promise.all([fetchProductById(productId)]).then(([data]) => {
+        setProduct(data);
         setRatings();
       });
     } catch (error) {
@@ -95,7 +94,7 @@ export default function ProductInfo({
     setStars(ratings.averageRating);
 
   }
-  console.log(stars);
+  console.log("hello", stars);
 
   async function addToWishlist(e) {
     e.preventDefault();
@@ -135,8 +134,9 @@ export default function ProductInfo({
           <div>
             <div class="rating-section">
               <div class="stars-rating">
-                <Rating name="half-rating-read" defaultValue={stars} precision={0.5} readOnly />
-                <div style={{ fontSize: "20px" }}>{stars} out of 5 stars</div>
+                {stars ? <div><Rating name="half-rating-read" value={stars} precision={0.5} readOnly />
+                <div style={{ fontSize: "20px" }}>{stars} out of 5 stars</div></div> : <div>No reviews yet</div>
+                }
               </div>
               <div
                 stlye={{
