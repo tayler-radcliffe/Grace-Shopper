@@ -372,46 +372,57 @@ function VerticalTabs({
                       tabindex="-1"
                     />
                     <div id="myModalTwo" class="modal fade">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button class="close" type="button" data-dismiss="modal">
-              </button>
-              <h4 class="modal-title">Add Product</h4>
-            </div>
-            <div class="modal-body">
-              <div class="popup"></div>
-                    <form>
-                      <input
-                        type="text"
-                        name="location"
-                        placeholder="Title"
-                        value={title}
-                        onChange={(event) => setTitle(event.target.value)}
-                      />
-                      <input
-                        type="text"
-                        name="location"
-                        placeholder="Stars"
-                        value={stars}
-                        onChange={(event) => setStars(event.target.value)}
-                      />
-                      <input
-                        type="text"
-                        name="description"
-                        placeholder="description"
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
-                      />
-                      <button
-                        onClick={(event) => addReview(event, item.productName)}
-                      >
-                        Submit
-                      </button>
-                    </form>
-                    </div>
-                    </div>
-                    </div>
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button
+                              class="close"
+                              type="button"
+                              data-dismiss="modal"
+                            ></button>
+                            <h4 class="modal-title">Add Product</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="popup"></div>
+                            <form>
+                              <input
+                                type="text"
+                                name="location"
+                                placeholder="Title"
+                                value={title}
+                                onChange={(event) =>
+                                  setTitle(event.target.value)
+                                }
+                              />
+                              <input
+                                type="text"
+                                name="location"
+                                placeholder="Stars"
+                                value={stars}
+                                onChange={(event) =>
+                                  setStars(event.target.value)
+                                }
+                              />
+                              <input
+                                type="text"
+                                name="description"
+                                placeholder="description"
+                                value={description}
+                                onChange={(event) =>
+                                  setDescription(event.target.value)
+                                }
+                              />
+                              <button
+                                onClick={(event) =>
+                                  addReview(event, item.productName)
+                                }
+                              >
+                                Submit
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
