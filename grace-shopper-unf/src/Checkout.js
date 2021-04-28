@@ -29,9 +29,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Checkout({ cart, setCart, user, userId, setPurchaseHistory, setProducts }) {
-
-
+export default function Checkout({
+  cart,
+  setCart,
+  user,
+  userId,
+  setPurchaseHistory,
+  setProducts,
+}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [state, setState] = React.useState({
@@ -53,8 +58,10 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
   const [cardNumber, setCardNumber] = useState("");
   const [cardEx, setCardEx] = useState("");
   const [cardCvv, setCardCvv] = useState("");
+  const [promoCode, setPromoCode] = useState('');
+  const [discount, setDiscount] = useState(0);
 
-  const cartItemsPricesArray = cart.map(i => i.productPrice);
+  const cartItemsPricesArray = cart.map((i) => i.productPrice);
   const cartTotal = cartItemsPricesArray.reduce((a, b) => a + b, 0);
 
   console.log(state.shipping);
@@ -62,10 +69,22 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
     if (state.shipping === "Ground Shipping") {
       return 0;
     } else if (state.shipping === "Two-Day Express") {
-      return 15.95
+      return 15.95;
     } else if (state.shipping === "Overnight") {
-      return 28.99
+      return 28.99;
+    } else {
+      return 0;
     }
+  };
+
+  const handlePromoCode = (event) => {
+    event.preventDefault();
+    if(promoCode.toLowerCase() === 'vivid2021'){
+      setDiscount(cartTotal * .20)
+    } else if (promoCode.toLowerCase() === 'freeship'){
+      setDiscount(setShippingCost());
+    } 
+    setPromoCode('');
   }
 
   const total = cartTotal + setShippingCost();
@@ -93,12 +112,12 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
   const orderPurchased = async () => {
     if (!cart[0]) {
       swal({
-        title: 'Oops!',
-        text: 'There are no items in your cart!',
-        icon: 'error',
+        title: "Oops!",
+        text: "There are no items in your cart!",
+        icon: "error",
         button: false,
-        timer: 2000
-      })
+        timer: 2000,
+      });
     } else if (
       firstName &&
       lastName &&
@@ -112,7 +131,17 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
       cardCvv &&
       state.shipping
     ) {
-      await submitOrder(userId, email, total, firstName, lastName, address, city, usState, zipCode);
+      await submitOrder(
+        userId,
+        email,
+        total,
+        firstName,
+        lastName,
+        address,
+        city,
+        usState,
+        zipCode
+      );
       const purchases = await fetchPurchaseHistory(userId);
       setPurchaseHistory(purchases);
       console.log(purchases);
@@ -124,7 +153,7 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
         text: "Email Confirmation has been sent",
         icon: "success",
         button: false,
-        timer: 3000
+        timer: 3000,
       });
     } else {
       swal({
@@ -163,16 +192,20 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
             <Typography>
               <div style={{ marginBottom: "50px" }}>
                 <div>
-                  {cart[0] ? cart.map((product) => {
-                    return (
-                      <div key={product.productsId}>
-                        <h2>Name: {product.productName}</h2>
-                        <p>Price: $ {product.productPrice}</p>
-                        <p>Size: {product.size}</p>
-                        <p>Quantity: {product.quantity}</p>
-                      </div>
-                    );
-                  }) : <div>No items In cart</div>}
+                  {cart[0] ? (
+                    cart.map((product) => {
+                      return (
+                        <div key={product.productsId}>
+                          <h2>Name: {product.productName}</h2>
+                          <p>Price: $ {product.productPrice}</p>
+                          <p>Size: {product.size}</p>
+                          <p>Quantity: {product.quantity}</p>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div>No items In cart</div>
+                  )}
                 </div>
                 <Button
                   variant="contained"
@@ -460,31 +493,47 @@ export default function Checkout({ cart, setCart, user, userId, setPurchaseHisto
               ) : null}
               <h5 style={{ marginTop: "10px" }}>Order Items</h5>
               <div>
-                {cart[0] ? cart.map((product) => {
-                  return (
-                    <div key={product.productsId}>
-                      <h2>Name: {product.productName}</h2>
-                      <p>Price: $ {product.productPrice}</p>
-                      <p>Size: {product.size}</p>
-                      <p>Quantity: {product.quantity}</p>
-                    </div>
-                  );
-                }) : <div>No items In cart</div>}
+                {cart[0] ? (
+                  cart.map((product) => {
+                    return (
+                      <div key={product.productsId}>
+                        <h2>Name: {product.productName}</h2>
+                        <p>Price: $ {product.productPrice}</p>
+                        <p>Size: {product.size}</p>
+                        <p>Quantity: {product.quantity}</p>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div>No items In cart</div>
+                )}
               </div>
-              <h3 style={{ textDecoration: 'overline', marginTop: '20px' }}>Subtotal: $ {cartTotal}</h3>
-              <h4>Shipping: {setShippingCost()}</h4>
-              <h2>Total: {total}</h2>
-              <Button
-                style={{ marginTop: "20px", width: "150px" }}
-                variant="contained"
-                onClick={orderPurchased}
-              >
-                Place Order
-              </Button>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <form style={{width: '130px'}} onSubmit={(event) => handlePromoCode(event)}>
+                  <div style={{display: 'flex', flexDirection: "column"}}>
+                    <label>Promo Code</label>
+                    <input type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value)}/>
+                    <input type="submit" name="submit" value="Submit"></input>
+                  </div>
+                </form>
+                <h3 style={{ textDecoration: "overline", marginTop: "20px" }}>
+                  Subtotal: ${cartTotal}
+                </h3>
+                <h4>Shipping: ${setShippingCost()}</h4>
+                {discount > 0 ? <h4>Discount: -${discount}</h4> : ''}
+                <h2>Total: ${total - discount}</h2>
+                <Button
+                  style={{ marginTop: "20px", width: "150px" }}
+                  variant="contained"
+                  onClick={orderPurchased}
+                >
+                  Place Order
+                </Button>
+              </div>
             </div>
           </AccordionDetails>
         </Accordion>
       </div>
-    </div >
+    </div>
   );
 }
