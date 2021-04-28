@@ -134,7 +134,7 @@ export default function Checkout({
       await submitOrder(
         userId,
         email,
-        total,
+        (total- discount).toFixed(2),
         firstName,
         lastName,
         address,
@@ -521,7 +521,7 @@ export default function Checkout({
                 </h3>
                 <h4>Shipping: ${setShippingCost()}</h4>
                 {discount > 0 ? <h4>Discount: -${discount}</h4> : ''}
-                <h2>Total: ${total - discount}</h2>
+                <h2>Total: ${(total - discount).toFixed(2)}</h2>
                 <Button
                   style={{ marginTop: "20px", width: "150px" }}
                   variant="contained"
