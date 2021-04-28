@@ -105,8 +105,9 @@ input[type="radio"] {
 }
 
 .header_menu_item {
-  text-decoration: none;
+  text-decoration: none !important;
 }
+
 
 @media screen and (max-width: 1000px) {
   .header_title {
@@ -647,7 +648,7 @@ dd {
     
    .footer-distributed .footer-center p a{
     color: #f38695;
-    text-decoration: none;;
+    text-decoration: none;
    }
     
    .footer-distributed .footer-right{
@@ -1034,7 +1035,7 @@ font-size: 17px;
   top: 110px;
   font-size: 40px;
   font-weight: 600;
-  width: 400px;
+  width: 600px;
 }
 
 @media (max-width: 880px) {

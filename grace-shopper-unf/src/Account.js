@@ -13,6 +13,7 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import { red, blue, pink } from '@material-ui/core/colors';
 import './Account.css';
+import Pagination from './Pagination'
 import { Link } from 'react-router-dom';
 import { deleteItemFromUserWishList, fetchWishListByUserId } from './api';
 
@@ -24,6 +25,7 @@ function ProfileTextFields({ username, purchaseHistory, wishList }) {
     let [lastName, setLastName] = useState('');
     let [email, setEmail] = useState('');
     const [user, setUser] = useState([]);
+
 
     const classes = useStyles();
 
@@ -153,6 +155,16 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
     const [user, setUser] = useState('');
 
     const history = useHistory();
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage, setProductsPerPage] = useState(3);
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = purchaseHistory.slice(indexOfFirstProduct, indexOfLastProduct);
+    console.log(currentProducts);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -291,10 +303,10 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                         <h3 style={{ width: '150px' }}>Recent Purchases</h3>
                         <Divider />
 
-                        {purchaseHistory[0] ? purchaseHistory.map(item => {
+                        {purchaseHistory[0] ? currentProducts.map(item => {
                             return (
                                 <div>
-                                    <h3>
+                                    <h3 style={{ marginTop: '10px' }}>
                                         Order Confirmation # {item.orderConfirmationNumber}
                                     </h3>
                                     <h4>
@@ -313,6 +325,7 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                                         Purchase Date: {item.date}
                                     </p>
                                 </div>
+
                             )
                         }) :
 
@@ -348,6 +361,7 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                             </div>
                         }
                     </div>
+                    <Pagination productsPerPage={productsPerPage} totalNumberOfProducts={purchaseHistory.length} paginate={paginate} />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <div>
@@ -357,9 +371,9 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                             return (
                                 <div style={{ marginTop: '20px' }}>
                                     <Link to={`/products/${list.productsId}`}>
-                                    <h2>
-                                        {list.productName}
-                                    </h2>
+                                        <h2>
+                                            {list.productName}
+                                        </h2>
                                     </Link>
                                     <p>
                                         Price: ${list.productPrice}

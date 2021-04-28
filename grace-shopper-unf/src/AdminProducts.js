@@ -168,14 +168,14 @@ const EnhancedTableToolbar = ({
   setProductStock,
   selectedProduct,
   addName,
-  setAddName, 
-  addDescription, 
+  setAddName,
+  addDescription,
   setAddDescription,
   addPrice,
   setAddPrice,
   reviews,
   productImage,
-  setProductImage, 
+  setProductImage,
   addProductStock,
   setAddProductStock,
   handleAddProduct
@@ -261,6 +261,7 @@ const EnhancedTableToolbar = ({
         </div>
       </div>
       <AddIcon
+        style={{ fontSize: '27px', color: 'black' }}
         type="button"
         data-toggle="modal"
         data-target="#myModalTwo"
@@ -276,23 +277,23 @@ const EnhancedTableToolbar = ({
             </div>
             <div class="modal-body">
               <div class="popup">
-                <form method="post" enctype="text/plain" onSubmit={(event) => handleAddProduct(event)}>
-                  <input type="text" id="name" name="name" placeholder="Product Name" value={addName} onChange={(event) => setAddName(event.target.value)} required />
+                <div method="post" enctype="text/plain" onSubmit={(event) => handleAddProduct(event)}>
+                  <input style={{ fontFamily: 'Rubik' }} type="text" id="name" name="name" placeholder="Product Name" value={addName} onChange={(event) => setAddName(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="integer" id="price" name="price" placeholder="Price" value={addPrice} onChange={(event) => setAddPrice(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="integer" id="price" name="price" placeholder="Price" value={addPrice} onChange={(event) => setAddPrice(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="integer" id="productStock" name="productStock" placeholder="Stock amount" value={addProductStock} onChange={(event) => setAddProductStock(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="integer" id="productStock" name="productStock" placeholder="Stock amount" value={addProductStock} onChange={(event) => setAddProductStock(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="text" id="productImage" name="productImage" placeholder="Product Image" value={productImage} onChange={(event) => setProductImage(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="text" id="productImage" name="productImage" placeholder="Product Image" value={productImage} onChange={(event) => setProductImage(event.target.value)} required />
                   <label for="name"></label>
 
                   <textarea id="info" placeholder="Description" value={addDescription} onChange={(event) => setAddDescription(event.target.value)} required></textarea>
 
-                  <input type="submit" name="submit" value="Submit"></input>
-                </form>
+                  <input style={{ backgroundColor: 'grey', color: 'white', fontFamily: 'Rubik' }} type="submit" name="submit" value="Submit"></input>
+                </div>
               </div>
             </div>
           </div>
@@ -405,7 +406,7 @@ export default function AdminProducts({ products, setProducts }) {
 
   const handleClick = async (event, name) => {
     const fetchedProduct = await fetchProductById(name)
-    setSelectedProduct(fetchedProduct); 
+    setSelectedProduct(fetchedProduct);
     setName(fetchedProduct.name);
     setDescription(fetchedProduct.description);
     setPrice(fetchedProduct.price);
