@@ -178,18 +178,18 @@ const getAllProducts = async () => {
   }
 };
 
-const updateProducts = async ({ id, name, description, price }) => {
+const updateProducts = async ({ id, name, description, price, productStock }) => {
   try {
     const {
       rows: [products],
     } = await client.query(
       `
           UPDATE products
-          SET name = $2, description = $3, price = $4
+          SET name = $2, description = $3, price = $4, "productStock" = $5
           WHERE id = $1
           RETURNING *
       `,
-      [id, name, description, price]
+      [id, name, description, price, productStock]
     );
 
     return products;
