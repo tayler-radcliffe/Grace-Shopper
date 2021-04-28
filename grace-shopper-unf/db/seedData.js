@@ -226,7 +226,7 @@ async function createInitialProducts() {
                 ],
             },
             {
-                name: 'Nike ZoomX Invincible Run Flyknit',
+                name: 'Nike ZoomX  Run Flyknit',
                 description: 'Get after those long runs with the Nike ZoomX Invincible Run Flyknit. A lightweight and responsive foam delivers a super-soft feel and helps deliver energy with every step. Breathable and secure, its one of our most tested shoes. Lace up and feel the potential when your foot hits the pavement.',
                 creatorId: 1,
                 price: 180,
@@ -247,7 +247,7 @@ async function createInitialProducts() {
                 ],
             },
             {
-                name: 'DEFIANT GENERATION MULTICOURT TENNIS SHOES',
+                name: 'DEFIANT GENERATION SHOES',
                 description: 'Style and performance. You shouldnt have to choose between them on the tennis court. Thats why adidas created these Defiant Generation shoes. Their foot-hugging canvas upper and flexible Bounce midsole combine to keep you secure and comfortable. Underneath, a grippy multi-court outsole ensures your opponents have to work for every point.',
                 creatorId: 2,
                 price: 100,
@@ -398,7 +398,7 @@ async function createInitialProducts() {
                 ],
             },
             {
-                name: 'Nike Air Zoom Terra Kiger 7',
+                name: 'Nike Air  Kiger 7',
                 description: 'Run the trail in the Nike Air Zoom Terra Kiger 7. Fast and lightweight, the shoe delivers a breathable and secure feel as you race over rocky paths. Updated traction lugs provide stability for your downhill miles.',
                 creatorId: 1,
                 price: 160,
