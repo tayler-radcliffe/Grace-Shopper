@@ -141,6 +141,7 @@ function App() {
 
         <Route exact path="/checkout">
           <Checkout
+            setProducts={setProducts}
             user={user}
             cart={cart}
             setCart={setCart}

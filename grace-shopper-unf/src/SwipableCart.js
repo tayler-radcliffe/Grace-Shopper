@@ -6,12 +6,10 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import AddIcon from '@material-ui/icons/Add';
 import Badge from "@material-ui/core/Badge";
 import "./Cart.css";
 import { Link } from "react-router-dom";
 import { deleteProductFromCart, fetchCartData, quantityUpdate, fetchProductById } from "./api";
-import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import green from "@material-ui/core/colors/green";
 import swal from "sweetalert";
@@ -70,7 +68,7 @@ export default function SwipeableTemporaryDrawer({
     const productStockCheck = await fetchProductById(productId);
     console.log(productStockCheck.productStock);
     console.log(newQty);
-    if(newQty > productStockCheck.productStock){
+    if (newQty > productStockCheck.productStock) {
       swal({
         title: 'Oops!',
         text: 'Sorry, there is not enough in stock!',
@@ -115,6 +113,7 @@ export default function SwipeableTemporaryDrawer({
   const list = (anchor) => (
     <div
       style={{
+        backgroundColor: '#F0F0F0',
         display: "flex",
         alignItems: "center",
         padding: "10px",
@@ -133,7 +132,7 @@ export default function SwipeableTemporaryDrawer({
       <Divider />
 
       <List>
-        <div>
+        <div style={{ opacity: '2.0' }}>
           {cart[0] ? (
             cart.map((product) => {
               console.log(product)
@@ -201,8 +200,8 @@ export default function SwipeableTemporaryDrawer({
           textDecoration: "none",
         }}
       >
-        <span style={{ position: 'absolute', top: '10px', right: '20px', color: 'black', fontSize: '15px' }}>
-          <i class='<i fas fa-money-check-alt faa-horizontal animated fa-4x'></i>
+        <span style={{ position: 'absolute', top: '10px', right: '35px', color: 'black', fontSize: '15px' }}>
+          <i class='<i fas fa-shopping-bag faa-horizontal animated fa-4x'></i>
         </span>
       </Link>
     </div >

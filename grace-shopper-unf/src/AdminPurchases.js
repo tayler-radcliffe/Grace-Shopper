@@ -39,7 +39,7 @@ export default function AdminPurchases({ allPurchases }) {
 
   return (
     <div style={{ padding: '50px', backgroundImage: 'url(https://images.pexels.com/photos/6363791/pexels-photo-6363791.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)' }}>
-      <div style={{ padding: '10px 0px', backgroundColor: 'white' }}>
+      <div style={{ width: '100%', height: '100%', padding: '10px 0px', backgroundColor: 'white' }}>
         <Bar
           className="purchasesText"
           data={state}

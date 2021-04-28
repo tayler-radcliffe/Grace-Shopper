@@ -6,45 +6,45 @@ const simpleParser = require('mailparser').simpleParser;
 const MailParser = require('mailparser').MailParser;
 
 const mailFunction = async (currentCart, email, orderNumber, total, firstName, lastName, address, city, usState, zipCode) => {
-  
-var transporter = nodemailer.createTransport(smtpTransport({
-  service: 'gmail',
-  host: 'smtp.gmail.com',
-  auth: {
-    user: 'teamvividunf@gmail.com',
-    pass: 'Teamvivid#2021'
-  }
-}));
 
-const orderTotal = `<p>Order Total $${total}</p> </br>`;
-const recipient = `<p> Shipping to: ${firstName} ${lastName}</p> </br>`
-const shippingAddress = `<p>${address} ${city}, ${usState} ${zipCode}</p> </br>`
+  var transporter = nodemailer.createTransport(smtpTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    auth: {
+      user: 'teamvividunf@gmail.com',
+      pass: 'Teamvivid#2021'
+    }
+  }));
 
-let newparser = new MailParser(currentCart);
-const parsedCart = newparser.options;
-const cartArray = Object.values(parsedCart).map((i, idx) => `
-<h4> item ${idx + 1} of ${parsedCart.length} </h4> </br>
-<h5> Product Name: ${i.productName}</h5> </br>
-<p> Product Price: $ ${i.productPrice} </p> </br>
-<p> Product Size: ${i.size} </p> </br>
-<p> Product quantity: ${i.quantity} </p> </br>`)
-const emailHtml = cartArray.toString();
+  const orderTotal = `<p>Order Total $${total}</p>`;
+  const recipient = `<p> Shipping to: ${firstName} ${lastName}</p> `
+  const shippingAddress = `<p>${address} ${city}, ${usState} ${zipCode}</p> </br>`
 
-var mailOptions = {
-  from: 'teamvividunf@gmail.com',
-  to: `${email}`,
-  subject: `Order Confirmation #${orderNumber} `,
-  text: "Order conf",
-  html: `${orderTotal} ${recipient} ${shippingAddress} ${emailHtml}`
-};
+  let newparser = new MailParser(currentCart);
+  const parsedCart = newparser.options;
+  const cartArray = Object.values(parsedCart).map((i, idx) => `
+<h4> item ${idx + 1} of ${parsedCart.length} </h4> 
+<h5> Product Name: ${i.productName}</h5>
+<p> Product Price: $ ${i.productPrice} </p>
+<p> Product Size: ${i.size} </p>
+<p> Product quantity: ${i.quantity} </p>`)
+  const emailHtml = cartArray.toString();
 
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});  
+  var mailOptions = {
+    from: 'teamvividunf@gmail.com',
+    to: `${email}`,
+    subject: `Order Confirmation #${orderNumber} `,
+    text: "Order conf",
+    html: `${orderTotal} ${recipient} ${shippingAddress} ${emailHtml}`
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 
 }
 
@@ -92,7 +92,7 @@ async function addToRecentPurchases(userId, email, total, firstName, lastName, a
 
   await deleteCartItemsAfterPurchase(userId);
 
-  const {rows: purchaseHistory} = await client.query(`
+  const { rows: purchaseHistory } = await client.query(`
     SELECT * FROM purchaseHistory
     WHERE "userId" = $1;
   `, [userId])
@@ -103,7 +103,7 @@ async function addToRecentPurchases(userId, email, total, firstName, lastName, a
 
 const getPurchaseHistoryByUserId = async (userId) => {
   try {
-    const {rows: purchaseHistory} = await client.query(`
+    const { rows: purchaseHistory } = await client.query(`
       SELECT * 
       FROM purchaseHistory
       WHERE "userId" = $1
@@ -118,7 +118,7 @@ const getPurchaseHistoryByUserId = async (userId) => {
 
 const getAllPurchaseHistory = async () => {
   try {
-    const {rows: purchaseHistory} = await client.query(`
+    const { rows: purchaseHistory } = await client.query(`
       SELECT * 
       FROM purchaseHistory
     `)
@@ -132,20 +132,20 @@ const getAllPurchaseHistory = async () => {
 
 const updateProductStock = async (productId, quantity) => {
   console.log("vvv", productId, quantity)
-    
+
   try {
-    const {rows: productStock} = await client.query(`
+    const { rows: productStock } = await client.query(`
       SELECT "productStock"
       FROM products
       WHERE id = $1
     `, [productId]);
 
     const newStock = productStock[0].productStock - quantity;
-    
-    await updateStockHelper(productId, newStock);
-    
 
-    
+    await updateStockHelper(productId, newStock);
+
+
+
   } catch (error) {
     throw error
   }
@@ -153,7 +153,7 @@ const updateProductStock = async (productId, quantity) => {
 
 const updateStockHelper = async (productId, newStock) => {
   try {
-    const {rows: products} = await client.query(`
+    const { rows: products } = await client.query(`
     UPDATE products
     SET "productStock" = $2
     WHERE "id" = $1
