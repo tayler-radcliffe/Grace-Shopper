@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Product from "./Product";
 import CarouselComponent from './Carousel';
 import { Link } from "react-scroll";
@@ -8,7 +8,7 @@ import Pagination from './Pagination'
 export default function Products({ products, setProducts, searchTerm, setSearchTerm, rating, setRating, hover, setHover, id }) {
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [productsPerPage, setProductsPerPage] = useState(3);
+    const [productsPerPage, setProductsPerPage] = useState(6);
 
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -16,8 +16,8 @@ export default function Products({ products, setProducts, searchTerm, setSearchT
     console.log(currentProducts);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
- 
-    
+
+
 
     const productMatches = (product, text) => {
 
@@ -92,7 +92,7 @@ export default function Products({ products, setProducts, searchTerm, setSearchT
                 {productsToDisplay.map(product => <Product
                     product={product} setProducts={setProducts} productId={product.id} setSearchTerm={setSearchTerm}
                     rating={rating} setRating={setRating} hover={hover} setHover={setHover} />)}
-                <Pagination productsPerPage={productsPerPage} totalNumberOfProducts={products.length} paginate={paginate}/>
+                <Pagination productsPerPage={productsPerPage} totalNumberOfProducts={products.length} paginate={paginate} />
             </div>
         </div>
     )

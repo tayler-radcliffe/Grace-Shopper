@@ -141,13 +141,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === "light"
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   title: {
     flex: "1 1 100%",
   },
@@ -168,20 +168,20 @@ const EnhancedTableToolbar = ({
   setProductStock,
   selectedProduct,
   addName,
-  setAddName, 
-  addDescription, 
+  setAddName,
+  addDescription,
   setAddDescription,
   addPrice,
   setAddPrice,
   reviews,
   productImage,
-  setProductImage, 
+  setProductImage,
   addProductStock,
   setAddProductStock,
   handleAddProduct
 }) => {
   const classes = useToolbarStyles();
-  
+
 
   return (
     <Toolbar
@@ -237,30 +237,31 @@ const EnhancedTableToolbar = ({
             <div class="modal-header">
               <button class="close" type="button" data-dismiss="modal">
               </button>
-              <h4 class="modal-title">Edit Product</h4>
+              <h4 style={{ fontFamily: 'Rubik', color: 'black' }} class="modal-title">Edit Product</h4>
             </div>
             <div class="modal-body">
               <div class="popup">
-                <form method="post" enctype="text/plain" onSubmit={(event) => handleEditProduct(event, selected)}>
-                  <input type="text" id="name" name="name" placeholder="Product Name" value={name} onChange={(event) => setName(event.target.value)} required />
+                <div method="post" enctype="text/plain" onSubmit={(event) => handleEditProduct(event, selected)}>
+                  <input style={{ fontFamily: 'Rubik' }} type="text" id="name" name="name" placeholder="Product Name" value={name} onChange={(event) => setName(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="text" id="price" name="price" placeholder="Price" value={price} onChange={(event) => setPrice(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="text" id="price" name="price" placeholder="Price" value={price} onChange={(event) => setPrice(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="integer" id="productStock" name="productStock" placeholder="Stock amount" value={productStock} onChange={(event) => setProductStock(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="integer" id="productStock" name="productStock" placeholder="Stock amount" value={productStock} onChange={(event) => setProductStock(event.target.value)} required />
                   <label for="name"></label>
 
-                  <textarea id="info" placeholder="Description" value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
+                  <textarea style={{ fontFamily: 'Rubik' }} id="info" placeholder="Description" value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
 
-                  <input type="submit" name="submit" value="Submit"></input>
-                </form>
+                  <input style={{ backgroundColor: 'grey', color: 'white', fontFamily: 'Rubik' }} type="submit" name="submit" value="Edit Product"></input>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <AddIcon
+        style={{ fontSize: '27px', color: 'black' }}
         type="button"
         data-toggle="modal"
         data-target="#myModalTwo"
@@ -276,23 +277,23 @@ const EnhancedTableToolbar = ({
             </div>
             <div class="modal-body">
               <div class="popup">
-                <form method="post" enctype="text/plain" onSubmit={(event) => handleAddProduct(event)}>
-                  <input type="text" id="name" name="name" placeholder="Product Name" value={addName} onChange={(event) => setAddName(event.target.value)} required />
+                <div method="post" enctype="text/plain" onSubmit={(event) => handleAddProduct(event)}>
+                  <input style={{ fontFamily: 'Rubik' }} type="text" id="name" name="name" placeholder="Product Name" value={addName} onChange={(event) => setAddName(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="integer" id="price" name="price" placeholder="Price" value={addPrice} onChange={(event) => setAddPrice(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="integer" id="price" name="price" placeholder="Price" value={addPrice} onChange={(event) => setAddPrice(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="integer" id="productStock" name="productStock" placeholder="Stock amount" value={addProductStock} onChange={(event) => setAddProductStock(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="integer" id="productStock" name="productStock" placeholder="Stock amount" value={addProductStock} onChange={(event) => setAddProductStock(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="text" id="productImage" name="productImage" placeholder="Product Image" value={productImage} onChange={(event) => setProductImage(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="text" id="productImage" name="productImage" placeholder="Product Image" value={productImage} onChange={(event) => setProductImage(event.target.value)} required />
                   <label for="name"></label>
 
                   <textarea id="info" placeholder="Description" value={addDescription} onChange={(event) => setAddDescription(event.target.value)} required></textarea>
 
-                  <input type="submit" name="submit" value="Submit"></input>
-                </form>
+                  <input style={{ backgroundColor: 'grey', color: 'white', fontFamily: 'Rubik' }} type="submit" name="submit" value="Submit"></input>
+                </div>
               </div>
             </div>
           </div>
@@ -405,7 +406,7 @@ export default function AdminProducts({ products, setProducts }) {
 
   const handleClick = async (event, name) => {
     const fetchedProduct = await fetchProductById(name)
-    setSelectedProduct(fetchedProduct); 
+    setSelectedProduct(fetchedProduct);
     setName(fetchedProduct.name);
     setDescription(fetchedProduct.description);
     setPrice(fetchedProduct.price);

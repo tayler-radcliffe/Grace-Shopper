@@ -32,6 +32,7 @@ input[type="radio"] {
 
 .header {
   overflow: hidden;
+  text-decoration: none;
 }
 
 .box{
@@ -103,6 +104,11 @@ input[type="radio"] {
   }
 }
 
+.header_menu_item {
+  text-decoration: none !important;
+}
+
+
 @media screen and (max-width: 1000px) {
   .header_title {
     display: none;
@@ -137,6 +143,7 @@ font-weight: lighter;
 
 .homePageButton {
   position: relative;
+  color: black;
   top: 400px;
   left: 500px;
   cursor: pointer;
@@ -265,6 +272,7 @@ margin-top: 5px;
 /* EXPLORE ARROW */
 
 .productsExploreButton {
+  color: black;
     height: 50px;
     width: 75px;
     margin: 0 auto;
@@ -640,7 +648,7 @@ dd {
     
    .footer-distributed .footer-center p a{
     color: #f38695;
-    text-decoration: none;;
+    text-decoration: none;
    }
     
    .footer-distributed .footer-right{
@@ -1027,7 +1035,7 @@ font-size: 17px;
   top: 110px;
   font-size: 40px;
   font-weight: 600;
-  width: 400px;
+  width: 600px;
 }
 
 @media (max-width: 880px) {
@@ -1141,72 +1149,34 @@ font-size: 17px;
   animation: horizontal 2s ease infinite;
 }
 
-.popup form {
+.popup div {
 	width: 100%;
 }
-input[required] + label, .popup form input, .popup form select, .popup form textarea {
+input[required] + label, .popup div input, .popup div select, .popup div textarea {
 	font-family: "Roboto";
 	font-weight: 300;
-  color: blue;
   font-size:16px;
 }
-.popup form input, .popup form select {
+.popup div input, .popup div select {
 	height:38px;
 }
 
-.popup form input, .popup form select, .popup form textarea {
+.popup div input, .popup div select, .popup div textarea {
 	border:1px solid #d0d0d0;
 	display: block;
 	margin: 0 auto;
 	margin-bottom: 20px;
 	padding-left: 10px;
 	width: 83.55%;
-  color: red;
-}
-input[required] + label {
-	position: absolute;
-	transform: translateX(60px) translateY(-50px);
-}
-::-webkit-input-placeholder { 
-        color: blue;
-        opacity: 1; }
-::-moz-placeholder          { color: blue;
-        opacity: 1; }
-:-moz-placeholder           { color: blue; 
-        opacity: 1;}
-:-ms-input-placeholder      { color: blue; 
-        opacity: 1;}
-
-input[required] + label:after {
-    content:'*';
-    color: red;
-}
-input[required]:invalid + label{
-    display: inline-block;
-}
-input[required]:valid + label{
-    display: none;
 }
 
-.popup form select {
-	background-position: right 10px center;
-	background-repeat: no-repeat;
-     -webkit-appearance: none;
-      -moz-appearance: none;
-      text-indent: 0.01px; 
-      text-overflow: '';
-      -ms-appearance: none;
-      appearance: none!important;
-    color: blue;
-}
 
- .popup form textarea {
+ .popup div textarea {
 	height: 110px;
 	padding-top: 10px;
-	color: red;
 }
-.popup form input[type="submit"] {
-	background:#dd4949;
+.popup div input[type="submit"] {
+
 	border-radius:3px;
 	width:317px;
 	height:40px;
