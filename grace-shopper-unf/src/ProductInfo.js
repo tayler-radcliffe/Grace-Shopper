@@ -31,6 +31,9 @@ export default function ProductInfo({
   const [product, setProduct] = useState({});
   const { productId } = useParams();
   const [stars, setStars] = useState(0);
+  const [isWishList, setIsWishList] = useState(false);
+
+  console.log(wishList);
 
   const classes = useStyles();
 
@@ -82,6 +85,14 @@ export default function ProductInfo({
       Promise.all([fetchProductById(productId)]).then(([data]) => {
         setProduct(data);
         setRatings();
+        const wishListCheck = wishList.map(item => item.productsId);
+        console.log("BBB", wishListCheck);
+        console.log("WWW", productId)
+        for(let i = 0; i < wishListCheck.length; i++){
+          if(wishListCheck[i] == productId){
+            setIsWishList(true);
+          }
+        }
       });
     } catch (error) {
       throw error;
@@ -111,6 +122,23 @@ export default function ProductInfo({
       timer: 2000,
     });
   }
+
+  const logInChecker = (event) => {
+    if(isLoggedIn){
+      addToWishlist(event);
+      setIsWishList(true);
+    } else {
+      swal({
+        title: "Wish List",
+        text: "Please login to add items to a wishlist!",
+        icon: "error",
+        button: false,
+        timer: 2000,
+      });
+    }
+  }
+
+  console.log(isWishList);
 
   return (
     <div
@@ -144,7 +172,7 @@ export default function ProductInfo({
                 }}
                 class="d-price"
               >
-                <span style={{ fontSize: '30px' }} className="productInfoPrice">${product.price}.00  <i onClick={addToWishlist} class="fas fa-heart"></i></span>
+                {isWishList ? <span style={{ fontSize: '30px' }} className="productInfoPrice"> ${product.price}.00 <i class="fas fa-heart"></i> </span> : <span style={{ fontSize: '30px' }} className="productInfoPrice">${product.price}.00  <i onClick={(event) => logInChecker(event)} class="far fa-heart"></i></span>}
               </div>
             </div>
           </div>
