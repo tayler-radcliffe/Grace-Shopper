@@ -356,9 +356,11 @@ function VerticalTabs({ username, setUsername, purchaseHistory }) {
                         {completedWishList[0] ? completedWishList.map(list => {
                             return (
                                 <div style={{ marginTop: '20px' }}>
+                                    <Link to={`/products/${list.productsId}`}>
                                     <h2>
                                         {list.productName}
                                     </h2>
+                                    </Link>
                                     <p>
                                         Price: ${list.productPrice}
                                     </p>

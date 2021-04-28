@@ -41,7 +41,7 @@ productsRouter.get("/ratings/:productId", async (req, res, next) => {
 
 
 productsRouter.post("/", async (req, res, next) => {
-  const { name, description, creatorId, price, reviews = [] } = req.body;
+  const { name, description, creatorId, price, reviews = [], productImage, productStock } = req.body;
   const productsData = {};
 
   try {
@@ -50,6 +50,8 @@ productsRouter.post("/", async (req, res, next) => {
     productsData.creatorId = creatorId;
     productsData.price = price;
     productsData.reviews = reviews;
+    productsData.productImage = productImage;
+    productsData.productStock = productStock;
 
     const products = await createProducts(productsData);
     res.send({

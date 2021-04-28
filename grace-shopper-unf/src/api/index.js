@@ -387,3 +387,27 @@ export async function updateProduct(productId, name, description, price, product
     throw error;
   }
 }
+
+export async function addNewProduct(name, description, creatorId, price, reviews = [], productImage, productStock) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/products`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name, 
+        description, 
+        creatorId, 
+        price, 
+        reviews, 
+        productImage, 
+        productStock
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
