@@ -139,13 +139,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === "light"
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   title: {
     flex: "1 1 100%",
   },
@@ -166,7 +166,7 @@ const EnhancedTableToolbar = ({
   setProductStock
 }) => {
   const classes = useToolbarStyles();
-  
+
 
   return (
     <Toolbar
@@ -222,24 +222,24 @@ const EnhancedTableToolbar = ({
             <div class="modal-header">
               <button class="close" type="button" data-dismiss="modal">
               </button>
-              <h4 class="modal-title">Edit Product</h4>
+              <h4 style={{ fontFamily: 'Rubik', color: 'black' }} class="modal-title">Edit Product</h4>
             </div>
             <div class="modal-body">
               <div class="popup">
-                <form method="post" enctype="text/plain" onSubmit={(event) => handleEditProduct(event, selected)}>
-                  <input type="text" id="name" name="name" placeholder="Product Name" value={name} onChange={(event) => setName(event.target.value)} required />
+                <div method="post" enctype="text/plain" onSubmit={(event) => handleEditProduct(event, selected)}>
+                  <input style={{ fontFamily: 'Rubik' }} type="text" id="name" name="name" placeholder="Product Name" value={name} onChange={(event) => setName(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="text" id="price" name="price" placeholder="Price" value={price} onChange={(event) => setPrice(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="text" id="price" name="price" placeholder="Price" value={price} onChange={(event) => setPrice(event.target.value)} required />
                   <label for="name"></label>
 
-                  <input type="integer" id="productStock" name="productStock" placeholder="Stock amount" value={productStock} onChange={(event) => setProductStock(event.target.value)} required />
+                  <input style={{ fontFamily: 'Rubik' }} type="integer" id="productStock" name="productStock" placeholder="Stock amount" value={productStock} onChange={(event) => setProductStock(event.target.value)} required />
                   <label for="name"></label>
 
-                  <textarea id="info" placeholder="Description" value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
+                  <textarea style={{ fontFamily: 'Rubik' }} id="info" placeholder="Description" value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
 
-                  <input type="submit" name="submit" value="Submit"></input>
-                </form>
+                  <input style={{ backgroundColor: 'grey', color: 'white', fontFamily: 'Rubik' }} type="submit" name="submit" value="Edit Product"></input>
+                </div>
               </div>
             </div>
           </div>
