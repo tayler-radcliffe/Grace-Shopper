@@ -241,7 +241,7 @@ const EnhancedTableToolbar = ({
             </div>
             <div class="modal-body">
               <div class="popup">
-                <div method="post" enctype="text/plain" onSubmit={(event) => handleEditProduct(event, selected)}>
+                <div method="post" enctype="text/plain">
                   <input style={{ fontFamily: 'Rubik' }} type="text" id="name" name="name" placeholder="Product Name" value={name} onChange={(event) => setName(event.target.value)} required />
                   <label for="name"></label>
 
@@ -253,7 +253,7 @@ const EnhancedTableToolbar = ({
 
                   <textarea style={{ fontFamily: 'Rubik' }} id="info" placeholder="Description" value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
 
-                  <input style={{ backgroundColor: 'grey', color: 'white', fontFamily: 'Rubik' }} type="submit" name="submit" value="Edit Product"></input>
+                  <button style={{ fontFamily: 'Rubik', padding: '20px' }} onClick={(event) => handleEditProduct(event, selected)} style={{ backgroundColor: 'grey', color: 'white', fontFamily: 'Rubik' }}> Edit Product</button>
                 </div>
               </div>
             </div>
@@ -292,7 +292,7 @@ const EnhancedTableToolbar = ({
 
                   <textarea id="info" placeholder="Description" value={addDescription} onChange={(event) => setAddDescription(event.target.value)} required></textarea>
 
-                  <input style={{ backgroundColor: 'grey', color: 'white', fontFamily: 'Rubik' }} type="submit" name="submit" value="Submit"></input>
+                  <button onClick={(event) => handleAddProduct(event)} style={{ backgroundColor: 'grey', color: 'white', fontFamily: 'Rubik' }} > Add Product </button>
                 </div>
               </div>
             </div>
