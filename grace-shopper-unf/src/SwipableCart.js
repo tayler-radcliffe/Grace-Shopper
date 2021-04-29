@@ -144,10 +144,10 @@ export default function SwipeableTemporaryDrawer({
                 <div key={product.productsId}>
                   {products.map(item => {
                     if (product.productsId === item.id) {
-                      return <img style={{ width: '100px', marginTop: '10px', height: '100px' }} src={item.productImage} alt=''></img>
+                      return <img style={{ width: '100px', marginTop: '50px', height: '100px' }} src={item.productImage} alt=''></img>
                     }
                   })}
-                  <h2 className="Rubik">{product.productName}</h2>
+                  <h2 style={{ marginTop: '5px' }} className="Rubik">{product.productName}</h2>
                   <p className="Rubik">Price: ${product.productPrice}</p>
 
                   <p className="Rubik">Size: {product.size}</p>
@@ -198,7 +198,7 @@ export default function SwipeableTemporaryDrawer({
               );
             })
           ) : (
-            <p style={{ marginTop: "20px" }}>You have no items in your cart!</p>
+            <p style={{ marginTop: "40px" }}>You have no items in your cart!</p>
           )}
         </div>
       </List>
@@ -209,7 +209,7 @@ export default function SwipeableTemporaryDrawer({
           textDecoration: "none",
         }}
       >
-        <span className="checkoutButtonCart" style={{ fontFamily: "Rubik", backgroundColor: 'white', border: '2px solid black', position: 'absolute', top: '25px', right: '10px', width: '90px', borderRadius: '30px' }}>
+        <span className="checkoutButtonCart" style={{ padding: '0px 3px', fontFamily: "Rubik", backgroundColor: 'white', border: '2px solid black', position: 'absolute', top: '75px', right: '125px', width: '100px', borderRadius: '30px' }}>
           <Button> Checkout </Button>
         </span>
       </Link>
