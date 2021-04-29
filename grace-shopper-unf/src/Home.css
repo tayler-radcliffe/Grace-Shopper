@@ -5,3 +5,10 @@
     padding: 0;
     text-align: center;
  }
+
+ .homeLink:visited {
+     text-decoration: none;
+     color: black;
+ }
+
+ 

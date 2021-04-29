@@ -5,31 +5,72 @@ import Header from "./Header";
 import Home from "./Home";
 import Products from "./Products";
 import About from "./About";
+import Admin from "./Admin"
 import ProductInfo from "./ProductInfo";
 import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
-import { fetchProducts, fetchCartData } from "./api/index";
+import {
+  fetchProducts,
+  fetchCartData,
+  fetchPurchaseHistory,
+} from "./api/index";
 import Login from "./Login";
 import Register from "./Register";
 import Account from "./Account";
 import Checkout from "./Checkout";
 
 function App() {
+  const loggedInKey = localStorage.getItem("loggedIn");
+  const userNameKey = localStorage.getItem("usernameKey");
+  const userIdKey = localStorage.getItem("userId");
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
-  const [username, setUsername] = useState("");
-  // const [token, setToken] = useState("");
-  const [user, setUser] = useState("");
+  const [username, setUsername] = useState(userNameKey ? userNameKey : "");
+  const [password, setPassword] = useState("");
   const [cart, setCart] = useState([]);
+  const [userId, setUserId] = useState(userIdKey ? userIdKey : 0);
+  const [user, setUser] = useState([]);
+  const [purchaseHistory, setPurchaseHistory] = useState([]);
+  const [individualProductId, setIndividualProductId] = useState([]);
+  const [wishList, setWishList] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    loggedInKey ? loggedInKey : false
+  );
 
   useEffect(() => {
     try {
       Promise.all([fetchProducts()]).then(([data]) => {
         setProducts(data);
       });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (userIdKey) {
+        Promise.all([fetchCartData(userIdKey)]).then(([data]) => {
+          setCart(data);
+          console.log(data);
+        });
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (userIdKey) {
+        Promise.all([fetchPurchaseHistory(userIdKey)]).then(([data]) => {
+          setPurchaseHistory(data);
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -55,11 +96,17 @@ function App() {
     <div className="App">
       <Router>
         <Header
+          products={products}
           username={username}
           setUsername={setUsername}
           user={user}
           cart={cart}
           setCart={setCart}
+          userId={userId}
+          setUserId={setUserId}
+          individualProductId={individualProductId}
+          setIsLoggedIn={setIsLoggedIn}
+          userNameKey={userNameKey}
         />
         <Route exact path="/">
           <Home />
@@ -94,11 +141,31 @@ function App() {
         </Route>
 
         <Route exact path="/checkout">
-          <Checkout />
+          <Checkout
+            setProducts={setProducts}
+            user={user}
+            cart={cart}
+            setCart={setCart}
+            userId={userId}
+            purchaseHistory={purchaseHistory}
+            setPurchaseHistory={setPurchaseHistory}
+          />
+        </Route>
+
+        <Route exact path="/admin">
+          <Admin products={products} setProducts={setProducts} />
         </Route>
 
         <Route exact path="/account">
-          <Account username={username} setUsername={setUsername} />
+          <Account
+            wishList={wishList}
+            setWishList={setWishList}
+            username={username}
+            setUsername={setUsername}
+            purchaseHistory={purchaseHistory}
+            setPurchaseHistory={setPurchaseHistory}
+            setProducts={setProducts}
+          />
           <Footer />
           <Scroll showBelow={250} />
         </Route>
@@ -107,23 +174,52 @@ function App() {
           <Login
             username={username}
             setUsername={setUsername}
+            cart={cart}
             setCart={setCart}
+            userId={userId}
+            setUserId={setUserId}
+            password={password}
+            setPassword={setPassword}
             user={user}
+            setUser={setUser}
+            setPurchaseHistory={setPurchaseHistory}
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
           />
         </Route>
 
         <Route exact path="/register">
-          <Register username={username} setUsername={setUsername} />
+          <Register
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            userId={userId}
+            setUserId={setUserId}
+            cart={cart}
+            setCart={setCart}
+            setUser={setUser}
+            setPurchaseHistory={setPurchaseHistory}
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+          />
         </Route>
 
         <Route exact path="/products/:productId">
           <ProductInfo
+            wishList={wishList}
+            setWishList={setWishList}
+            username={username}
             hover={hover}
             setHover={setHover}
             rating={rating}
             setRating={setRating}
             username={username}
-            user={user}
+            userId={userId}
+            cart={cart}
+            setCart={setCart}
+            setIndividualProductId={setIndividualProductId}
+            isLoggedIn={isLoggedIn}
           />
           <Footer />
         </Route>

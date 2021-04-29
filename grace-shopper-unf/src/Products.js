@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Product from "./Product";
 import CarouselComponent from './Carousel';
 import { Link } from "react-scroll";
 import "./Product.css";
+import Pagination from './Pagination'
 
 export default function Products({ products, setProducts, searchTerm, setSearchTerm, rating, setRating, hover, setHover, id }) {
 
-    console.log(products);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage, setProductsPerPage] = useState(6);
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+    console.log(currentProducts);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
 
     const productMatches = (product, text) => {
 
@@ -28,7 +39,7 @@ export default function Products({ products, setProducts, searchTerm, setSearchT
     console.log(searchTerm.length);
 
     const filteredProducts = products.filter((product) => productMatches(product, searchTerm));
-    const productsToDisplay = searchTerm.length ? filteredProducts : products;
+    const productsToDisplay = searchTerm.length ? filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct) : currentProducts;
 
 
     return (
@@ -81,6 +92,7 @@ export default function Products({ products, setProducts, searchTerm, setSearchT
                 {productsToDisplay.map(product => <Product
                     product={product} setProducts={setProducts} productId={product.id} setSearchTerm={setSearchTerm}
                     rating={rating} setRating={setRating} hover={hover} setHover={setHover} />)}
+                <Pagination productsPerPage={productsPerPage} totalNumberOfProducts={products.length} paginate={paginate} />
             </div>
         </div>
     )

@@ -7,7 +7,6 @@ const { JWT_SECRET = 'neverTell' } = process.env;
 
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
-  // const auth = req.header('Authorization');
   const auth = req.headers.authorization;
 
   if (!auth) { 
@@ -45,6 +44,9 @@ apiRouter.use('/users', usersRouter);
 
 const cartRouter = require('./cart');
 apiRouter.use('/cart', cartRouter);
+
+const wishListRouter = require('./wishList');
+apiRouter.use('/wishList', wishListRouter);
 
 
 module.exports = apiRouter;

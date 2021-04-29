@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllProducts, createProducts, updateProducts, deleteProduct, addNewReviewToProduct, getProductById, getAverageReviewRatingByProductId } = require('../db');
+const { getAllProducts, createProducts, updateProducts, deleteProduct, addNewReviewToProduct, getProductById, getAverageReviewRatingByProductId, getProductIdByProductName } = require('../db');
 const { requireUser } = require('./utils');
 const productsRouter = express.Router();
 
@@ -8,6 +8,19 @@ productsRouter.get('/', async (req, res, next) => {
     const products = await getAllProducts();
     res.send(products);
 
+  } catch (error) {
+    throw error;
+  }
+});
+
+productsRouter.get("/:productId", async (req, res, next) => {
+  const { productId: id } = req.params;
+  try {
+    const updatedProduct = await getProductById(id
+    );
+    res.send(
+      updatedProduct
+    );
   } catch (error) {
     throw error;
   }
@@ -28,7 +41,7 @@ productsRouter.get("/ratings/:productId", async (req, res, next) => {
 
 
 productsRouter.post("/", async (req, res, next) => {
-  const { name, description, creatorId, price, reviews = [] } = req.body;
+  const { name, description, creatorId, price, reviews = [], productImage, productStock } = req.body;
   const productsData = {};
 
   try {
@@ -37,6 +50,8 @@ productsRouter.post("/", async (req, res, next) => {
     productsData.creatorId = creatorId;
     productsData.price = price;
     productsData.reviews = reviews;
+    productsData.productImage = productImage;
+    productsData.productStock = productStock;
 
     const products = await createProducts(productsData);
     res.send({
@@ -70,8 +85,7 @@ productsRouter.post("/review", async (req, res, next) => {
 
 
 productsRouter.patch("/:productId", async (req, res, next) => {
-  const { name, description, price } = req.body;
-  const { id } = req.params;
+  const { name, description, price, productStock } = req.body;
   const productData = {};
 
   if (name) {
@@ -83,13 +97,17 @@ productsRouter.patch("/:productId", async (req, res, next) => {
   if (price) {
     productData.price = price;
   }
+  if (price) {
+    productData.productStock = productStock;
+  }
 
   try {
     const updatedProducts = await updateProducts({
-      id: id,
+      id: req.params.productId,
       name: productData.name,
       description: productData.description,
-      price: productData.price
+      price: productData.price,
+      productStock: productData.productStock
     });
     res.send({
       message: "Product updated successfully",
@@ -100,22 +118,31 @@ productsRouter.patch("/:productId", async (req, res, next) => {
   }
 });
 
-productsRouter.delete('/:productId', requireUser, async (req, res, next) => {
+productsRouter.delete('/:productId', async (req, res, next) => {
   try {
     const { productId } = req.params;
 
-    const product = await getProductById(productId);
-
-    if (product.creatorId === req.user.id) {
-      const deletedProduct = await deleteProduct(product.id);
-      res.send(deletedProduct);
-    } else {
-      next();
-    }
+    const deletedProduct = await deleteProduct(productId);
+    res.send({
+      message: "Product Deleted"
+    });
+    
   } catch (error) {
     throw error
   }
 })
+
+productsRouter.get("/id/:productName", async (req, res, next) => {
+  const { productName: productName } = req.params;
+
+  try {
+    const productId = await getProductIdByProductName(productName);
+    res.send(productId);
+  } catch (error) {
+    throw error;
+  }
+
+});
 
 
 module.exports = productsRouter;
