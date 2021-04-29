@@ -397,8 +397,7 @@ function VerticalTabs({
                                                                 style={{ margin: '0px 30px', padding: '10px' }}
                                                                 type="integer"
                                                                 name="location"
-                                                                placeholder="Review/5 (ex. 3.5)"
-                                                                value={stars}
+                                                                placeholder="Review/5 (ex. 3)"
                                                                 onChange={(event) =>
                                                                     setStars(event.target.value)
                                                                 }
@@ -415,8 +414,17 @@ function VerticalTabs({
                                                                 }
                                                             />
                                                             <button style={{ padding: '5px', backgroundColor: 'white', borderRadius: '30px', width: '125px' }}
-                                                                onClick={(event) =>
-                                                                    addReview(event, item.productName)
+                                                                onClick={(event) => {
+                                                                    addReview(event, item.productName);
+                                                                    swal({
+                                                                        title: 'Woo!',
+                                                                        text: 'Your review has been added!',
+                                                                        icon: 'success',
+                                                                        button: false,
+                                                                        timer: 2000
+                                                                    })
+
+                                                                    }
                                                                 }
                                                             >
                                                                 Add Review

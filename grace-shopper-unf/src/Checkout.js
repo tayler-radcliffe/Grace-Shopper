@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
+
 
 export default function Checkout({
   cart,
@@ -109,6 +111,8 @@ export default function Checkout({
     });
   };
 
+  const history = useHistory();
+
   const orderPurchased = async () => {
     if (!cart[0]) {
       swal({
@@ -155,6 +159,7 @@ export default function Checkout({
         button: false,
         timer: 3000,
       });
+      history.push('/account');
     } else {
       swal({
         title: "Oops!",
@@ -163,6 +168,7 @@ export default function Checkout({
       });
     }
   };
+
 
   return (
     <div style={{ marginTop: '30px', fontFamily: "Rubik", marginBottom: '100px' }} >
@@ -196,7 +202,7 @@ export default function Checkout({
                     cart.map((product) => {
                       return (
                         <div key={product.productsId}>
-                          <h2>Name: {product.productName}</h2>
+                          <h2>{product.productName}</h2>
                           <p>Price: $ {product.productPrice}</p>
                           <p>Size: {product.size}</p>
                           <p>Quantity: {product.quantity}</p>

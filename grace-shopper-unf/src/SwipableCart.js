@@ -144,7 +144,7 @@ export default function SwipeableTemporaryDrawer({
                 <div key={product.productsId}>
                   {products.map(item => {
                     if (product.productsId === item.id) {
-                      return <img style={{ width: '100px', marginTop: '50px', height: '100px' }} src={item.productImage}></img>
+                      return <img style={{ width: '100px', marginTop: '50px', height: '100px' }} src={item.productImage} alt=''></img>
                     }
                   })}
                   <h2 style={{ marginTop: '5px' }} className="Rubik">{product.productName}</h2>

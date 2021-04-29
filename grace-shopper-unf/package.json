@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "fnpm": "^1.5.1",
+    "heroku": "^7.53.0",
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "mailparser": "^3.2.0",
