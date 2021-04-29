@@ -183,7 +183,7 @@ function VerticalTabs({
     const history = useHistory();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [productsPerPage, setProductsPerPage] = useState(3);
+    const [productsPerPage, setProductsPerPage] = useState(2);
     const [stars, setStars] = useState(5);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
