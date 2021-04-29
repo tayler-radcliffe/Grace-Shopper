@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -11,6 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import './Cart.css';
 import { Link } from 'react-router-dom';
+import { fetchCartData } from './api';
 
 const useStyles = makeStyles({
   list: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SwipeableTemporaryDrawer() {
+export default function SwipeableTemporaryDrawer({username, user, cart, setCart}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -29,6 +30,15 @@ export default function SwipeableTemporaryDrawer() {
     bottom: false,
     right: false,
   });
+
+  useEffect(() => {
+    Promise.all([fetchCartData(user.id)]).then(([data]) => {
+      setCart(data);
+    });
+  }, []); 
+
+  console.log(cart);
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

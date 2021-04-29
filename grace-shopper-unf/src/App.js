@@ -9,11 +9,11 @@ import ProductInfo from "./ProductInfo";
 import Scroll from "./Scroll";
 import FeaturedProducts from "./FeaturedProducts";
 import Footer from "./Footer";
-import { fetchProducts } from "./api/index";
+import { fetchProducts, fetchCartData } from "./api/index";
 import Login from "./Login";
 import Register from "./Register";
 import Account from "./Account";
-import Checkout from './Checkout';
+import Checkout from "./Checkout";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -22,6 +22,8 @@ function App() {
   const [hover, setHover] = useState(null);
   const [username, setUsername] = useState("");
   // const [token, setToken] = useState("");
+  const [user, setUser] = useState("");
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     try {
@@ -33,10 +35,32 @@ function App() {
     }
   }, []);
 
+  const getUser = async () => {
+    await fetch(`http://localhost:3000/api/users/${username}/personal`, {})
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setUser(result);
+      })
+      .catch(console.error);
+  };
+
+  useEffect(() => {
+    Promise.all([getUser]).then(([data]) => {
+      setUser(data);
+    });
+  }, []);
+
   return (
     <div className="App">
       <Router>
-        <Header username={username} setUsername={setUsername} />
+        <Header
+          username={username}
+          setUsername={setUsername}
+          user={user}
+          cart={cart}
+          setCart={setCart}
+        />
         <Route exact path="/">
           <Home />
           <FeaturedProducts
@@ -74,28 +98,32 @@ function App() {
         </Route>
 
         <Route exact path="/account">
-
-          <Account username={username} setUsername={setUsername}/>
+          <Account username={username} setUsername={setUsername} />
           <Footer />
           <Scroll showBelow={250} />
-
         </Route>
 
-
         <Route exact path="/login">
-          <Login username={username} setUsername={setUsername} />
+          <Login
+            username={username}
+            setUsername={setUsername}
+            setCart={setCart}
+            user={user}
+          />
         </Route>
 
         <Route exact path="/register">
           <Register username={username} setUsername={setUsername} />
         </Route>
 
-        <Route exact path='/products/:productId'>
+        <Route exact path="/products/:productId">
           <ProductInfo
             hover={hover}
             setHover={setHover}
             rating={rating}
             setRating={setRating}
+            username={username}
+            user={user}
           />
           <Footer />
         </Route>

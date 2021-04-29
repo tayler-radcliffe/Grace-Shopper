@@ -5,8 +5,8 @@ const { addToRecentPurchases, getPurchaseHistoryByUserId } = require('../db/purc
 const cartRouter = express.Router();
 
 
-cartRouter.get("/", async (req, res, next) => {
-    const {userId} = req.body
+cartRouter.get("/:userId", async (req, res, next) => {
+    const {userId} = req.params
     try {
       const cart = await getCartByuserId(userId);
       res.send(cart);

@@ -52,3 +52,40 @@ export async function fetchProductById(productId) {
     }
 }
 
+
+export async function addItemsToCart(userId, productId, size, quantity) {
+    console.log(userId, productId, size, quantity)
+    try {
+        const response = await fetch(`http://localhost:3000/api/cart/addProduct`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId: userId,
+                productId: productId,
+                size: size,
+                quantity: quantity
+            })
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function fetchCartData(userId) {
+    
+    try {
+        const response = await fetch(`http://localhost:3000/api/cart/${userId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        throw error;
+    }
+}

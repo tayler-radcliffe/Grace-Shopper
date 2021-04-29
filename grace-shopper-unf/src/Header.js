@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import SwipeableTemporaryDrawer from './SwipableCart';
 
 
-export default function Header({ username, setUsername }) {
+export default function Header({ username, setUsername, user, cart, setCart }) {
 
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -47,8 +47,8 @@ export default function Header({ username, setUsername }) {
                 </div>
             </Link>
             
-            <div className="header_menu_item" style={{cursor: 'pointer'}}>
-                    <SwipeableTemporaryDrawer />
+            <div className="header_menu_item">
+                    <SwipeableTemporaryDrawer username={username} user={user} cart={cart} setCart={setCart} />
             </div>
 
            
