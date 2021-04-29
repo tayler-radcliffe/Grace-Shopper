@@ -209,8 +209,8 @@ export default function SwipeableTemporaryDrawer({
           textDecoration: "none",
         }}
       >
-        <span style={{ position: 'absolute', top: '20px', right: '60px', color: 'black', fontSize: '10px' }}>
-          <i class='<i fas fa-shopping-bag faa-horizontal animated fa-4x'></i>
+        <span className="checkoutButtonCart" style={{ fontFamily: "Rubik", backgroundColor: 'white', border: '2px solid black', position: 'absolute', top: '25px', right: '10px', width: '90px', borderRadius: '30px' }}>
+          <Button> Checkout </Button>
         </span>
       </Link>
     </div >

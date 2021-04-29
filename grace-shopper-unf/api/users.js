@@ -1,7 +1,7 @@
 const express = require("express");
 const usersRouter = express.Router();
 
-const { getUserByUsername, createUser, getAllUsers, getProductsByUsername, insertFnLnEmail, getUserById, deleteUser } = require("../db/");
+const { getUserByUsername, createUser, getAllUsers, getProductsByUsername, insertFnLnEmail, getUserById, deleteUser, getUser } = require("../db/");
 
 const jwt = require("jsonwebtoken");
 const { requireUser } = require("./utils");
@@ -81,7 +81,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 
   try {
-    const user = await getUserByUsername(username);
+    const user = await getUser({username, password});
 
     const token = jwt.sign(
       {

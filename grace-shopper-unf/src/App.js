@@ -36,6 +36,7 @@ function App() {
   const [purchaseHistory, setPurchaseHistory] = useState([]);
   const [individualProductId, setIndividualProductId] = useState([]);
   const [wishList, setWishList] = useState([]);
+  const [openAdmin, setOpenAdmin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(
     loggedInKey ? loggedInKey : false
   );
@@ -107,6 +108,8 @@ function App() {
           individualProductId={individualProductId}
           setIsLoggedIn={setIsLoggedIn}
           userNameKey={userNameKey}
+          openAdmin={openAdmin}
+          setOpenAdmin={setOpenAdmin}
         />
         <Route exact path="/">
           <Home />
@@ -185,6 +188,8 @@ function App() {
             setPurchaseHistory={setPurchaseHistory}
             isLoggedIn={isLoggedIn}
             setIsLoggedIn={setIsLoggedIn}
+            openAdmin={openAdmin}
+            setOpenAdmin={setOpenAdmin}
           />
         </Route>
 

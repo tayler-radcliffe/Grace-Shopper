@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import SwipeableTemporaryDrawer from './SwipableCart';
 
 
-export default function Header({ products, username, setUsername, user, cart, setCart, userId, individualProductId, setIsLoggedIn, setUserId, userNameKey }) {
+export default function Header({ products, username, setUsername, user, cart, setCart, userId, individualProductId, setIsLoggedIn, setUserId, userNameKey, openAdmin, setOpenAdmin }) {
 
     console.log(username, typeof username);
 
@@ -47,7 +47,7 @@ export default function Header({ products, username, setUsername, user, cart, se
                     ABOUT
                 </div>
             </Link>
-            {username === 'VividAdmin' ? <Link className='headerLinks' to="/admin">
+            {openAdmin ? <Link className='headerLinks' to="/admin">
                 <div className="header_menu_item">
                     ADMIN
                 </div>
@@ -85,6 +85,7 @@ export default function Header({ products, username, setUsername, user, cart, se
                             localStorage.removeItem('userId')
                             localStorage.removeItem('loggedIn')
                             setIsLoggedIn(false);
+                            setOpenAdmin(false);
                             setUsername('');
                             setUserId(0);
                             history.push('/');

@@ -16,13 +16,15 @@ export default function Login({
   setPassword,
   setPurchaseHistory,
   isLoggedIn,
-  setIsLoggedIn
+  setIsLoggedIn,
+  setOpenAdmin
 }) {
   const history = useHistory();
 
   const loginUser = async (event) => {
     event.preventDefault();
     const userDetails = await fetchLoggedInUser(username, password);
+    console.log(userDetails);
     if (userDetails.error) {
       swal(
         "Oops",
@@ -45,6 +47,9 @@ export default function Login({
       localStorage.setItem("userId", userDetails.user.id);
       localStorage.setItem("usernameKey", userDetails.user.username);
       setIsLoggedIn(true);
+      if(username === "VividAdmin"){
+        setOpenAdmin(true)
+      }
       localStorage.setItem("loggedIn", isLoggedIn);
       swal({
         title: "Welcome back!",
