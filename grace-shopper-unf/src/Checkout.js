@@ -79,11 +79,11 @@ export default function Checkout({
 
   const handlePromoCode = (event) => {
     event.preventDefault();
-    if(promoCode.toLowerCase() === 'vivid2021'){
+    if (promoCode.toLowerCase() === 'vivid2021') {
       setDiscount(cartTotal * .20)
-    } else if (promoCode.toLowerCase() === 'freeship'){
+    } else if (promoCode.toLowerCase() === 'freeship') {
       setDiscount(setShippingCost());
-    } 
+    }
     setPromoCode('');
   }
 
@@ -134,7 +134,7 @@ export default function Checkout({
       await submitOrder(
         userId,
         email,
-        (total- discount).toFixed(2),
+        (total - discount).toFixed(2),
         firstName,
         lastName,
         address,
@@ -165,12 +165,12 @@ export default function Checkout({
   };
 
   return (
-    <div>
+    <div style={{ marginTop: '30px', fontFamily: "Rubik" }} >
       <h1
         style={{
           display: "flex",
           marginLeft: "200px",
-          marginTop: "30px",
+          marginTop: "0px",
           marginBottom: "30px",
         }}
       >
@@ -208,6 +208,7 @@ export default function Checkout({
                   )}
                 </div>
                 <Button
+                  style={{ backgroundColor: 'rgba(246, 184, 170, 1)' }}
                   variant="contained"
                   onClick={() => {
                     handleChange("panel1");
@@ -312,7 +313,7 @@ export default function Checkout({
                     onChange={(e) => setZipCode(e.target.value)}
                   />
                   <Button
-                    style={{ marginTop: "20px", marginLeft: "652px" }}
+                    style={{ marginTop: "20px", marginLeft: "652px", backgroundColor: 'rgba(246, 184, 170, 1)' }}
                     variant="contained"
                     onClick={() => {
                       handleChange("panel2");
@@ -434,7 +435,7 @@ export default function Checkout({
                   onChange={(e) => setCardCvv(e.target.value)}
                 />
                 <Button
-                  style={{ marginTop: "20px", marginLeft: "360px" }}
+                  style={{ marginTop: "20px", marginLeft: "360px", backgroundColor: 'rgba(246, 184, 170, 1)' }}
                   variant="contained"
                   onClick={() => {
                     handleChange("panel3");
@@ -491,16 +492,17 @@ export default function Checkout({
                   <br></br>Exp: {cardEx} CVV# {cardCvv}
                 </p>
               ) : null}
+              <br></br>
               <h5 style={{ marginTop: "10px" }}>Order Items</h5>
-              <div>
+              <div style={{ marginTop: "10px" }}>
                 {cart[0] ? (
                   cart.map((product) => {
                     return (
                       <div key={product.productsId}>
-                        <h2>Name: {product.productName}</h2>
-                        <p>Price: $ {product.productPrice}</p>
-                        <p>Size: {product.size}</p>
-                        <p>Quantity: {product.quantity}</p>
+                        <h2 style={{ fontSize: '20px', margin: '2px' }}> {product.productName}</h2>
+                        <p >Price: $ {product.productPrice}</p>
+                        <p >Size: {product.size}</p>
+                        <p >Quantity: {product.quantity}</p>
                       </div>
                     );
                   })
@@ -509,20 +511,21 @@ export default function Checkout({
                 )}
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <form style={{width: '130px'}} onSubmit={(event) => handlePromoCode(event)}>
-                  <div style={{display: 'flex', flexDirection: "column"}}>
-                    <label>Promo Code</label>
-                    <input type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value)}/>
-                    <input type="submit" name="submit" value="Submit"></input>
+                <form style={{ width: '130px' }} onSubmit={(event) => handlePromoCode(event)}>
+                  <div style={{ display: 'flex', flexDirection: "column" }}>
+                    <label style={{ marginTop: '20px' }}>Promo Code</label>
+                    <input style={{ fontStyle: 'italic' }} placeholder="vivid2021" type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value)} />
+                    <Button style={{ backgroundColor: 'rgba(246, 184, 170, 1)', marginTop: "10px", padding: '0 5px', width: "150px" }} type="submit" name="submit"> Enter Promo Code</Button>
                   </div>
                 </form>
-                <h3 style={{ textDecoration: "overline", marginTop: "20px" }}>
+                <h3 style={{ textDecoration: "overline", marginTop: "20px", fontFamily: "Rubik", fontSize: '25px' }}>
                   Subtotal: ${cartTotal}
                 </h3>
                 <h4>Shipping: ${setShippingCost()}</h4>
                 {discount > 0 ? <h4>Discount: -${discount}</h4> : ''}
-                <h2>Total: ${(total - discount).toFixed(2)}</h2>
+                <h2 style={{ marginTop: '10px', fontFamily: "Rubik", fontSize: '25px' }}>Total: ${(total - discount).toFixed(2)}</h2>
                 <Button
+                  className="placeOrderPulse"
                   style={{ marginTop: "20px", width: "150px" }}
                   variant="contained"
                   onClick={orderPurchased}
