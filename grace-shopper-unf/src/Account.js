@@ -361,7 +361,7 @@ function VerticalTabs({
                     <p>Price: {item.productPrice}</p>
                     <p>Size: {item.size}</p>
                     <p>Quantity: {item.quantity}</p>
-                    <p>Purchase Date: {item.date}</p>
+                    <p>Purchase Date: {item.date} </p>
                     <AddIcon
                       style={{ fontSize: "27px", color: "black" }}
                       type="button"
