@@ -171,7 +171,7 @@ export default function Checkout({
 
 
   return (
-    <div style={{ marginTop: '30px', fontFamily: "Rubik", marginBottom: '100px'}} >
+    <div style={{ marginTop: '30px', fontFamily: "Rubik", marginBottom: '100px' }} >
       <h1
         style={{
           display: "flex",
@@ -202,7 +202,7 @@ export default function Checkout({
                     cart.map((product) => {
                       return (
                         <div key={product.productsId}>
-                          <h2>Name: {product.productName}</h2>
+                          <h2>{product.productName}</h2>
                           <p>Price: $ {product.productPrice}</p>
                           <p>Size: {product.size}</p>
                           <p>Quantity: {product.quantity}</p>
