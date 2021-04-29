@@ -165,7 +165,7 @@ export default function Checkout({
   };
 
   return (
-    <div style={{ marginTop: '30px', fontFamily: "Rubik" }} >
+    <div style={{ marginTop: '30px', fontFamily: "Rubik", marginBottom: '100px' }} >
       <h1
         style={{
           display: "flex",

@@ -198,7 +198,7 @@ export default function SwipeableTemporaryDrawer({
               );
             })
           ) : (
-            <p style={{ marginTop: "20px" }}>You have no items in your cart!</p>
+            <p style={{ marginTop: "40px" }}>You have no items in your cart!</p>
           )}
         </div>
       </List>
